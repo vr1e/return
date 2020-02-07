@@ -4,8 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackBar = require('webpackbar');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-	.BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 	mode: 'production',
@@ -122,7 +121,7 @@ module.exports = {
 			}
 		]),
 		new WebpackBar(),
-		new BundleAnalyzerPlugin()
+		// new BundleAnalyzerPlugin()
 	],
 	output: {
 		filename: '[contenthash].bundle.js',
