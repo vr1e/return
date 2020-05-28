@@ -12,10 +12,6 @@ const App = () => {
 	return (
 		<BrowserRouter>
 			<Particles params={particleConfig} />
-			{/* <Route path='/cyrillicconvert' render={Transliterate} />
-			<Route path='/' render={Home} exact /> */}
-
-			{/* <Transliterate></Transliterate> */}
 			<ul className='nav'>
 				<li className='nav-item'>
 					<Link to='/' className='nav-link'>

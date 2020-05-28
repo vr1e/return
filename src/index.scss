@@ -16,6 +16,7 @@ $color8: #1d3557;
 body {
 	background: $color8;
 	margin: 0;
+	font-family: $font_family_2;
 }
 
 canvas {
@@ -55,7 +56,7 @@ canvas {
 	padding: 2em 3em;
 	background: rgba(0, 0, 0, 0.05);
 	text-shadow: 0px 0px 2px #131415;
-	font-family: $font_family_1;
+	// font-family: $font_family_1;
 	text-align: center;
 }
 
@@ -68,7 +69,8 @@ h1 {
 a {
 	color: $color_2;
 	transition: 0.25s;
-	font-family: $font_family_2;
+	// font-family: $font_family_2;
+
 	&:visited {
 		color: $color_2;
 		transition: 0.25s;
@@ -93,7 +95,7 @@ a {
 
 .transliterate-box {
 	display: grid;
-	grid-template-columns: auto auto;
+	grid-template-columns: auto 3rem auto;
 	gap: 1rem;
 	padding: 1rem;
 	margin-top: 5vh;
@@ -109,6 +111,7 @@ a {
 		background: none;
 		color: $color_1;
 		// background-image: url(/static/blackgrit-15c1685….png);
+
 		.highlight {
 			background-size: 500px;
 			padding: 5px;
@@ -128,10 +131,23 @@ a {
 		width: 100%;
 		padding: 0.5rem;
 		background: #fff;
-		font-family: $font_family_2;
+		// font-family: $font_family_2;
 		font-size: large;
 		vertical-align: top;
 	}
+
+	> .language-input {
+		::selection {
+			color: white;
+			background: $color4;
+		}
+		&:first-of-type {
+			::selection {
+				background: $color7;
+			}
+		}
+	}
+
 	button {
 		width: 100%;
 		margin: 0;
@@ -140,28 +156,52 @@ a {
 		border-style: solid;
 		color: $color_1;
 		font-family: $font_family_1;
+		vertical-align: top;
+	
 		&:hover {
 			cursor: pointer;
+
 			&.primary {
 				background: lighten($color4, 10%);
 				border-color: lighten($color4, 10%);
 			}
+
 			&.secondary {
 				background: lighten($color7, 10%);
 				border-color: lighten($color7, 10%);
 			}
 		}
-		// border: none;
 	}
+}
+
+.button-list {
+	a {
+		cursor: pointer;
+		color: white;
+		padding: 0 4px;
+		margin-right: 2px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 2px;
+		vertical-align: middle;
+
+		&:hover {
+			background: lighten($color7, 10%);
+			border-color: lighten($color7, 10%);
+		}
+	}
+
 }
 
 @media screen and (max-width: 768px) {
 	.text {
 		width: 100%;
+
 		> img {
 			width: 60%;
 			height: auto;
 		}
+
 		> p {
 			font-size: 1.6rem;
 		}
@@ -175,10 +215,12 @@ a {
 @media screen and (max-width: 600px) {
 	.text {
 		width: 100%;
+
 		> img {
 			width: 80%;
 			height: auto;
 		}
+
 		> p {
 			font-size: 1.2rem;
 		}
