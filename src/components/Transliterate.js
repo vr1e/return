@@ -1,69 +1,61 @@
-import React, { useState, useEffect, useRef } from 'react';
-import transliterateToCyrillic from '../helpers/transliterateToCyrillic';
-import transliterateToLatin from '../helpers/transliterateToLatin';
+import React from 'react';
+// import transliterateToCyrillic from '../helpers/transliterateToCyrillic';
+// import transliterateToLatin from '../helpers/transliterateToLatin';
+// import isUpperCase from '../helpers/isUpperCase';
+import Convert from './partials/Convert';
+
+import Cyrillic from './partials/Cyrillic';
+import Latin from './partials/Latin';
+import TransliterateContextProvider from './contexts/TransliterateContext';
 
 export default function Transliterate() {
-	const [cyrillic, setCyrillic] = useState('');
-	const [latin, setLatin] = useState('');
-	const refCyrillic = useRef();
-	const refLatin = useRef();
+	// const realTimeConvertText = e => {
+	// 	if (e.target.name === 'latin')
+	// 		setLatin(transliterateToLatin(e.target.value));
+	// 	else if (e.target.name === 'cyrillic') {
+	// 		const transliteratedText = transliterateToCyrillic(e.target.value);
+	// 		setCyrillic(transliteratedText);
+	// 	} else return;
+	// };
 
-	const [cyrHeight, setCyrHeight] = useState(200);
-	const [latHeight, setLatHeight] = useState(200);
+	// const replaceText = (el, e) => {
+	// 	let content = el.current.value;
+	// 	const selectedText = content.slice(
+	// 		el.current.selectionStart,
+	// 		el.current.selectionEnd
+	// 	);
 
-	const realTimeConvertText = e => {
-		if (e.target.name === 'latin') {
-			setLatin(e.target.value);
+	// 	const replacementText = isUpperCase(selectedText)
+	// 		? e.currentTarget.text.toUpperCase()
+	// 		: e.currentTarget.text;
 
-		} else if (e.target.name === 'cyrillic') {
-			setCyrillic(e.target.value);
+	// 	let newContent =
+	// 		content.slice(0, el.current.selectionStart) +
+	// 		replacementText +
+	// 		content.slice(el.current.selectionEnd);
+	// 	setCyrillic(newContent);
+	// };
 
-		} else return;
-	};
+	// useEffect(() => setCyrillic(transliterateToCyrillic(latin)), [latin]);
 
-	useEffect(() => setCyrillic(transliterateToCyrillic(latin)), [latin]);
+	// useEffect(() => setLatin(transliterateToLatin(cyrillic)), [cyrillic]);
 
-	useEffect(() => setLatin(transliterateToLatin(cyrillic)), [cyrillic]);
-
-	useEffect(() => {
-		if (refCyrillic.current.scrollHeight > cyrHeight) setCyrHeight(refCyrillic.current.scrollHeight + 5);
-		if (refLatin.current.scrollHeight > latHeight) setLatHeight(refLatin.current.scrollHeight + 5);
-	}, [cyrillic, latin])
+	// useEffect(() => {
+	// 	if (refCyrillic.current.scrollHeight > cyrHeight)
+	// 		setCyrHeight(refCyrillic.current.scrollHeight + 5);
+	// 	if (refLatin.current.scrollHeight > latHeight)
+	// 		setLatHeight(refLatin.current.scrollHeight + 5);
+	// }, [cyrillic, latin]);
 
 	return (
 		<div className='transliterate-box'>
-			<div className='language-input'>
-				<label htmlFor='cyrillic'>
-					<span className='highlight primary'>Cyrillic text:</span>
-				</label>
+			<TransliterateContextProvider>
+				<Cyrillic />
 
-				<textarea
-					id='cyrillic'
-					name='cyrillic'
-					style={{ height: `${cyrHeight}px` }}
-					placeholder=''
-					ref={refCyrillic}
-					value={cyrillic}
-					onChange={realTimeConvertText}
-				/>
-				<button className="primary" onClick={() => {navigator.clipboard.writeText(cyrillic)}}>Copy</button>
-			</div>
-			<div className='language-input'>
-				<label htmlFor='latin'>
-					<span className='highlight secondary'>Latin text:</span>
-				</label>
+				<Convert />
 
-				<textarea
-					id='latin'
-					name='latin'
-					style={{ height: `${latHeight}px` }}
-					placeholder=''
-					ref={refLatin}
-					value={latin}
-					onChange={realTimeConvertText}
-				/>
-				<button className="secondary" onClick={() => {navigator.clipboard.writeText(latin)}}>Copy</button>
-			</div>
+				<Latin />
+			</TransliterateContextProvider>
 		</div>
 	);
 }
