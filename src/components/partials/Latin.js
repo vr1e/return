@@ -3,6 +3,7 @@ import { TransliterateContext } from '../contexts/TransliterateContext';
 
 function Latin() {
 	const { latin, handleLatin } = useContext(TransliterateContext);
+	const [active, setActive] = useState(false);
 	const [height, setHeight] = useState(200);
 	const refLatin = useRef();
 
@@ -19,11 +20,16 @@ function Latin() {
 			<textarea
 				id='latin'
 				name='latin'
+				className={active ? 'active' : ''}
 				style={{ height: `${height}px` }}
 				placeholder=''
 				ref={refLatin}
 				value={latin}
-				onChange={e => handleLatin(e.target.value)}
+				onChange={e => handleLatin(e)}
+				onFocus={() => {
+					setActive(true);
+				}}
+				onBlur={() => setActive(false)}
 			/>
 			<button
 				className='secondary'

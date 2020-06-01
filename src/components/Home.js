@@ -1,7 +1,7 @@
 import React from 'react';
 import Return from '../return.png';
 
-export default function Home() {
+function Home() {
 	return (
 		<div className='text'>
 			<h1>Return</h1>
@@ -10,3 +10,5 @@ export default function Home() {
 		</div>
 	);
 }
+
+export default Home;
