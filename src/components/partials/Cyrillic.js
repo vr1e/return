@@ -3,8 +3,11 @@ import { TransliterateContext } from '../contexts/TransliterateContext';
 
 const cyrReplacementLetters = 'ђжћчш';
 
-export default function Cyrillic() {
-	const { cyrillic, handleCyrillic } = useContext(TransliterateContext);
+function Cyrillic() {
+	const { cyrillic, handleCyrillic, replaceText } = useContext(
+		TransliterateContext
+	);
+	const [active, setActive] = useState(false);
 	const [height, setHeight] = useState(200);
 	const refCyrillic = useRef();
 
@@ -21,11 +24,16 @@ export default function Cyrillic() {
 			<textarea
 				id='cyrillic'
 				name='cyrillic'
+				className={active ? 'active' : ''}
 				style={{ height: `${height}px` }}
 				placeholder=''
 				ref={refCyrillic}
 				value={cyrillic}
-				onChange={e => handleCyrillic(e.target.value)}
+				onChange={e => handleCyrillic(e)}
+				onFocus={() => {
+					setActive(true);
+				}}
+				onBlur={() => setActive(false)}
 			/>
 			<button
 				className='primary'
@@ -37,8 +45,7 @@ export default function Cyrillic() {
 					<a
 						key={idx}
 						className='secondary'
-						// onClick={e => replaceText(refCyrillic, e)}
-					>
+						onClick={e => replaceText(refCyrillic, e)}>
 						{letter}
 					</a>
 				))}
@@ -47,5 +54,4 @@ export default function Cyrillic() {
 	);
 }
 
-{
-}
+export default Cyrillic;
