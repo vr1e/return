@@ -113,14 +113,16 @@ module.exports = {
 			filename: '[contenthash].css',
 			chunkFilename: '[id].css'
 		}),
-		new CopyWebpackPlugin([
-			{
-				from: path.join(__dirname, 'src/assets'),
-				to: path.join(__dirname, 'build/'),
-				toType: 'dir'
-			}
-		]),
-		new WebpackBar(),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: path.join(__dirname, 'src/assets'),
+					to: path.join(__dirname, 'build/'),
+					toType: 'dir'
+				}
+			]
+		}),
+		new WebpackBar()
 		// new BundleAnalyzerPlugin()
 	],
 	output: {
