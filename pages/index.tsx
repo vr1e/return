@@ -1,30 +1,30 @@
 import Header from '../components/content/Header';
 import Aside from '../components/content/aside/Aside';
-import { getAllData, getAsides, getMains } from '../utils/get-data';
+import { getFireData, getSections } from '../utils/get-data';
 import Main from '../components/content/main/Main';
 
-export default function IndexPage({ data, asideSections, mainSections }) {
-	// console.log(mainSections);
-	const { name, title } = data;
+export default function IndexPage({ asideSections, mainSections, basicInfo }) {
 	return (
-		<>
-			<Header name={name} title={title} />
-			<Aside asideSections={asideSections} />
+		<div className='content'>
+			<div className='left-bar'>
+				<Header basicInfo={basicInfo} />
+				<Aside asideSections={asideSections} />
+			</div>
 			<Main mainSections={mainSections} />
-		</>
+		</div>
 	);
 }
 
 export async function getStaticProps() {
-	const allData = getAllData();
-	const asides = getAsides();
-	const mains = getMains();
+	const asides = await getSections('aside');
+	const mains = await getSections('main');
+	const basicInfo = await getFireData('basic_info');
 
 	return {
 		props: {
-			data: allData,
 			asideSections: asides,
 			mainSections: mains,
+			basicInfo: basicInfo,
 		},
 	};
 }

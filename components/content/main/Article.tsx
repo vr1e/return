@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function Article({ content }: Props): JSX.Element {
-	console.log(content);
+	// console.log(content);
 	return (
 		<article>
 			<ol>

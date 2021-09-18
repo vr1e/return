@@ -1,30 +1,17 @@
-import fs from 'fs';
-import path from 'path';
 import { Data, Section } from '../interfaces';
 
-export function buildDocumentPath(): string {
-	return path.join(process.cwd(), 'data', 'data.json');
+export async function getFireData(dataPath: string) {
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_DB_HOST}/${dataPath}.json`
+	);
+
+	return await response.json();
 }
 
-export function getAllData(): Data {
-	const filePath = buildDocumentPath();
-	const fileData = fs.readFileSync(filePath, 'utf-8');
-	const data = JSON.parse(fileData);
+export async function getSections(type: string) {
+	const data = await getFireData('sections');
 
-	return data;
-}
+	const filteredData = data.filter((section: Section) => section.type === type);
 
-export function getAsides(): Section[] {
-	const allData = getAllData();
-
-	const data = allData.sections.filter(section => section.type === 'aside');
-
-	return data;
-}
-
-export function getMains(): Section[] {
-	const allData = getAllData();
-
-	const data = allData.sections.filter(section => section.type === 'main');
-	return data;
+	return filteredData;
 }

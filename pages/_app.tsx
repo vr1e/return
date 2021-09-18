@@ -11,9 +11,9 @@ export default function NvApp({ Component, pageProps }) {
 				<meta name='description' content='Nikola Vrhovac demo CV' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Layout>
+			{/* <Layout> */}
 				<Component {...pageProps} />
-			</Layout>
+			{/* </Layout> */}
 		</>
 	);
 }

@@ -1,17 +1,30 @@
+@import './colors';
+
 *,
 :after,
 :before {
 	box-sizing: border-box;
 }
 
+:root {
+	--base-dark: #{$base-dark};
+	--base-txt: #{$base-txt};
+	--base-bg: #{$base-bg};
+	--body-bg: #{$body-bg};
+	--body-border-color: #{$body-border-color};
+	--selection-bg: #{$selection-bg};
+	--selection-txt: #{$selection-txt};
+}
+
 ::selection {
-	background-color: #333;
-	color: #fff;
+	background-color: var(--selection-bg);
+	color: var(--selection-txt);
 }
 
 html {
 	min-width: 300px;
-	background-color: #eee;
+	background-color: var(--base-bg);
+	color: var(--base-txt);
 
 	@media screen and (min-width: 600px) {
 		padding: 15px;
@@ -21,8 +34,8 @@ html {
 body {
 	max-width: 1400px;
 	margin: 0 auto;
-	background-color: #fff;
-	border: 1px solid #ccc;
+	background-color: var(--body-bg);
+	border: 1px solid var(--body-border-color);
 	font-family: proxima-nova, Verdana, sans-serif;
 	font-weight: 300;
 	font-size: 112.5%;
@@ -32,4 +45,16 @@ body {
 	@media screen and (min-width: 600px) {
 		padding: 30px;
 	}
+}
+
+.content {
+	display: flex;
+}
+
+.left-bar {
+	padding: 2rem;
+}
+
+h1, h2 {
+	text-align: center;
 }

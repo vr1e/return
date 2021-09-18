@@ -30,7 +30,8 @@ export type Section = {
 
 export type Data = {
 	id: string;
-	name: string;
+	first_name: string;
+	last_name: string;
 	title: string;
 	sections: Section[];
 };
