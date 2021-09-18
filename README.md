@@ -1,4 +1,6 @@
-# 📃 My small CV App
+# 📃 My tiny CV App
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/66bfde30-e830-4dd6-a39e-50998e0679d8/deploy-status)](https://app.netlify.com/sites/suspicious-roentgen-45df9b/deploys)
 
 Demo of my CV in NextJs/React/TS
 
