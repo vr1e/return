@@ -17,10 +17,7 @@ export default function Layout({ children, title = 'This is my CV' }: Props) {
 			</Head>
 			<header></header>
 			{children}
-			<footer>
-				<hr />
-				<span>I'm here to stay (Footer)</span>
-			</footer>
+			<footer></footer>
 		</div>
 	);
 }

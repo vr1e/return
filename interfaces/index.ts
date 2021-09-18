@@ -1,0 +1,36 @@
+// You can include shared interfaces/types in a separate file
+// and then use them in any component by importing them. For
+// example, to import the interface below do:
+//
+// import { User } from 'path/to/interfaces';
+
+export type AsideContent = {
+	type: string;
+	data: string | string[] | { address: string; e_mail: string; phone: string };
+};
+
+export type MainContent = {
+	id: string;
+	company: string;
+	time_start: string;
+	time_end: string;
+	job_title: string;
+	responsibilities: string[];
+	technologies: string[];
+	type: string;
+	data: string;
+};
+
+export type Section = {
+	id: string;
+	title: string;
+	type: string;
+	content: AsideContent[] | MainContent[];
+};
+
+export type Data = {
+	id: string;
+	name: string;
+	title: string;
+	sections: Section[];
+};
