@@ -4,9 +4,7 @@ Demo of my CV in NextJs/React/TS
 
 ## 🚧 Install the dependencies
 
-
-$ npm i
-```
+`npm i`
 
 ## 🚀 Available Scripts
 
