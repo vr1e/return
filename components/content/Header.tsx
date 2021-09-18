@@ -18,7 +18,7 @@ export default function Header({ basicInfo }: Props): JSX.Element {
 				className={styles.image}
 			/>
 			<h1>
-				{first_name} <div>{last_name}</div>
+				{first_name} <div className={styles.strong}>{last_name}</div>
 			</h1>
 			<h2>{title}</h2>
 		</header>

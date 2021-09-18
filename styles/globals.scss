@@ -36,14 +36,15 @@ body {
 	margin: 0 auto;
 	background-color: var(--body-bg);
 	border: 1px solid var(--body-border-color);
-	font-family: proxima-nova, Verdana, sans-serif;
+	// font-family: proxima-nova, Verdana, sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 	font-size: 112.5%;
 	line-height: 1.4;
-	color: #000;
 
 	@media screen and (min-width: 600px) {
 		padding: 30px;
+		border-radius: 4px;
 	}
 }
 
@@ -55,6 +56,41 @@ body {
 	padding: 2rem;
 }
 
-h1, h2 {
+h1,
+h2 {
 	text-align: center;
+	text-transform: uppercase;
+}
+
+h1 {
+	line-height: 0.85;
+	font-size: 3rem;
+	font-weight: 100;
+	margin-bottom: 0.5rem;
+}
+
+h2 {
+	margin: 0;
+	font-weight: 400;
+}
+
+h3 {
+	text-transform: uppercase;
+	white-space: nowrap;
+	color: var(--base-dark);
+}
+
+dl {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+dt {
+	text-transform: uppercase;
+	font-weight: bold;
+	color: var(--base-dark);
+}
+
+dd {
+	margin-left: auto;
 }

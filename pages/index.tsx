@@ -3,7 +3,7 @@ import Aside from '../components/content/aside/Aside';
 import { getFireData, getSections } from '../utils/get-data';
 import Main from '../components/content/main/Main';
 
-export default function IndexPage({ asideSections, mainSections, basicInfo }) {
+export default function IndexPage({ asideSections, mainSections, basicInfo }): JSX.Element {
 	return (
 		<div className='content'>
 			<div className='left-bar'>

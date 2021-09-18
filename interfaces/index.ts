@@ -28,10 +28,9 @@ export type Section = {
 	content: AsideContent[] | MainContent[];
 };
 
-export type Data = {
+export type BasicInfo = {
 	id: string;
 	first_name: string;
 	last_name: string;
 	title: string;
-	sections: Section[];
 };

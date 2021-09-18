@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import styles from './Aside.module.scss';
 
 export default function Aside({ asideSections }): JSX.Element {
 	// console.log(asideSections);
@@ -36,9 +37,19 @@ export default function Aside({ asideSections }): JSX.Element {
 		<aside>
 			{asideSections.map(section => (
 				<section key={section.id}>
-					<h3>{section.title}</h3>
-
-					{returnProperType(section.content)}
+					<div className={styles.title}>
+						<img
+							className={styles.icon}
+							src={`${section.title.toLowerCase()}.svg`}
+							alt={section.title}
+							title={section.title}
+						/>
+						<h3>{section.title}</h3>
+						<span className={styles.line_decoration}></span>
+					</div>
+					<div className={styles.aside_content}>
+						{returnProperType(section.content)}
+					</div>
 				</section>
 			))}
 		</aside>

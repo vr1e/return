@@ -1,15 +1,17 @@
-import { Data, Section } from '../interfaces';
+import { BasicInfo, Section } from '../interfaces';
 
-export async function getFireData(dataPath: string) {
+export async function getFireData(dataPath: string): Promise<BasicInfo | Section[]> {
 	const response = await fetch(
 		`${process.env.NEXT_PUBLIC_DB_HOST}/${dataPath}.json`
 	);
 
-	return await response.json();
+	const data = await response.json();
+
+	return data;
 }
 
-export async function getSections(type: string) {
-	const data = await getFireData('sections');
+export async function getSections(type: string): Promise<Section[]> {
+	const data = await getFireData('sections') as Section[];
 
 	const filteredData = data.filter((section: Section) => section.type === type);
 
