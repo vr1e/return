@@ -1,6 +1,8 @@
 import { MainContent } from '../../../interfaces';
 import Lists from '../../ui/Lists';
 import styles from './Article.module.scss';
+import Responsibilities from './Responsibilities';
+import Technologies from './Technologies';
 
 interface Props {
 	content: MainContent;
@@ -14,21 +16,17 @@ export default function Article({ content }: Props): JSX.Element {
 			<ol className={styles.list}>
 				<li className={styles.item}>
 					<h4 className={styles.title}>
-						{content.company}{' '}
+						{content.company}
 						<span className={styles.time}>
 							{'//'} {content.time_start} - {content.time_end}
 						</span>
 					</h4>
+					<span className={styles.additional_info}>
+						{content.additional_info}
+					</span>
 					<h5>{content.job_title}</h5>
-					<div className='responsibilities'>
-						<h6>Responsibilities:</h6>
-						<Lists data={content.responsibilities} separator={'-'} />
-					</div>
-
-					<div className='technologies'>
-						<h6>Technologies:</h6>
-					</div>
-					<Lists data={content.technologies} separator={','} />
+					<Responsibilities responsibilities={content.responsibilities} />
+					<Technologies technologies={content.technologies} />
 				</li>
 			</ol>
 		</article>

@@ -12,6 +12,7 @@ export type AsideContent = {
 export type MainContent = {
 	id: string;
 	company: string;
+	additional_info: string;
 	time_start: string;
 	time_end: string;
 	job_title: string;
@@ -24,6 +25,7 @@ export type MainContent = {
 export type SectionInterface = {
 	id: string;
 	title: string;
+	category: string;
 	type: string;
 	content: AsideContent[] | MainContent[];
 };

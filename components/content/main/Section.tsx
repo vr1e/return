@@ -8,9 +8,9 @@ interface Props {
 }
 
 export default function Section({ section }: Props): JSX.Element {
-	// console.log(section);
+	console.log(section);
 	return (
-		<section>
+		<section className={section.type}>
 			<Title title={section.title} />
 
 			{section.content?.map(article => (

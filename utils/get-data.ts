@@ -12,11 +12,13 @@ export async function getFireData(
 	return data;
 }
 
-export async function getSections(type: string): Promise<SectionInterface[]> {
+export async function getSections(
+	category: string
+): Promise<SectionInterface[]> {
 	const data = (await getFireData('sections')) as SectionInterface[];
 
 	const filteredData = data.filter(
-		(section: SectionInterface) => section.type === type
+		(section: SectionInterface) => section.category === category
 	);
 
 	return filteredData;

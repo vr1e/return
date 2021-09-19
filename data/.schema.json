@@ -1,0 +1,55 @@
+{
+	"type": "object",
+	"properties": {
+		"basic_info": {
+			"type": "object",
+			"properties": {
+				"first_name": {
+					"type": "string"
+				},
+				"id": {
+					"type": "string"
+				},
+				"last_name": {
+					"type": "string"
+				},
+				"title": {
+					"type": "string"
+				}
+			},
+			"required": ["first_name", "id", "last_name", "title"]
+		},
+		"sections": {
+			"type": "array",
+			"items": [
+				{
+					"type": "object",
+					"properties": {
+						"content": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "string"
+								},
+								"type": {
+									"type": "string"
+								}
+							},
+							"required": ["data", "type"]
+						},
+						"id": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						}
+					},
+					"required": ["content", "id", "title", "type"]
+				}
+			]
+		}
+	}
+}
