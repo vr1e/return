@@ -21,7 +21,7 @@ export type MainContent = {
 	data: string;
 };
 
-export type Section = {
+export type SectionInterface = {
 	id: string;
 	title: string;
 	type: string;

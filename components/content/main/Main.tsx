@@ -1,9 +1,14 @@
 import Section from './Section';
+import { SectionInterface } from '../../../interfaces';
 
-export default function Main({ mainSections }): JSX.Element {
+interface Props {
+	mainSections: SectionInterface[];
+}
+
+export default function Main({ mainSections }: Props): JSX.Element {
 	// console.log(mainSections);
 	return (
-		<main>
+		<main className='main-content'>
 			{mainSections.map(section => (
 				<Section key={section.id} section={section} />
 			))}

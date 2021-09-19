@@ -1,0 +1,17 @@
+.title {
+	display: flex;
+	align-items: center;
+}
+
+.line_decoration {
+	border-bottom: .25rem solid var(--base-dark);
+	width: 100%;
+	height: .25rem;
+	margin-left: 1rem;
+}
+
+.icon {
+	height: 2.5rem;
+	width: 2.5rem;
+	margin-right: 1rem;
+}

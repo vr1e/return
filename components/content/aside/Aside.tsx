@@ -1,35 +1,31 @@
-import { Fragment } from 'react';
+import { SectionInterface } from '../../../interfaces';
+import Title from '../../ui/title/Title';
+import Contact from '../partials/Contact';
+import Hobbies from '../partials/Hobbies';
+import Profile from '../partials/Profile';
 import styles from './Aside.module.scss';
 
-export default function Aside({ asideSections }): JSX.Element {
+interface Props {
+	asideSections: SectionInterface[];
+}
+
+export default function Aside({ asideSections }: Props): JSX.Element {
 	// console.log(asideSections);
 
 	function returnProperType(content) {
 		if (!content) return;
+
 		if (content.type === 'text') {
-			return <p>{content.data}</p>;
+			return <Profile content={content.data} />;
 		}
 
 		if (content.type === 'titlelist') {
 			const list = Object.entries(content.data);
-			return (
-				<dl>
-					{list.map((item, idx) => (
-						<Fragment key={idx}>
-							<dt>{item[0]}</dt>
-							<dd>{item[1]}</dd>
-						</Fragment>
-					))}
-				</dl>
-			);
+			return <Contact content={list} />;
 		}
 
 		if (content.type === 'list') {
-			return content.data.map((item, idx) => (
-				<Fragment key={idx}>
-					<span>{item} | </span>
-				</Fragment>
-			));
+			return <Hobbies content={content.data} />;
 		}
 	}
 
@@ -37,16 +33,7 @@ export default function Aside({ asideSections }): JSX.Element {
 		<aside>
 			{asideSections.map(section => (
 				<section key={section.id}>
-					<div className={styles.title}>
-						<img
-							className={styles.icon}
-							src={`${section.title.toLowerCase()}.svg`}
-							alt={section.title}
-							title={section.title}
-						/>
-						<h3>{section.title}</h3>
-						<span className={styles.line_decoration}></span>
-					</div>
+					<Title title={section.title} />
 					<div className={styles.aside_content}>
 						{returnProperType(section.content)}
 					</div>

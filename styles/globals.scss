@@ -1,3 +1,4 @@
+@import './variables';
 @import './colors';
 
 *,
@@ -43,17 +44,24 @@ body {
 	line-height: 1.4;
 
 	@media screen and (min-width: 600px) {
-		padding: 30px;
+		padding: 60px 30px;
 		border-radius: 4px;
 	}
 }
 
-.content {
-	display: flex;
-}
+@media screen and (min-width: 768px) {
+	.content {
+		display: flex;
+	}
 
-.left-bar {
-	padding: 2rem;
+	.main-content {
+		flex-basis: 65%;
+	}
+
+	.left-bar {
+		padding: 2rem;
+		flex-basis: 35%;
+	}
 }
 
 h1,
@@ -78,11 +86,31 @@ h3 {
 	text-transform: uppercase;
 	white-space: nowrap;
 	color: var(--base-dark);
+	margin: 0;
+}
+
+h4 {
+	font-size: 1.5rem;
+	margin: 2rem 0 0;
+}
+
+h5 {
+	font-weight: 500;
+	font-size: 1.2rem;
+	margin: 0;
+	color: var(--base-dark);
+}
+
+h6 {
+	font-weight: 400;
+	font-size: unset;
+	margin: 0.5rem 0 0;
 }
 
 dl {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	margin: $content-margin;
 }
 
 dt {
@@ -93,4 +121,14 @@ dt {
 
 dd {
 	margin-left: auto;
+}
+
+.responsibilities {
+	.list-item {
+		display: block;
+	}
+}
+
+.profile {
+	text-align: justify;
 }

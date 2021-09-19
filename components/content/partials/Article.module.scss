@@ -1,0 +1,19 @@
+.list {
+	list-style: none;
+}
+
+.item {
+	margin-left: 1rem;
+}
+
+// .title {
+// &::before {
+// 	content: '•';
+// 	margin-left: -1rem;
+// }
+// }
+
+.time {
+	font-weight: 400;
+	margin-left: 1rem;
+}

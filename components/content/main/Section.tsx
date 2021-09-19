@@ -1,20 +1,18 @@
-import Article from './Article';
-import styles from './Section.module.scss';
+import Title from '../../ui/title/Title';
+import Article from '../partials/Article';
+import { SectionInterface } from '../../../interfaces';
+// import styles from './Section.module.scss';
 
-export default function Section({ section }): JSX.Element {
+interface Props {
+	section: SectionInterface;
+}
+
+export default function Section({ section }: Props): JSX.Element {
 	// console.log(section);
 	return (
 		<section>
-			<div className={styles.title}>
-				<img
-					className={styles.icon}
-					src={`${section.title.toLowerCase().replace(' ', '_')}.svg`}
-					alt={section.title}
-					title={section.title}
-				/>
-				<h3>{section.title}</h3>
-				<span className={styles.line_decoration}></span>
-			</div>
+			<Title title={section.title} />
+
 			{section.content?.map(article => (
 				<Article key={article.id} content={article} />
 			))}
