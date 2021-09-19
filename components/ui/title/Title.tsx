@@ -2,14 +2,15 @@ import styles from './Title.module.scss';
 
 interface Props {
 	title: string;
+	type: string;
 }
 
-export default function Title({title}: Props): JSX.Element {
+export default function Title({ title, type }: Props): JSX.Element {
 	return (
 		<div className={styles.title}>
 			<img
 				className={styles.icon}
-				src={`${title.toLowerCase().replace(' ', '_')}.svg`}
+				src={`${type}.svg`}
 				alt={title}
 				title={title}
 			/>

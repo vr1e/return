@@ -1,12 +1,9 @@
 // import Tooltip from '../ui/Tooltip';
+import { IBasicInfo } from '../../interfaces';
 import styles from './Header.module.scss';
 
 interface Props {
-	basicInfo: {
-		first_name: string;
-		last_name: string;
-		title: string;
-	};
+	basicInfo: IBasicInfo;
 }
 
 export default function Header({ basicInfo }: Props): JSX.Element {

@@ -1,18 +1,16 @@
 import Lists from '../../ui/Lists';
 
 interface Props {
-	technologies?: any;
+	technologies?: string[];
 }
 
-export default function Technologies({
-	technologies,
-}: Props): JSX.Element {
+export default function Technologies({ technologies }: Props): JSX.Element {
 	if (!technologies) return null;
 
 	return (
 		<div className='technologies'>
 			<h6>Technologies:</h6>
-			<Lists data={technologies} separator={''} />
+			<Lists data={technologies} />
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import Lists from '../../ui/Lists';
 
 interface Props {
-	responsibilities?: any;
+	responsibilities?: string[];
 }
 
 export default function Responsibilities({

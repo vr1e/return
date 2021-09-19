@@ -1,30 +1,43 @@
 {
+	"$schema": "http://json-schema.org/draft-04/schema#",
 	"type": "object",
 	"properties": {
-		"basic_info": {
+		"cv": {
 			"type": "object",
 			"properties": {
-				"first_name": {
-					"type": "string"
-				},
-				"id": {
-					"type": "string"
-				},
-				"last_name": {
-					"type": "string"
-				},
-				"title": {
-					"type": "string"
-				}
-			},
-			"required": ["first_name", "id", "last_name", "title"]
-		},
-		"sections": {
-			"type": "array",
-			"items": [
-				{
+				"basic_info": {
 					"type": "object",
 					"properties": {
+						"first_name": {
+							"type": "string"
+						},
+						"id": {
+							"type": "string"
+						},
+						"last_name": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						}
+					},
+					"required": ["first_name", "id", "last_name", "title"]
+				},
+				"profile": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						},
+						"category": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
 						"content": {
 							"type": "object",
 							"properties": {
@@ -36,20 +49,325 @@
 								}
 							},
 							"required": ["data", "type"]
-						},
+						}
+					},
+					"required": ["id", "title", "category", "type", "content"]
+				},
+				"contact": {
+					"type": "object",
+					"properties": {
 						"id": {
 							"type": "string"
 						},
 						"title": {
 							"type": "string"
 						},
+						"category": {
+							"type": "string"
+						},
 						"type": {
 							"type": "string"
+						},
+						"content": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "object",
+									"properties": {
+										"address": {
+											"type": "string"
+										},
+										"e_mail": {
+											"type": "string"
+										},
+										"phone": {
+											"type": "string"
+										}
+									},
+									"required": ["address", "e_mail", "phone"]
+								},
+								"type": {
+									"type": "string"
+								}
+							},
+							"required": ["data", "type"]
 						}
 					},
-					"required": ["content", "id", "title", "type"]
+					"required": ["id", "title", "category", "type", "content"]
+				},
+				"interests": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						},
+						"category": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"content": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": [
+										{
+											"type": "string"
+										}
+									]
+								},
+								"type": {
+									"type": "string"
+								}
+							},
+							"required": ["data", "type"]
+						}
+					},
+					"required": ["id", "title", "category", "type", "content"]
+				},
+				"hobbies": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						},
+						"category": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"content": {
+							"type": "object",
+							"properties": {
+								"data": {
+									"type": "array",
+									"items": [
+										{
+											"type": "string"
+										}
+									]
+								},
+								"type": {
+									"type": "string"
+								}
+							},
+							"required": ["data", "type"]
+						}
+					},
+					"required": ["id", "title", "category", "type", "content"]
+				},
+				"experience": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						},
+						"category": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"content": {
+							"type": "array",
+							"items": [
+								{
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"company": {
+											"type": "string"
+										},
+										"additional_info": {
+											"type": "null"
+										},
+										"job_title": {
+											"type": "string"
+										},
+										"responsibilities": {
+											"type": "array",
+											"items": [
+												{
+													"type": "string"
+												}
+											]
+										},
+										"examples": {
+											"type": "null"
+										},
+										"description": {
+											"type": "null"
+										},
+										"technologies": {
+											"type": "array",
+											"items": [
+												{
+													"type": "string"
+												}
+											]
+										},
+										"time_end": {
+											"type": "string"
+										},
+										"time_start": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"company",
+										"additional_info",
+										"job_title",
+										"responsibilities",
+										"examples",
+										"description",
+										"technologies",
+										"time_end",
+										"time_start"
+									]
+								}
+							]
+						}
+					},
+					"required": ["id", "title", "category", "type", "content"]
+				},
+				"projects": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						},
+						"category": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"content": {
+							"type": "array",
+							"items": [
+								{
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"title": {
+											"type": "string"
+										},
+										"url": {
+											"type": "string"
+										},
+										"year": {
+											"type": "integer"
+										},
+										"technologies": {
+											"type": "array",
+											"items": [
+												{
+													"type": "string"
+												}
+											]
+										}
+									},
+									"required": ["id", "title", "url", "year", "technologies"]
+								}
+							]
+						}
+					},
+					"required": ["id", "title", "category", "type", "content"]
+				},
+				"education": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						},
+						"category": {
+							"type": "string"
+						},
+						"type": {
+							"type": "string"
+						},
+						"content": {
+							"type": "array",
+							"items": [
+								{
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"title": {
+											"type": "string"
+										},
+										"description": {
+											"type": "string"
+										},
+										"specialization": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"url": {
+											"type": "string"
+										},
+										"time_end": {
+											"type": "string"
+										},
+										"time_start": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"title",
+										"description",
+										"specialization",
+										"name",
+										"url",
+										"time_end",
+										"time_start"
+									]
+								}
+							]
+						}
+					},
+					"required": ["id", "title", "category", "type", "content"]
 				}
+			},
+			"required": [
+				"basic_info",
+				"profile",
+				"contact",
+				"interests",
+				"hobbies",
+				"experience",
+				"projects",
+				"education"
 			]
 		}
-	}
+	},
+	"required": ["cv"]
 }

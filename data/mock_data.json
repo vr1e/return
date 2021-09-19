@@ -1,12 +1,12 @@
 {
-	"basic_info": {
-		"first_name": "Nikola",
-		"id": "b63926ee-87ae-45c9-be84-98d4dd9b2f51",
-		"last_name": "Vrhovac",
-		"title": "Front-end developer"
-	},
-	"sections": [
-		{
+	"cv": {
+		"basic_info": {
+			"first_name": "Nikola",
+			"id": "b63926ee-87ae-45c9-be84-98d4dd9b2f51",
+			"last_name": "Vrhovac",
+			"title": "Front-end developer"
+		},
+		"profile": {
 			"id": "2c56dcb3-fed1-41f7-b319-b1fe86b759ac",
 			"title": "Profile",
 			"category": "aside",
@@ -16,7 +16,7 @@
 				"type": "text"
 			}
 		},
-		{
+		"contact": {
 			"id": "f75f44f0-f6d5-49b1-ac62-ff2fd2cacab5",
 			"title": "Contact",
 			"category": "aside",
@@ -30,7 +30,7 @@
 				"type": "titlelist"
 			}
 		},
-		{
+		"interests": {
 			"id": "1007989c-286e-45a9-8d35-843db4b20459",
 			"title": "Interests",
 			"category": "aside",
@@ -52,7 +52,7 @@
 				"type": "list"
 			}
 		},
-		{
+		"hobbies": {
 			"id": "0aad30d2-c7f4-40ed-9a09-ce52e01b6350",
 			"title": "Hobbies",
 			"category": "aside",
@@ -70,7 +70,7 @@
 				"type": "list"
 			}
 		},
-		{
+		"experience": {
 			"id": "fed029fa-ff24-456c-82f1-b8a088553561",
 			"title": "Experience",
 			"category": "main",
@@ -234,7 +234,7 @@
 				}
 			]
 		},
-		{
+		"projects": {
 			"id": "2068c0a5-ed09-464b-98ab-da595c799da7",
 			"title": "Side projects",
 			"category": "main",
@@ -285,19 +285,19 @@
 					"id": "5b740920-263e-42dc-9953-6bcee7c033c8",
 					"title": "enjoythassos.gr",
 					"url": null,
-					"year": 2017,
+					"year": 2016,
 					"technologies": ["php", "wordpress", "jquery"]
 				},
 				{
 					"id": "8d62da49-ce22-4da9-8b78-b58f387b88ec",
 					"title": "thassosing.com",
 					"url": "http://www.thassosing.com/",
-					"year": 2017,
+					"year": 2016,
 					"technologies": ["php", "wordpress", "jquery"]
 				}
 			]
 		},
-		{
+		"education": {
 			"id": "24ea3000-4688-4c1f-8997-486f7c67bcb8",
 			"title": "Education",
 			"category": "main",
@@ -307,9 +307,9 @@
 					"id": "930aa0b4-b973-45c9-b7b0-0192ce4be937",
 					"title": "Architectural engineer",
 					"description": "Master of Architecture",
+					"specialization": "Bioclimatic architecture",
 					"name": "University of Belgrade - Faculty of Architecture",
 					"url": "http://www.arh.bg.ac.rs/en/",
-					"technologies": ["php", "wordpress", "jquery"],
 					"time_end": "2012",
 					"time_start": "2000"
 				},
@@ -323,5 +323,5 @@
 				}
 			]
 		}
-	]
+	}
 }
