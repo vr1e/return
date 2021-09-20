@@ -1,11 +1,11 @@
 import Lists from '../../ui/Lists';
 
 interface Props {
-	technologies?: string[];
+	technologies: string[];
 }
 
 export default function Technologies({ technologies }: Props): JSX.Element {
-	if (!technologies) return null;
+	// if (!technologies) return null;
 
 	return (
 		<div className='technologies'>

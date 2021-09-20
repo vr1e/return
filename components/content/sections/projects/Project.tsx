@@ -16,7 +16,7 @@ export default function Project({ project }: Props): JSX.Element {
 			{!project.url && <em className='not-working'> (no longer working)</em>}
 
 			<div className='technologies'>
-				{project.technologies.map((technology, idx) => (
+				{project.technologies?.map((technology, idx) => (
 					<span className='list-item' key={idx}>
 						{technology}
 					</span>

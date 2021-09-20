@@ -97,6 +97,7 @@ export type IHobbies = {
 export type IArticle = {
 	id: string;
 	company: string;
+	description?: string;
 	additional_info?: string;
 	job_title: string;
 	responsibilities: string[];

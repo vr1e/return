@@ -1,14 +1,13 @@
 import Lists from '../../ui/Lists';
 
 interface Props {
-	responsibilities?: string[];
+	responsibilities: string[];
 }
 
 export default function Responsibilities({
 	responsibilities,
 }: Props): JSX.Element {
-
-	if (!responsibilities) return null;
+	// if (!responsibilities) return null;
 
 	return (
 		<div className='responsibilities'>

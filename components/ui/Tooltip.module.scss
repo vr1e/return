@@ -1,5 +1,5 @@
 .tooltip {
-	border-bottom: 1px dotted #333;
+	// border-bottom: 1px dotted #333;
 	position: relative;
 	cursor: pointer;
 
@@ -7,13 +7,16 @@
 		&::after {
 			content: attr(data-tooltip);
 			position: absolute;
-			white-space: nowrap;
+			width: 300px;
+			left: -5px;
+			top: 2rem;
+			// white-space: nowrap;
 			background: rgba(0, 0, 0, 0.85);
 			padding: 3px 7px;
+			font-size: 1rem;
+			font-weight: normal;
 			color: #fff;
 			border-radius: 3px;
-			-moz-border-radius: 3px;
-			-webkit-border-radius: 3px;
 			margin-left: 7px;
 			margin-top: -3px;
 		}

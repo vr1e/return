@@ -9,18 +9,6 @@
 	box-sizing: border-box;
 }
 
-:root {
-	--base-dark: #{$davys-grey};
-	--base-txt: #{$base-txt};
-	--light-txt: #{$light-txt};
-	--lighter-txt: #{$cadet-blue-crayola};
-	--base-bg: #{$base-bg};
-	--body-bg: #{$body-bg};
-	--body-border-color: #{$body-border-color};
-	--selection-bg: #{$selection-bg};
-	--selection-txt: #{$selection-txt};
-}
-
 ::selection {
 	background-color: var(--selection-bg);
 	color: var(--selection-txt);
@@ -213,6 +201,7 @@ dd {
 .responsibilities {
 	.list-item {
 		display: block;
+		margin-bottom: .2rem;
 
 		&::before {
 			content: '- ';
@@ -237,6 +226,8 @@ dd {
 @media print {
 	html {
 		font-size: 12px;
+		padding-top: 0;
+		padding-bottom: 0;
 	}
 
 	body {
@@ -251,23 +242,31 @@ dd {
 		width: 100%;
 		margin: 0;
 		padding: 1rem;
+		padding-bottom: 0;
 	}
 
 	.header {
 		margin-bottom: 2rem;
 	}
 
+	h1 {
+		margin-top: 1rem;
+	}
+
 	.main-content {
 		flex-basis: 65%;
 		padding: 1rem;
+		padding-bottom: 0;
 	}
 
 	.left-bar {
 		flex-basis: 35%;
-		padding: 0 1rem;
+		padding: 0;
+		// padding: 0 1rem;
 	}
 
-	aside section {
+	aside section,
+	main section article {
 		margin-left: 3.5rem;
 	}
 

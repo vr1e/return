@@ -1,4 +1,5 @@
 import { IArticle } from '../../../interfaces';
+import Tooltip from '../../ui/Tooltip';
 // import Lists from '../../ui/Lists';
 import styles from './Article.module.scss';
 import Responsibilities from './Responsibilities';
@@ -15,15 +16,19 @@ export default function Article({ content }: Props): JSX.Element {
 		<article>
 			<section className={styles.list}>
 				<h4 className={styles.title}>
-					{content.company}
+					<Tooltip content={content.description}>{content.company}</Tooltip>
 					<span className='time'>
 						{'//'} {content.time_start} - {content.time_end}
 					</span>
 				</h4>
 				<span className='additional_info'>{content.additional_info}</span>
 				<h5>{content.job_title}</h5>
-				<Responsibilities responsibilities={content.responsibilities} />
-				<Technologies technologies={content.technologies} />
+				{content.responsibilities && (
+					<Responsibilities responsibilities={content.responsibilities} />
+				)}
+				{content.technologies && (
+					<Technologies technologies={content.technologies} />
+				)}
 			</section>
 		</article>
 	);
