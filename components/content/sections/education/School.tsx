@@ -6,7 +6,7 @@ interface Props {
 
 export default function School({ school }: Props): JSX.Element {
 	return (
-		<div key={school.id}>
+		<div key={school.id} className='school'>
 			<h5>
 				{school.title}{' '}
 				<span>
@@ -15,7 +15,7 @@ export default function School({ school }: Props): JSX.Element {
 			</h5>
 			<span>{school.description}</span>
 			<h6>{school.name}</h6>
-			<p>{school.specialization}</p>
+			<div>{school.specialization}</div>
 		</div>
 	);
 }

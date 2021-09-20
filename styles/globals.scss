@@ -1,6 +1,8 @@
 @import './variables';
 @import './colors';
 
+/* ____Base____ */
+
 *,
 :after,
 :before {
@@ -8,9 +10,10 @@
 }
 
 :root {
-	--base-dark: #{$base-dark};
+	--base-dark: #{$davys-grey};
 	--base-txt: #{$base-txt};
 	--light-txt: #{$light-txt};
+	--lighter-txt: #{$cadet-blue-crayola};
 	--base-bg: #{$base-bg};
 	--body-bg: #{$body-bg};
 	--body-border-color: #{$body-border-color};
@@ -51,6 +54,10 @@ body {
 	}
 }
 
+.header {
+	margin-bottom: 5rem;
+}
+
 .content {
 	padding: 1rem;
 }
@@ -84,10 +91,12 @@ body {
 	}
 }
 
+/* ____Typography____ */
+
 h1,
 h2 {
 	text-align: center;
-	text-transform: uppercase;
+	// text-transform: uppercase;
 }
 
 h1 {
@@ -103,14 +112,14 @@ h2 {
 }
 
 h3 {
-	text-transform: uppercase;
+	font-size: 1.6rem;
 	white-space: nowrap;
 	color: var(--base-dark);
 	margin: 0;
 }
 
 h4 {
-	font-size: 1.3rem;
+	font-size: 1.4rem;
 	font-weight: 900;
 	margin: 1rem 0 0;
 }
@@ -123,14 +132,23 @@ h5 {
 }
 
 h6 {
-	font-weight: 400;
+	font-weight: 600;
 	font-size: unset;
-	margin: 0.5rem 0;
+	margin: 0.8rem 0 0.1rem;
 }
 
 a {
 	color: var(--base-txt);
 }
+/** ____CATEGORIES____ **/
+
+/* ____Profile____ */
+
+.profile {
+	text-align: justify;
+}
+
+/* ____Interests____ */
 
 dl {
 	display: grid;
@@ -148,17 +166,65 @@ dd {
 	margin-left: auto;
 }
 
-.responsibilities {
-	.list-item {
-		display: block;
+/* ____Hobbies____ */
+/* ____Side projects____ */
+
+.projects {
+	ul {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	li {
+		padding-bottom: 0.6rem;
+	}
+
+	a {
+		font-size: 1rem;
+	}
+
+	.technologies {
+		font-size: 1rem;
 	}
 }
 
-.profile {
-	text-align: justify;
+.not-working {
+	font-size: 0.9rem;
+}
+/* ____Experience____ */
+
+.experience {
+	margin-bottom: 2rem;
 }
 
+.time {
+	font-weight: 400;
+	font-size: 1.2rem;
+	margin-left: 1rem;
+}
+
+.additional_info {
+	font-weight: 400;
+	font-size: 1rem;
+	margin: 0;
+	color: var(--light-txt);
+}
+
+.responsibilities {
+	.list-item {
+		display: block;
+
+		&::before {
+			content: '- ';
+		}
+	}
+}
+
+/* ____PRINT____ */
+
 .technologies {
+	// font-size: 1rem;
+
 	.list-item {
 		&:not(:last-child) {
 			&::after {
@@ -168,6 +234,45 @@ dd {
 	}
 }
 
-.experience {
-	margin-bottom: 2rem;
+@media print {
+	html {
+		font-size: 12px;
+	}
+
+	body {
+		margin: 0;
+		padding: 0;
+		font-size: 80%;
+		border: 0;
+	}
+
+	.content {
+		display: flex;
+		width: 100%;
+		margin: 0;
+		padding: 1rem;
+	}
+
+	.header {
+		margin-bottom: 2rem;
+	}
+
+	.main-content {
+		flex-basis: 65%;
+		padding: 1rem;
+	}
+
+	.left-bar {
+		flex-basis: 35%;
+		padding: 0 1rem;
+	}
+
+	aside section {
+		margin-left: 3.5rem;
+	}
+
+	img {
+		height: 10rem;
+		width: 10rem;
+	}
 }

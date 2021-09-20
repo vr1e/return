@@ -23,20 +23,22 @@ export default function Projects({ projects }: Props): JSX.Element {
 	// console.log(orderedProjects);
 
 	return (
-		<section className={styles.projects}>
+		<>
 			<Title title={projects.title} type={projects.type} />
-			<article>
-				<ul className={styles.list_year}>
-					{uniqueYears.map(year => (
-						<li className={styles.list_year_item} key={year}>
-							<h5 className={styles.year}>{year}</h5>
-							{orderedProjects[year].map(project => (
-								<Project key={project.id} project={project} />
-							))}
-						</li>
-					))}
-				</ul>
-			</article>
-		</section>
+			<section className={projects.type}>
+				<article>
+					<ul>
+						{uniqueYears.map(year => (
+							<li className={styles.list_year_item} key={year}>
+								<h5 className={styles.year}>{year}</h5>
+								{orderedProjects[year].map(project => (
+									<Project key={project.id} project={project} />
+								))}
+							</li>
+						))}
+					</ul>
+				</article>
+			</section>
+		</>
 	);
 }

@@ -16,13 +16,11 @@ export default function Article({ content }: Props): JSX.Element {
 			<section className={styles.list}>
 				<h4 className={styles.title}>
 					{content.company}
-					<span className={styles.time}>
+					<span className='time'>
 						{'//'} {content.time_start} - {content.time_end}
 					</span>
 				</h4>
-				<span className={styles.additional_info}>
-					{content.additional_info}
-				</span>
+				<span className='additional_info'>{content.additional_info}</span>
 				<h5>{content.job_title}</h5>
 				<Responsibilities responsibilities={content.responsibilities} />
 				<Technologies technologies={content.technologies} />

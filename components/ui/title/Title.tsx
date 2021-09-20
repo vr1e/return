@@ -10,7 +10,7 @@ export default function Title({ title, type }: Props): JSX.Element {
 		<div className={styles.title}>
 			<img
 				className={styles.icon}
-				src={`${type}.svg`}
+				src={`${type}.png`}
 				alt={title}
 				title={title}
 			/>

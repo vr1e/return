@@ -8,7 +8,7 @@ interface Props {
 
 export default function Education({ education }: Props): JSX.Element {
 	return (
-		<section>
+		<section className={education.type}>
 			<Title title={education.title} type={education.type} />
 			<article>
 				{education.content.map((school: ISchool) => (

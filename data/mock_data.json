@@ -41,13 +41,12 @@
 					"Redux",
 					"Vue",
 					"GraphQL",
-					"Apollo",
 					"Serverless",
 					"Firebase",
 					"Next",
 					"Node",
 					"MongoDB",
-					"D3"
+					"Flutter"
 				],
 				"type": "list"
 			}
@@ -59,13 +58,12 @@
 			"type": "hobbies",
 			"content": {
 				"data": [
-					"Guitar and music 🎸",
-					"Running 🏃🏻‍♂️",
-					"Gadgets 📳",
-					"History doq 📚",
-					"Games 🕹",
-					"Diving 🤿",
-					"Travel 🌴"
+					"Guitar and music",
+					"Running",
+					"Gadgets",
+					"History doq",
+					"Diving",
+					"Travel"
 				],
 				"type": "list"
 			}

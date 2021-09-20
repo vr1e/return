@@ -52,11 +52,11 @@ export default function IndexPage(props: Props): JSX.Element {
 					<Contact contact={contact} />
 					<Interests interests={interests} />
 					<Hobbies hobbies={hobbies} />
+					<Projects projects={projects} />
 				</aside>
 			</div>
 			<main className='main-content'>
 				<Experience experience={experience} />
-				<Projects projects={projects} />
 				<Education education={education} />
 			</main>
 		</div>

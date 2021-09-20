@@ -13,7 +13,7 @@ export default function Project({ project }: Props): JSX.Element {
 				</a>
 			</strong>
 
-			{!project.url && <small> (no longer working)</small>}
+			{!project.url && <em className='not-working'> (no longer working)</em>}
 
 			<div className='technologies'>
 				{project.technologies.map((technology, idx) => (

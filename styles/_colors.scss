@@ -1,10 +1,23 @@
 $base-dark: #184c62;
-$base-txt: #262728;
-$light-txt: #3f4042;
+$base-txt: #212529;
+$light-txt: #343A40;
+$lighter-txt: #495057;
 $base-bg: #eee;
 
 $body-bg: #fff;
 $body-border-color: #ccc;
 
-$selection-txt: #fff;
+$selection-txt: #ffd166;
 $selection-bg: #333;
+
+
+/* SCSS HSL */
+$cultured: hsla(210, 17%, 98%, 1);
+$cultured-2: hsla(210, 16%, 93%, 1);
+$gainsboro: hsla(210, 14%, 89%, 1);
+$light-gray: hsla(210, 14%, 83%, 1);
+$cadet-blue-crayola: hsla(210, 11%, 71%, 1);
+$slate-gray: hsla(208, 7%, 46%, 1);
+$davys-grey: hsla(210, 9%, 31%, 1);
+$gunmetal: hsla(210, 10%, 23%, 1);
+$charleston-green: hsla(210, 11%, 15%, 1);

@@ -9,7 +9,7 @@ interface Props {
 export default function Header({ basicInfo }: Props): JSX.Element {
 	const { first_name, last_name, title } = basicInfo;
 	return (
-		<header className={styles.header}>
+		<header className='header'>
 			<img
 				src='https://s.gravatar.com/avatar/240025a4b8ba8c72b633be906218007c?s=200'
 				alt='My Image'
