@@ -14,7 +14,12 @@
 	color: var(--selection-txt);
 }
 
-html {
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#__next {
 	min-width: 300px;
 	background-color: var(--base-bg);
 	color: var(--base-txt);
@@ -24,7 +29,7 @@ html {
 	}
 }
 
-body {
+.body {
 	max-width: 1400px;
 	margin: 0.5rem;
 	background-color: var(--body-bg);
@@ -37,8 +42,32 @@ body {
 
 	@media screen and (min-width: 600px) {
 		margin: 0 auto;
-		padding: 60px 30px;
+		padding: 0 30px;
 		border-radius: 4px;
+	}
+}
+
+.action-bar {
+	// height: 3rem;
+	padding: 2rem 1rem;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.print {
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	background-color: transparent;
+
+	img {
+		filter: grayscale(1);
+		height: 2rem;
+
+		&:hover {
+			filter: grayscale(0);
+		}
 	}
 }
 
@@ -201,7 +230,7 @@ dd {
 .responsibilities {
 	.list-item {
 		display: block;
-		margin-bottom: .2rem;
+		margin-bottom: 0.2rem;
 
 		&::before {
 			content: '- ';
@@ -226,11 +255,18 @@ dd {
 @media print {
 	html {
 		font-size: 12px;
+	}
+
+	#__next {
 		padding-top: 0;
 		padding-bottom: 0;
 	}
 
-	body {
+	.action-bar {
+		display: none;
+	}
+
+	.body {
 		margin: 0;
 		padding: 0;
 		font-size: 80%;

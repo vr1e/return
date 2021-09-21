@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import ActionBar from '../components/ui/action-bar/ActionBar';
 import '../styles/globals.scss';
 
 export default function NvApp({ Component, pageProps }) {
@@ -19,7 +20,10 @@ export default function NvApp({ Component, pageProps }) {
 					content='This is my short bio in node.js/react'
 				/>
 			</Head>
-			<Component {...pageProps} />
+			<div className='body'>
+				<ActionBar />
+				<Component {...pageProps} />
+			</div>
 		</>
 	);
 }
