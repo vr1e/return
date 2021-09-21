@@ -55,17 +55,20 @@
 					"description": "Entain plc (LSE: ENT) is the FTSE 100 company that is one of the world’s largest sports betting and gaming groups operating in the online and retail sector.",
 					"job_title": "Front-end developer",
 					"responsibilities": [
-						"maintenance and improvement of a scalable in house developed web frontend framework which is used by all Entain’s customer-facing websites",
-						"bwin.com, ladbrokes.com, coral.co.uk, sportingbet.com, partypoker.com... many more"
+						"maintenance and improvement of a scalable in house developed web frontend framework which is used by all Entain’s customer-facing websites - eight enterprise applications serving more then fourty products as many countries and languages you can imagine",
+						"developing and styling reusable frontend particles in angular"
 					],
 					"technologies": [
 						"angular",
 						"typescript",
-						"css3",
+						"css",
 						"gulp",
 						"sass",
+						"bootstrap",
 						"webpack",
-						".NET",
+						"node",
+						"gitlab",
+						"csharp",
 						"sitecore"
 					],
 					"time_end": "present",
@@ -93,8 +96,9 @@
 					"id": "b779f361-50a6-48af-a559-758317cd6da2",
 					"job_title": "Front-end developer",
 					"responsibilities": [
-						"redux, webpack, authorization, front-end architecture planning and app lifecycle setup",
-						"creating angularjs, react or pure HTML, CSS, jquery front-end apps from ground up"
+						"front-end architecture planning and app lifecycle setup",
+						"teaching and holding react/redux/es6 workshops for deveoper teammates",
+						"creating react, angularjs or pure HTML, CSS, jquery front-end apps from ground up"
 					],
 					"technologies": [
 						"react",
@@ -103,11 +107,11 @@
 						"typescript",
 						"sass",
 						"less",
-						"css3",
+						"bootstrap",
 						"gulp",
 						"jquery",
 						"webpack",
-						".NET",
+						"csharp",
 						"sitecore"
 					],
 					"time_end": "Dec 2019",
@@ -149,18 +153,11 @@
 					"job_title": "Developer Consultant",
 					"responsibilities": [
 						"more then ten wordpress pages, apache servers, setup, migrations, security, optimization, backups",
+						"one man team for all front-end and back-end services",
 						"design and layouts, themes, front-end, SEO, analytics",
 						"project tech planning and development"
 					],
-					"technologies": [
-						"php",
-						"wordpress",
-						"javascript",
-						"jquery",
-						"wp rest api",
-						"css",
-						"html"
-					],
+					"technologies": ["php", "wordpress", "javascript", "jquery", "css"],
 					"time_end": "Dec 2019",
 					"time_start": "Sep 2016"
 				},
@@ -176,7 +173,7 @@
 					"id": "a6b3b07f-31ef-4d87-b502-7bd0f5d1be19",
 					"job_title": "Technical project coordinator",
 					"responsibilities": [
-						"developer team assistance, coordination and planning",
+						"developer team helping hand, coordination and planning",
 						"transactional and newsletter email development",
 						"project time-frames, scheduling, graphs and analysis"
 					],
@@ -234,14 +231,15 @@
 			"category": "aside",
 			"content": {
 				"data": [
-					"React",
-					"Redux",
 					"Vue",
 					"GraphQL",
-					"Serverless",
-					"Firebase",
+					"Serverless Functions",
+					"Google Firebase",
 					"Next",
 					"Node",
+					"Automation",
+					"Python",
+					"TensorFlow",
 					"MongoDB",
 					"Flutter"
 				],

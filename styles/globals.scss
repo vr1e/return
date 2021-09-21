@@ -185,17 +185,6 @@ dd {
 	}
 }
 
-.side-projects {
-	> span,
-	.project-item {
-		&:not(:last-child) {
-			&::after {
-				content: ', ';
-			}
-		}
-	}
-}
-
 .not-working {
 	font-size: 0.9rem;
 }
@@ -203,6 +192,38 @@ dd {
 
 .experience {
 	margin-bottom: 2rem;
+
+	.technologies {
+		margin-top: 0.5rem;
+		display: flex;
+
+		h6 {
+			margin: 0;
+		}
+
+		.technologies-icons-list {
+			margin-left: .5rem;
+
+			::after {
+				min-width: none;
+			}
+		}
+
+		.tech-icons {
+			margin-left: 0.4rem;
+		}
+	}
+
+	.technologies-list {
+		display: none;
+	}
+
+	/* hack to increase tooltip width for headers */
+	h4 {
+		a::after {
+			min-width: 300px;
+		}
+	}
 }
 
 .time {
@@ -229,8 +250,6 @@ dd {
 	}
 }
 
-/* ____PRINT____ */
-
 .technologies {
 	// font-size: 1rem;
 
@@ -242,6 +261,17 @@ dd {
 		}
 	}
 }
+
+.school {
+	margin-bottom: 1rem;
+}
+
+.college-name {
+	font-weight: 500;
+	margin-left: .5rem;
+}
+
+/* ____PRINT____ */
 
 @import './media-tablet';
 @import './media-desktop';

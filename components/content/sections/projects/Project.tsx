@@ -12,7 +12,7 @@ export default function Project({ project }: Props): JSX.Element {
 					<a href={project.url} target='_blank' rel='noreferrer'>
 						{project.title}
 					</a>
-				</strong>
+				</strong>{' '}
 			</Tooltip>
 
 			{project.technologies && (

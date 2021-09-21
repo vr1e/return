@@ -7,11 +7,8 @@
 		&::after {
 			content: attr(data-tooltip);
 			position: absolute;
-			min-width: 200px;
-			max-width: 600px;
 			left: -5px;
 			top: 2rem;
-			// white-space: nowrap;
 			background: rgba(0, 0, 0, 0.85);
 			padding: 3px 7px;
 			font-size: 1rem;
@@ -20,7 +17,7 @@
 			border-radius: 3px;
 			margin-left: 7px;
 			margin-top: -3px;
-			overflow-wrap: break-word;
+			z-index: 99;
 		}
 	}
 }

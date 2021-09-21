@@ -36,7 +36,7 @@
 
 	.main-content {
 		flex-basis: 65%;
-		padding: 0 0  0 1.5rem;
+		padding: 0 0 0 1.5rem;
 		padding-bottom: 0;
 	}
 
@@ -58,5 +58,26 @@
 
 	.project-item a {
 		text-decoration: none;
+	}
+
+	.experience {
+		margin-bottom: 2rem;
+
+		.technologies {
+			margin-top: 0.5rem;
+			display: block;
+
+			h6 {
+				margin: 0.8rem 0 0.1rem;
+			}
+		}
+
+		.technologies-list {
+			display: block;
+		}
+
+		.technologies-icons-list {
+			display: none;
+		}
 	}
 }
