@@ -220,7 +220,7 @@ dd {
 
 	/* hack to increase tooltip width for headers */
 	h4 {
-		a::after {
+		span::after {
 			min-width: 300px;
 		}
 	}

@@ -13,10 +13,9 @@ export default function Technologies({ technologies }: Props): JSX.Element {
 			<h6>Technologies:</h6>
 			<span className='technologies-icons-list'>
 				{technologies.map((technology, idx) => (
-					<Tooltip content={technology}>
+					<Tooltip key={idx} content={technology}>
 						<img
 							className='tech-icons'
-							key={idx}
 							src={`./tech/${technology.replace(/ /g, '_')}.svg`}
 							alt={technology}
 							title={technology}
