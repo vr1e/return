@@ -17,7 +17,7 @@ export default function NvApp({ Component, pageProps }) {
 				<meta name='title' content='Nikola Vrhovac | Front-end developer' />
 				<meta
 					name='description'
-					content='This is my short bio in node.js/react'
+					content='My short bio developed in nextjs/react'
 				/>
 			</Head>
 			<div className='body'>
