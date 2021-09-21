@@ -79,35 +79,6 @@ body {
 	padding: 1rem;
 }
 
-@media screen and (min-width: 768px) {
-	.content {
-		display: flex;
-	}
-
-	.main-content {
-		flex-basis: 65%;
-	}
-
-	.left-bar {
-		padding: 2rem;
-		flex-basis: 35%;
-	}
-
-	aside {
-		section {
-			margin-left: 3.5rem;
-		}
-	}
-
-	main {
-		section {
-			article {
-				margin-left: 3.5rem;
-			}
-		}
-	}
-}
-
 /* ____Typography____ */
 
 h1,
@@ -181,6 +152,7 @@ dt {
 
 dd {
 	margin-left: auto;
+	white-space: nowrap;
 }
 
 /* ____Hobbies____ */
@@ -252,62 +224,6 @@ dd {
 	}
 }
 
-@media print {
-	html {
-		font-size: 12px;
-	}
-
-	#__next {
-		padding-top: 0;
-		padding-bottom: 0;
-	}
-
-	.action-bar {
-		display: none;
-	}
-
-	.body {
-		margin: 0;
-		padding: 0;
-		font-size: 80%;
-		border: 0;
-	}
-
-	.content {
-		display: flex;
-		width: 100%;
-		margin: 0;
-		padding: 1rem;
-		padding-bottom: 0;
-	}
-
-	.header {
-		margin-bottom: 2rem;
-	}
-
-	h1 {
-		margin-top: 1rem;
-	}
-
-	.main-content {
-		flex-basis: 65%;
-		padding: 1rem;
-		padding-bottom: 0;
-	}
-
-	.left-bar {
-		flex-basis: 35%;
-		padding: 0;
-		// padding: 0 1rem;
-	}
-
-	aside section,
-	main section article {
-		margin-left: 3.5rem;
-	}
-
-	img {
-		height: 10rem;
-		width: 10rem;
-	}
-}
+@import './media-tablet';
+@import './media-desktop';
+@import './media-print';
