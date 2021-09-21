@@ -4,8 +4,8 @@
 	}
 
 	#__next {
-		padding-top: 0;
-		padding-bottom: 0;
+		padding: 0;
+		margin: 0;
 	}
 
 	.action-bar {
@@ -23,8 +23,7 @@
 		display: flex;
 		width: 100%;
 		margin: 0;
-		padding: 1rem;
-		padding-bottom: 0;
+		padding: 0;
 	}
 
 	.header {
@@ -37,7 +36,7 @@
 
 	.main-content {
 		flex-basis: 65%;
-		padding: 1rem;
+		padding: 0 0  0 1.5rem;
 		padding-bottom: 0;
 	}
 
@@ -55,5 +54,9 @@
 	img {
 		height: 10rem;
 		width: 10rem;
+	}
+
+	.project-item a {
+		text-decoration: none;
 	}
 }

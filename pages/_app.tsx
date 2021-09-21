@@ -12,6 +12,7 @@ export default function NvApp({ Component, pageProps }) {
 					content='Nikola Vrhovac | Front-end developer'
 					key='title'
 				/>
+				<meta property='og:image' content='/document.png' />
 				<meta charSet='utf-8' />
 				<meta name='viewport' content='width=device-width, initial-scale=1' />
 				<meta name='title' content='Nikola Vrhovac | Front-end developer' />

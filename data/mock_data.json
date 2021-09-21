@@ -167,7 +167,7 @@
 				{
 					"additional_info": "Cookpad Inc. startup (cookpad.jp)",
 					"company": "Farmstand",
-					"description": "Farmdoor is a 24/7 farmers market stand on the streets of Palo Alto. Customers were offered to buy fresh fruits and vegetables from self-serving stands using web and phone app.",
+					"description": "Farmdoor is a 24/7 farmers market stand on the streets of Palo Alto. Customers were offered to buy fresh fruits and vegetables from self-serving stands using web or phone app.",
 					"examples": [
 						{
 							"title": "farmdoor.me"
@@ -193,6 +193,7 @@
 				{
 					"additional_info": "gigatronshop.com / comtradeshop.com",
 					"company": "Gigatron/ComTrade",
+					"description": "One of the biggest computer/tech retailers in Serbia.",
 					"id": "67b02735-2e4a-4f66-9fed-a67e62a751aa",
 					"job_title": "Web administrator",
 					"time_end": "2014",
@@ -201,6 +202,7 @@
 				{
 					"additional_info": "dpa.com",
 					"company": "DPA (Deutsche Presse-Agentur)",
+					"description": "German news agency founded in 1949. The dpa is the largest press agency in Germany with headquarters in Hamburg and the central editorial office in Berlin.",
 					"id": "a57fc4e0-ff30-43b3-a031-2eff4c3bdb05",
 					"job_title": "System/Network Administrator",
 					"time_end": "2012",

@@ -7,7 +7,8 @@
 		&::after {
 			content: attr(data-tooltip);
 			position: absolute;
-			width: 300px;
+			min-width: 200px;
+			max-width: 600px;
 			left: -5px;
 			top: 2rem;
 			// white-space: nowrap;
@@ -19,6 +20,7 @@
 			border-radius: 3px;
 			margin-left: 7px;
 			margin-top: -3px;
+			overflow-wrap: break-word;
 		}
 	}
 }

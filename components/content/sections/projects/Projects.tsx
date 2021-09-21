@@ -31,9 +31,11 @@ export default function Projects({ projects }: Props): JSX.Element {
 						{uniqueYears.map(year => (
 							<li className={styles.list_year_item} key={year}>
 								<h5 className={styles.year}>{year}</h5>
-								{orderedProjects[year].map(project => (
-									<Project key={project.id} project={project} />
-								))}
+								<div className='side-projects'>
+									{orderedProjects[year].map(project => (
+										<Project key={project.id} project={project} />
+									))}
+								</div>
 							</li>
 						))}
 					</ul>
