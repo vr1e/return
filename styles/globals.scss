@@ -6,269 +6,274 @@
 *,
 :after,
 :before {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 ::selection {
-	background-color: var(--selection-bg);
-	color: var(--selection-txt);
+  background-color: var(--selection-bg);
+  color: var(--selection-txt);
 }
 
 body {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 #__next {
-	min-width: 300px;
-	background-color: var(--base-bg);
-	color: var(--base-txt);
+  min-width: 300px;
+  background-color: var(--base-bg);
+  color: var(--base-txt);
 
-	@media screen and (min-width: 600px) {
-		padding: 1rem;
-	}
+  @media screen and (min-width: 600px) {
+    padding: 1rem;
+  }
 }
 
 .body {
-	max-width: 1400px;
-	margin: 0.5rem;
-	background-color: var(--body-bg);
-	border: 1px solid var(--body-border-color);
-	// font-family: proxima-nova, Verdana, sans-serif;
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 300;
-	font-size: 112.5%;
-	line-height: 1.4;
+  max-width: 1400px;
+  margin: .5rem;
+  background-color: var(--body-bg);
+  border: 1px solid var(--body-border-color);
+  // font-family: proxima-nova, Verdana, sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 112.5%;
+  line-height: 1.4;
 
-	@media screen and (min-width: 600px) {
-		margin: 0 auto;
-		padding: 0 1.875rem;
-		border-radius: 0.25rem;
-	}
+  @media screen and (min-width: 600px) {
+    margin: 0 auto;
+    padding: 0 1.875rem;
+    border-radius: .25rem;
+  }
 }
 
 .action-bar {
-	// height: 3rem;
-	padding: 2rem 1rem;
-	display: flex;
-	justify-content: flex-end;
+  // height: 3rem;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .print {
-	cursor: pointer;
-	padding: 0;
-	margin: 0;
-	border: 0;
-	background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background-color: transparent;
 
-	img {
-		height: 2.5rem;
-		transition: transform 0.2s;
+  img {
+    height: 2.5rem;
+    transition: transform .2s;
 
-		&:hover {
-			transform: rotate(5deg) scale(1.1);
-		}
-	}
+    &:hover {
+      transform: rotate(5deg) scale(1.1);
+    }
+  }
 }
 
 .header {
-	margin-bottom: 5rem;
+  margin-bottom: 5rem;
 }
 
 .content {
-	padding: 1rem;
+  padding: 1rem;
 }
 
 /* ____Typography____ */
 
 h1,
 h2 {
-	text-align: center;
-	// text-transform: uppercase;
+  text-align: center;
+  // text-transform: uppercase;
 }
 
 h1 {
-	line-height: 0.85;
-	font-size: 3rem;
-	font-weight: 100;
-	margin-bottom: 0.5rem;
+  line-height: 0.85;
+  font-size: 3rem;
+  font-weight: 100;
+  margin-bottom: .5rem;
 }
 
 h2 {
-	margin: 0;
-	font-weight: 400;
+  margin: 0;
+  font-weight: 400;
 }
 
 h3 {
-	font-size: 1.6rem;
-	white-space: nowrap;
-	color: var(--base-dark);
-	margin: 0;
+  font-size: 1.6rem;
+  white-space: nowrap;
+  color: var(--base-dark);
+  margin: 0;
 }
 
 h4 {
-	font-size: 1.4rem;
-	font-weight: 900;
-	margin: 1rem 0 0;
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin: 1rem 0 0;
 }
 
 h5 {
-	font-weight: 700;
-	font-size: 1.2rem;
-	margin: 0;
-	color: var(--base-dark);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--base-dark);
 }
 
 h6 {
-	font-weight: 600;
-	font-size: unset;
-	margin: 0.8rem 0 0.1rem;
+  font-weight: 600;
+  font-size: unset;
+  margin: .8rem 0 .1rem;
 }
 
 a {
-	color: var(--base-txt);
+  color: var(--base-txt);
 }
 /** ____CATEGORIES____ **/
 
 /* ____Profile____ */
 
 .profile {
-	text-align: justify;
+  text-align: justify;
 }
 
 /* ____Interests____ */
 
 dl {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	margin: $content-margin;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: $content-margin;
 }
 
 dt {
-	text-transform: uppercase;
-	font-weight: bold;
-	color: var(--base-dark);
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--base-dark);
 }
 
 dd {
-	margin-left: auto;
-	white-space: nowrap;
+  margin-left: auto;
+  white-space: nowrap;
 }
 
 /* ____Hobbies____ */
 /* ____Side projects____ */
 
 .projects {
-	ul {
-		list-style-type: none;
-		padding: 0;
-	}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-	li {
-		padding-bottom: 0.6rem;
-		display: flex;
-		flex-direction: row-reverse;
-		justify-content: space-between;
-		align-items: center;
+  li {
+    padding-bottom: .6rem;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
 
-		h5 {
-			padding-left: 0.5rem;
-		}
-	}
+    h5 {
+      padding-left: .5rem;
+    }
+  }
 
-	a {
-		font-size: 1rem;
-	}
+  a {
+    font-size: 1rem;
+  }
 
-	.technologies {
-		font-size: 1rem;
-	}
+  .technologies {
+    font-size: 1rem;
+  }
 }
 
 .not-working {
-	font-size: 0.9rem;
+  font-size: .9rem;
 }
 /* ____Experience____ */
 
 .experience {
-	margin-bottom: 2rem;
+  margin-bottom: 2rem;
 
-	.technologies {
-		margin-top: 0.5rem;
-		display: flex;
+  .technologies {
+    margin-top: .5rem;
+    display: flex;
 
-		h6 {
-			margin: 0;
-		}
+    h6 {
+      margin: 0;
+    }
 
-		.technologies-icons-list {
-			margin-left: .5rem;
+    .technologies-icons-list {
+      margin-left: .5rem;
 
-			::after {
-				min-width: none;
-			}
-		}
+      ::after {
+        min-width: none;
+      }
+    }
 
-		.tech-icons {
-			margin-left: 0.4rem;
-		}
-	}
+    .tech-icons {
+      margin-left: .4rem;
 
-	.technologies-list {
-		display: none;
-	}
+      &:hover {
+        transform: scale(1.2);
+        transition: transform .1s linear;
+      }
+    }
+  }
 
-	/* hack to increase tooltip width for headers */
-	h4 {
-		span::after {
-			min-width: 300px;
-		}
-	}
+  .technologies-list {
+    display: none;
+  }
+
+  /* hack to increase tooltip width for headers */
+  h4 {
+    span::after {
+      min-width: 300px;
+    }
+  }
 }
 
 .time {
-	font-weight: 400;
-	font-size: 1.2rem;
-	margin-left: 1rem;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin-left: 1rem;
 }
 
 .additional_info {
-	font-weight: 400;
-	font-size: 1rem;
-	margin: 0;
-	color: var(--light-txt);
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 0;
+  color: var(--light-txt);
 }
 
 .responsibilities {
-	.list-item {
-		display: block;
-		margin-bottom: 0.2rem;
+  .list-item {
+    display: block;
+    margin-bottom: .2rem;
 
-		&::before {
-			content: '- ';
-		}
-	}
+    &::before {
+      content: '- ';
+    }
+  }
 }
 
 .technologies {
-	// font-size: 1rem;
+  // font-size: 1rem;
 
-	.list-item {
-		&:not(:last-child) {
-			&::after {
-				content: ', ';
-			}
-		}
-	}
+  .list-item {
+    &:not(:last-child) {
+      &::after {
+        content: ', ';
+      }
+    }
+  }
 }
 
 .school {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .college-name {
-	font-weight: 500;
-	margin-left: .5rem;
+  font-weight: 500;
+  margin-left: .5rem;
 }
 
 /* ____PRINT____ */
