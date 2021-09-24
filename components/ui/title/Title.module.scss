@@ -11,6 +11,7 @@
 	border-bottom: 1px solid var(--lighter-txt);
 	width: 100%;
 	margin-left: .5rem;
+	animation: slideInBorder 1.5s ease-in-out 0s 1;
 }
 
 .icon {
@@ -18,4 +19,13 @@
 	width: 2.5rem;
 	margin-right: .8rem;
 	filter: opacity(0.7);
+}
+
+@keyframes slideInBorder {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }

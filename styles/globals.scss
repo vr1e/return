@@ -231,10 +231,24 @@ dd {
   }
 }
 
+.article-title {
+	display: flex;
+	align-items: center;
+
+  &:hover {
+    .time {
+      margin-left: 20%;
+    }
+  }
+}
+
 .time {
   font-weight: 400;
   font-size: 1.2rem;
   margin-left: 1rem;
+  transition: margin-left .5s ease-in-out;
+
+  
 }
 
 .additional_info {

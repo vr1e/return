@@ -15,7 +15,7 @@ export default function Article({ content }: Props): JSX.Element {
 	return (
 		<article>
 			<section className={styles.list}>
-				<h4 className={styles.title}>
+				<h4 className='article-title'>
 					<Tooltip content={content.description}>{content.company}</Tooltip>
 					<span className='time'>
 						{'//'} {content.time_start} - {content.time_end}
