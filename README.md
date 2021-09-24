@@ -6,7 +6,7 @@ Demo of my CV in NextJs/React/TS
 
 ## 🚧 Install the dependencies
 
-`npm i`
+### `npm i`
 
 ## 🚀 Available Scripts
 
@@ -18,7 +18,7 @@ Runs the page in dev mode on `http://localhost:3000/`
 The page will reload if you make edits.
 You will also see any errors in the console.
 
-### `npm run run build`
+### `npm run build`
 Builds the nextjs app for production
 
 ### `npm start`
