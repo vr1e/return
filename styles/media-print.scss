@@ -8,7 +8,9 @@
 		margin: 0;
 	}
 
-	.action-bar {
+	.action-bar,
+	.social,
+	footer {
 		display: none;
 	}
 
@@ -79,9 +81,5 @@
 		.technologies-icons-list {
 			display: none;
 		}
-	}
-
-	footer {
-		display: none;
 	}
 }

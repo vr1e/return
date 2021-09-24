@@ -20,6 +20,34 @@ export default function Header({ basicInfo }: Props): JSX.Element {
 				{first_name} <div className={styles.strong}>{last_name}</div>
 			</h1>
 			<h2>{title}</h2>
+			<div className='social'>
+				<a
+					className='social-icons'
+					href='https://www.linkedin.com/in/nikolavrhovac/'
+					target='_blank'
+					rel='noreferrer'
+					title='linkedin'>
+					<img
+						src='./social/linkedin.svg'
+						alt='linkedin'
+						width='25px'
+						height='25px'
+					/>
+				</a>
+				<a
+					className='social-icons'
+					href='https://github.com/vr1e'
+					target='_blank'
+					rel='noreferrer'
+					title='github'>
+					<img
+						src='./social/github.svg'
+						alt='github'
+						width='25px'
+						height='25px'
+					/>
+				</a>
+			</div>
 		</header>
 	);
 }
