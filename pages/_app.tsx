@@ -24,6 +24,18 @@ export default function NvApp({ Component, pageProps }) {
 			<div className='body'>
 				<ActionBar />
 				<Component {...pageProps} />
+				<footer>
+					<small>
+						All icons are courtesy of the wonderful people at{' '}
+						<a
+							href='https://icons8.com/'
+							target='_blank'
+							rel='noreferrer'
+							title='icons8.com'>
+							icons8
+						</a>
+					</small>
+				</footer>
 			</div>
 		</>
 	);
