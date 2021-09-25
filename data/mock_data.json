@@ -4,7 +4,9 @@
 			"first_name": "Nikola",
 			"id": "b63926ee-87ae-45c9-be84-98d4dd9b2f51",
 			"last_name": "Vrhovac",
-			"title": "Front-end developer"
+			"title": "Front-end developer",
+			"linkedin": "https://www.linkedin.com/in/nikolavrhovac",
+			"github": "https://github.com/vr1e"
 		},
 		"contact": {
 			"category": "aside",

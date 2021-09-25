@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function Header({ basicInfo }: Props): JSX.Element {
-	const { first_name, last_name, title } = basicInfo;
+	const { first_name, last_name, title, github, linkedin } = basicInfo;
 	return (
 		<header className='header'>
 			<img
@@ -23,7 +23,7 @@ export default function Header({ basicInfo }: Props): JSX.Element {
 			<div className='social'>
 				<a
 					className='social-icons'
-					href='https://www.linkedin.com/in/nikolavrhovac/'
+					href={linkedin}
 					target='_blank'
 					rel='noreferrer'
 					title='linkedin'>
@@ -36,7 +36,7 @@ export default function Header({ basicInfo }: Props): JSX.Element {
 				</a>
 				<a
 					className='social-icons'
-					href='https://github.com/vr1e'
+					href={github}
 					target='_blank'
 					rel='noreferrer'
 					title='github'>

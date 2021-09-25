@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import ActionBar from '../components/ui/action-bar/ActionBar';
+import Nav from '../components/ui/Nav';
 import '../styles/globals.scss';
 
 export default function NvApp({ Component, pageProps }) {
@@ -22,6 +23,7 @@ export default function NvApp({ Component, pageProps }) {
 				/>
 			</Head>
 			<div className='body'>
+				<Nav />
 				<ActionBar />
 				<Component {...pageProps} />
 				<footer>

@@ -4,46 +4,13 @@
 //
 // import { User } from 'path/to/interfaces';
 
-// export type AsideContent = {
-// 	type: string;
-// 	data: string | string[] | { address: string; e_mail: string; phone: string };
-// };
-
-// export type MainContent = {
-// 	id: string;
-// 	company: string;
-// 	additional_info: string;
-// 	time_start: string;
-// 	time_end: string;
-// 	job_title: string;
-// 	responsibilities: string[];
-// 	technologies: string[];
-// 	type: string;
-// 	data: string;
-// };
-
-// export type SectionInterface = {
-// 	id: string;
-// 	title: string;
-// 	category: string;
-// 	type: string;
-// 	content: AsideContent[] | MainContent[];
-// };
-
-// export type BasicInfo = {
-// 	id: string;
-// 	first_name: string;
-// 	last_name: string;
-// 	title: string;
-// };
-
-// ____________________________ ///
-
 export type IBasicInfo = {
 	id: string;
 	first_name: string;
 	last_name: string;
 	title: string;
+	github: string,
+	linkedin: string;
 };
 
 export type IProfile = {
@@ -147,4 +114,15 @@ export type IEducation = {
 	title: string;
 	type: string;
 	content: ISchool[];
+};
+
+export type ICv = {
+	basic_info: IBasicInfo;
+	contact: IContact;
+	education: IEducation;
+	experience: IExperience;
+	hobbies: IHobbies;
+	interests: IInterests;
+	profile: IProfile;
+	projects: IProjects;
 };

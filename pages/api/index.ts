@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getFireData } from '../../utils/get-data';
 
-const sampleUserData = ['nikola cv api'];
-
-const handler = (_req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 	try {
-		if (!Array.isArray(sampleUserData)) {
+		const data = await getFireData();
+		if (!data) {
 			throw new Error('Cannot find user data');
 		}
 
-		res.status(200).json(sampleUserData);
+		res.status(200).json(data);
 	} catch (err) {
 		res.status(500).json({ statusCode: 500, message: err.message });
 	}

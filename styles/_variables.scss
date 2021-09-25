@@ -1,1 +1,9 @@
 $content-margin: 1.1rem 0;
+$fonts-general: 'Open Sans', sans-serif;
+$fonts-code: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', 'Liberation Mono',
+	Menlo, Monaco, Consolas, monospace;
+
+:root {
+	--fonts-general: #{$fonts-general};
+	--fonts-code: #{$fonts-code};
+}

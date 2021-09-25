@@ -35,7 +35,7 @@ body {
 	background-color: var(--body-bg);
 	border: 1px solid var(--body-border-color);
 	// font-family: proxima-nova, Verdana, sans-serif;
-	font-family: 'Open Sans', sans-serif;
+	font-family: var(--fonts-general);
 	font-weight: 300;
 	font-size: 112.5%;
 	line-height: 1.4;
@@ -47,9 +47,27 @@ body {
 	}
 }
 
+.nav {
+	display: flex;
+	gap: 0.5rem;
+	padding: 1rem 0;
+
+	a {
+		font-family: var(--fonts-code);
+		font-size: 0.8rem;
+		color: var(--lighter-txt);
+		text-decoration: none;
+
+		&:hover {
+			font-weight: 700;
+			color: var(--light-txt);
+		}
+	}
+}
+
 .action-bar {
 	// height: 3rem;
-	padding: 2rem 1rem;
+	padding: 0 1rem;
 	display: flex;
 	justify-content: flex-end;
 }
@@ -93,6 +111,11 @@ body {
 
 .content {
 	padding: 1rem;
+
+	&.json {
+		font-family: var(--fonts-code);
+		font-size: 0.8rem;
+	}
 }
 
 /* ____Typography____ */
