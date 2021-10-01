@@ -1,28 +1,26 @@
-const path = require('path');
-// const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
+var dotenv = require('dotenv');
+const path = require('path');
 
 module.exports = {
 	mode: 'development',
-	devtool: 'eval-source-map',
 	entry: path.join(__dirname, 'src', 'index.js'),
 	output: {
-		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'dist'),
+		filename: '[name].bundle.js',
+		chunkFilename: '[name].bundle.js',
 		publicPath: '/'
 	},
+	devtool: 'source-map',
 	module: {
 		rules: [
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				use: {
-					loader: 'babel-loader'
-				}
+				use: ['babel-loader']
 			},
 			{
 				test: /\.html$/,
@@ -34,12 +32,19 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.(css|scss)$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+				test: /\.s[ac]ss$/i,
+				use: [
+					// Creates `style` nodes from JS strings
+					MiniCssExtractPlugin.loader,
+					// Translates CSS into CommonJS
+					'css-loader',
+					// Compiles Sass to CSS
+					'sass-loader'
+				]
 			},
 			{
-				test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
-				loaders: ['file-loader']
+				test: /\.(jpg|jpeg|png|gif|svg)$/,
+				type: 'asset/resource'
 			},
 			{
 				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -58,63 +63,70 @@ module.exports = {
 	},
 	plugins: [
 		// new CleanWebpackPlugin(),
+		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
-			inject: false,
-			template: require('html-webpack-template'),
-			appMountId: 'root',
-			title: 'return.rs',
-			meta: [
-				{
-					charset: 'utf-8'
-				},
-				{
-					name: 'viewport',
-					content: 'width=device-width, initial-scale=1'
-				}
-			],
-			mobile: true,
-			lang: 'sr',
-			links: [
-				{
-					href: '/apple-touch-icon.png',
-					rel: 'apple-touch-icon',
-					sizes: '32x32',
-					type: 'image/png'
-				},
-				{
-					href: '/favicon-32x32.png',
-					rel: 'icon',
-					sizes: '32x32',
-					type: 'image/png'
-				},
-				{
-					href: '/favicon-16x16.png',
-					rel: 'icon',
-					sizes: '16x16',
-					type: 'image/png'
-				},
-				{
-					href: '/safari-pinned-tab.svg',
-					rel: 'mask-icon',
-					color: '#e63946'
-				},
-				{
-					href: '/manifest.json',
-					rel: 'manifest'
-				},
-				{
-					href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,700',
-					rel: 'stylesheet'
-				}
-			],
-			googleAnalytics: {
-				trackingId: 'UA-90771646-8',
-				pageViewOnLoad: true
-			}
+			favicon: 'src/assets/favicon.ico',
+			meta: {
+				viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
+			},
+			template: 'src/template.html'
 		}),
+		// new HtmlWebpackPlugin({
+		// 	inject: false,
+		// 	template: require('html-webpack-template'),
+		// 	appMountId: 'root',
+		// 	title: 'return.rs',
+		// 	meta: [
+		// 		{
+		// 			charset: 'utf-8'
+		// 		},
+		// 		{
+		// 			name: 'viewport',
+		// 			content: 'width=device-width, initial-scale=1'
+		// 		}
+		// 	],
+		// 	mobile: true,
+		// 	lang: 'sr',
+		// 	links: [
+		// 		{
+		// 			href: '/apple-touch-icon.png',
+		// 			rel: 'apple-touch-icon',
+		// 			sizes: '32x32',
+		// 			type: 'image/png'
+		// 		},
+		// 		{
+		// 			href: '/favicon-32x32.png',
+		// 			rel: 'icon',
+		// 			sizes: '32x32',
+		// 			type: 'image/png'
+		// 		},
+		// 		{
+		// 			href: '/favicon-16x16.png',
+		// 			rel: 'icon',
+		// 			sizes: '16x16',
+		// 			type: 'image/png'
+		// 		},
+		// 		{
+		// 			href: '/safari-pinned-tab.svg',
+		// 			rel: 'mask-icon',
+		// 			color: '#e63946'
+		// 		},
+		// 		{
+		// 			href: '/manifest.json',
+		// 			rel: 'manifest'
+		// 		},
+		// 		{
+		// 			href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,700',
+		// 			rel: 'stylesheet'
+		// 		}
+		// 	],
+		// 	googleAnalytics: {
+		// 		trackingId: 'UA-90771646-8',
+		// 		pageViewOnLoad: true
+		// 	}
+		// }),
 		new MiniCssExtractPlugin({
-			filename: '[contenthash].css',
-			chunkFilename: '[id].css'
+			filename: '[name]-[contenthash].css'
 		}),
 		new CopyWebpackPlugin({
 			patterns: [
@@ -140,10 +152,14 @@ module.exports = {
 		}
 	},
 	devServer: {
-		contentBase: path.join(__dirname, 'src'),
+		https: true,
+		client: {
+			logging: 'warn'
+		},
 		compress: true,
-		port: 9000,
-		historyApiFallback: true
+		historyApiFallback: true,
+		// contentBase: path.join(__dirname, 'src'),
+		// port: 9000,
 		// stats: 'minimal'
 	}
 };
