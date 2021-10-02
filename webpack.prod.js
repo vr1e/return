@@ -3,8 +3,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const CopyPlugin = require('copy-webpack-plugin');
-// const BundleAnalyzerPlugin =
-// 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin =
+	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 	mode: 'production',
@@ -82,7 +82,9 @@ module.exports = {
 				}
 			]
 		}),
-		// new BundleAnalyzerPlugin()
+		new BundleAnalyzerPlugin({
+			analyzerMode: process.env.analyze ? 'server' : 'disabled' // disables analyzer for build on server
+		})
 	],
 	optimization: {
 		splitChunks: {
