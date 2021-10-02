@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import Particles from 'react-particles-js';
+import Particles from 'react-tsparticles';
 import particleConfig from './particleConfig';
 import './index.scss';
 
@@ -11,7 +11,7 @@ import Transliterate from './components/Transliterate';
 const App = () => {
 	return (
 		<BrowserRouter>
-			<Particles params={particleConfig} />
+			<Particles id='tsparticles' options={particleConfig} />
 			<ul className='nav'>
 				<li className='nav-item'>
 					<Link to='/' className='nav-link'>
