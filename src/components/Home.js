@@ -1,5 +1,5 @@
 import React from 'react';
-import Return from '../return.png';
+import Return from '../assets/return.png';
 
 function Home() {
 	return (

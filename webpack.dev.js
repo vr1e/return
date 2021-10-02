@@ -1,8 +1,6 @@
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
-var dotenv = require('dotenv');
 const path = require('path');
 
 module.exports = {
@@ -62,8 +60,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		// new CleanWebpackPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
 			favicon: 'src/assets/favicon.ico',
 			meta: {
@@ -71,55 +67,6 @@ module.exports = {
 			},
 			template: 'src/template.html'
 		}),
-		// new HtmlWebpackPlugin({
-		// 	inject: false,
-		// 	template: require('html-webpack-template'),
-		// 	appMountId: 'root',
-		// 	title: 'return.rs',
-		// 	meta: [
-		// 		{
-		// 			charset: 'utf-8'
-		// 		},
-		// 		{
-		// 			name: 'viewport',
-		// 			content: 'width=device-width, initial-scale=1'
-		// 		}
-		// 	],
-		// 	mobile: true,
-		// 	lang: 'sr',
-		// 	links: [
-		// 		{
-		// 			href: '/apple-touch-icon.png',
-		// 			rel: 'apple-touch-icon',
-		// 			sizes: '32x32',
-		// 			type: 'image/png'
-		// 		},
-		// 		{
-		// 			href: '/favicon-32x32.png',
-		// 			rel: 'icon',
-		// 			sizes: '32x32',
-		// 			type: 'image/png'
-		// 		},
-		// 		{
-		// 			href: '/favicon-16x16.png',
-		// 			rel: 'icon',
-		// 			sizes: '16x16',
-		// 			type: 'image/png'
-		// 		},
-		// 		{
-		// 			href: '/safari-pinned-tab.svg',
-		// 			rel: 'mask-icon',
-		// 			color: '#e63946'
-		// 		},
-		// 		{
-		// 			href: '/manifest.json',
-		// 			rel: 'manifest'
-		// 		},
-		// 		{
-		// 			href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,700',
-		// 			rel: 'stylesheet'
-		// 		}
-		// 	],
 		// 	googleAnalytics: {
 		// 		trackingId: 'UA-90771646-8',
 		// 		pageViewOnLoad: true
@@ -127,15 +74,6 @@ module.exports = {
 		// }),
 		new MiniCssExtractPlugin({
 			filename: '[name]-[contenthash].css'
-		}),
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: path.join(__dirname, 'src/assets'),
-					to: path.join(__dirname, 'dist/'),
-					toType: 'dir'
-				}
-			]
 		}),
 		new WebpackBar()
 	],
@@ -158,8 +96,9 @@ module.exports = {
 		},
 		compress: true,
 		historyApiFallback: true,
+		hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
 		// contentBase: path.join(__dirname, 'src'),
-		// port: 9000,
+		port: 9000,
 		// stats: 'minimal'
 	}
 };

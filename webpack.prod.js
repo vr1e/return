@@ -1,12 +1,10 @@
-// const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const CopyPlugin = require('copy-webpack-plugin');
-// var dotenv = require('dotenv');
-// const BundleAnalyzerPlugin =
-// 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin =
+	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
 	mode: 'production',
@@ -78,13 +76,13 @@ module.exports = {
 		new CopyPlugin({
 			patterns: [
 				{
-					from: path.join(__dirname, 'src/assets'),
+					from: path.join(__dirname, 'src/assets/server'),
 					to: path.join(__dirname, 'build/'),
 					toType: 'dir'
 				}
 			]
-		})
-		// new BundleAnalyzerPlugin()
+		}),
+		new BundleAnalyzerPlugin()
 	],
 	optimization: {
 		splitChunks: {
@@ -98,5 +96,7 @@ module.exports = {
 			}
 		},
 		minimize: true
-	}
+	},
+	devtool: false, // no SourceMap
+	target: 'web'
 };
