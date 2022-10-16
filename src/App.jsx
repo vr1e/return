@@ -1,12 +1,12 @@
-import { useCallback } from "react"
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
-import particleConfig from "./particleConfig";
-import "./index.scss";
+import { useCallback } from 'react';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import Particles from 'react-tsparticles';
+import { loadFull } from 'tsparticles';
+import './index.scss';
+import particleConfig from './particleConfig';
 
-import Home from "./components/Home";
-import Transliterate from "./components/Transliterate";
+import Home from './components/Home';
+import Transliterate from './components/Transliterate';
 
 function App() {
 	const particlesInit = useCallback(async engine => {
@@ -16,7 +16,6 @@ function App() {
 		// starting from v2 you can add only the features you need reducing the bundle size
 		await loadFull(engine);
 	}, []);
-
 
 	return (
 		<BrowserRouter>
@@ -37,14 +36,10 @@ function App() {
 					</Link>
 				</li>
 			</ul>
-			<Switch>
-				<Route path='/cyrillicconvert'>
-					<Transliterate />
-				</Route>
-				<Route path='/'>
-					<Home />
-				</Route>
-			</Switch>
+			<Routes>
+				<Route path='/cyrillicconvert' element={<Transliterate />} />
+				<Route path='/' element={<Home />} />
+			</Routes>
 		</BrowserRouter>
 	);
 }
