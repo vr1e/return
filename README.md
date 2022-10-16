@@ -4,6 +4,8 @@
 
 Demo of my CV in NextJs/React/TS
 
+## 🔐 Env variables
+`DB_HOST` - url to the db data
 ## 🚧 Install the dependencies
 
 ### `npm i`
