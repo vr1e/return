@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { TransliterateContext } from '../contexts/TransliterateContext';
 
 const cyrReplacementLetters = 'ђжћчш';
 
 function Cyrillic() {
-	const { cyrillic, handleCyrillic, replaceText } = useContext(
+	const transliterate = useContext(
 		TransliterateContext
 	);
 	const [active, setActive] = useState(false);
 	const [height, setHeight] = useState(200);
-	const refCyrillic = useRef();
+	const refCyrillic = useRef<HTMLTextAreaElement>(null);
 
 	useEffect(() => {
-		if (refCyrillic.current.scrollHeight > height)
-			setHeight(refCyrillic.current.scrollHeight + 5);
-	}, [cyrillic]);
+		if (refCyrillic?.current) {
+			if (refCyrillic.current.scrollHeight > height)
+				setHeight(refCyrillic.current.scrollHeight + 5);
+		}
+	}, [transliterate?.cyrillic]);
 
 	return (
 		<div className='language-input'>
@@ -28,8 +30,8 @@ function Cyrillic() {
 				style={{ height: `${height}px` }}
 				placeholder=''
 				ref={refCyrillic}
-				value={cyrillic}
-				onChange={e => handleCyrillic(e)}
+				value={transliterate?.cyrillic}
+				onChange={transliterate?.handleCyrillic}
 				onFocus={() => {
 					setActive(true);
 				}}
@@ -37,7 +39,7 @@ function Cyrillic() {
 			/>
 			<button
 				className='primary'
-				onClick={() => navigator.clipboard.writeText(cyrillic)}>
+				onClick={() => navigator.clipboard.writeText(transliterate?.cyrillic || '')}>
 				Koпирaj
 			</button>
 			<div className='button-list'>
@@ -45,7 +47,7 @@ function Cyrillic() {
 					<a
 						key={idx}
 						className='secondary'
-						onClick={e => replaceText(refCyrillic, e)}>
+						onClick={() => transliterate?.replaceText(refCyrillic, letter)}>
 						{letter}
 					</a>
 				))}

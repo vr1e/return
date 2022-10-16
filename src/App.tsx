@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
+import { Engine, IOptions, RecursivePartial } from 'tsparticles-engine';
 import './index.scss';
 import particleConfig from './particleConfig';
 
@@ -9,7 +10,7 @@ import Home from './components/Home';
 import Transliterate from './components/Transliterate';
 
 function App() {
-	const particlesInit = useCallback(async engine => {
+	const particlesInit = useCallback(async (engine: Engine) => {
 		// console.log(engine);
 		// you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
 		// this loads the tsparticles package bundle, it's the easiest method for getting everything ready
@@ -21,7 +22,7 @@ function App() {
 		<BrowserRouter>
 			<Particles
 				id='tsparticles'
-				options={particleConfig}
+				options={particleConfig as RecursivePartial<IOptions>}
 				init={particlesInit}
 			/>
 			<ul className='nav'>

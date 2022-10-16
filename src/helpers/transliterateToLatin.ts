@@ -1,4 +1,4 @@
-var a = {
+var lettersMatrix: { [key: string]: string } = {
 	Б: 'B',
 	В: 'V',
 	Г: 'G',
@@ -50,8 +50,8 @@ var a = {
 	ш: 'š'
 };
 
-export default word =>
+export default (word: string) =>
 	word
 		.split('')
-		.map(char => a[char] || char)
+		.map(char => lettersMatrix[char] || char)
 		.join('');
