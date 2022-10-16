@@ -1,6 +1,6 @@
 {
 	"name": "return",
-	"version": "1.2.1",
+	"version": "2.0.1",
 	"description": "Return webpage",
 	"homepage": "https://www.return.rs",
 	"author": "Nikola Vrhovac <nikola.vrhovac@gowi.rs> (https://github.com/vr1e/)",
@@ -34,9 +34,13 @@
 		"tsparticles": "^2.3.4"
 	},
 	"devDependencies": {
+		"@types/react": "^18.0.21",
+		"@types/react-dom": "^18.0.6",
+		"@types/styled-components": "^5.1.26",
 		"@vitejs/plugin-react": "^2.1.0",
 		"sass": "^1.55.0",
 		"styled-components": "^5.3.6",
+		"typescript": "^4.8.4",
 		"vite": "^3.1.8"
 	},
 	"prettier": {

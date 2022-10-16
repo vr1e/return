@@ -1,16 +1,18 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { TransliterateContext } from '../contexts/TransliterateContext';
 
-function Latin() {
-	const { latin, handleLatin } = useContext(TransliterateContext);
+export default function Latin() {
+	const transliterate = useContext(TransliterateContext);
 	const [active, setActive] = useState(false);
 	const [height, setHeight] = useState(200);
-	const refLatin = useRef();
+	const refLatin = useRef<HTMLTextAreaElement>(null);
 
 	useEffect(() => {
-		if (refLatin.current.scrollHeight > height)
-			setHeight(refLatin.current.scrollHeight + 5);
-	}, [latin]);
+		if (refLatin?.current) {
+			if (refLatin.current.scrollHeight > height)
+				setHeight(refLatin.current.scrollHeight + 5);
+		}
+	}, [transliterate?.latin]);
 
 	return (
 		<div className='language-input'>
@@ -24,8 +26,8 @@ function Latin() {
 				style={{ height: `${height}px` }}
 				placeholder=''
 				ref={refLatin}
-				value={latin}
-				onChange={e => handleLatin(e)}
+				value={transliterate?.latin}
+				onChange={transliterate?.handleLatin}
 				onFocus={() => {
 					setActive(true);
 				}}
@@ -33,11 +35,9 @@ function Latin() {
 			/>
 			<button
 				className='secondary'
-				onClick={() => navigator.clipboard.writeText(latin)}>
+				onClick={() => navigator.clipboard.writeText(transliterate?.latin || '')}>
 				Copy
 			</button>
 		</div>
 	);
 }
-
-export default Latin;

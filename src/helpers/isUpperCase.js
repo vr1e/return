@@ -1,1 +1,0 @@
-export default str => str.split('').some(letter => letter == letter.toUpperCase() && letter != letter.toLowerCase());
