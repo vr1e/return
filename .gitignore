@@ -62,3 +62,7 @@ typings/
 
 # App build folder
 build/
+
+# Nextjs branch files
+.env*.local
+next-env.d.ts

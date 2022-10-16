@@ -1,44 +1,44 @@
-import { MoveDirection, OutMode } from 'tsparticles';
-
 export default {
 	background: {
-		color: '#000'
+		color: "#000",
 	},
 	fullScreen: {
-		enable: true
+		enable: true,
 	},
 	particles: {
 		color: {
-			value: '#ffffff'
+			value: "#ffffff",
 		},
 		lineLinked: {
-			enable: false
+			enable: false,
 		},
 		move: {
 			bounce: false,
-			direction: MoveDirection.none,
+			directions: "none",
 			enable: true,
-			outMode: OutMode.out,
+			outModes: {
+				default: "bounce",
+			},
 			random: true,
 			speed: 0.1,
-			straight: false
+			straight: false,
 		},
 		opacity: {
 			animation: {
 				enable: true,
 				minimumValue: 0,
 				speed: 1,
-				sync: false
+				sync: false,
 			},
 			random: true,
-			value: 1
+			value: 1,
 		},
 		shape: {
-			type: 'circle'
+			type: "circle",
 		},
 		size: {
 			random: true,
-			value: 3
-		}
-	}
+			value: 3,
+		},
+	},
 };
