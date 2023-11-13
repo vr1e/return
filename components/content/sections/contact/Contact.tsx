@@ -6,7 +6,7 @@ interface Props {
 	contact: IContact;
 }
 
-export default function Contact({ contact }: Props): JSX.Element {
+export default function Contact({ contact }: Props) {
 	const list = Object.entries(contact.content.data);
 	return (
 		<>

@@ -1,12 +1,12 @@
 // import Tooltip from '../ui/Tooltip';
 import { IBasicInfo } from '../../interfaces';
-import styles from './Header.module.scss';
+import styles from './Header.module.css';
 
 interface Props {
 	basicInfo: IBasicInfo;
 }
 
-export default function Header({ basicInfo }: Props): JSX.Element {
+export default function Header({ basicInfo }: Props) {
 	const { first_name, last_name, title, github, linkedin } = basicInfo;
 	return (
 		<header className='header'>

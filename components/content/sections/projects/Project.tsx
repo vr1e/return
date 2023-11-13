@@ -4,7 +4,7 @@ interface Props {
 	project: IProject;
 }
 
-export default function Project({ project }: Props): JSX.Element {
+export default function Project({ project }: Props) {
 	return (
 		<>
 			<Tooltip content={!project.url ? 'no longer operating' : ''}>

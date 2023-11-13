@@ -6,7 +6,7 @@ interface Props {
 
 export default function Responsibilities({
 	responsibilities,
-}: Props): JSX.Element {
+}: Props) {
 	// if (!responsibilities) return null;
 
 	return (

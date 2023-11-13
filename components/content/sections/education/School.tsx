@@ -4,7 +4,7 @@ interface Props {
 	school: ISchool;
 }
 
-export default function School({ school }: Props): JSX.Element {
+export default function School({ school }: Props) {
 	return (
 		<div key={school.id} className='school'>
 			<h5>

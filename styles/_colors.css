@@ -1,4 +1,4 @@
-$base-dark: #184c62;
+/* $base-dark: #184c62;
 $base-txt: #212529;
 $light-txt: #343A40;
 $lighter-txt: #495057;
@@ -8,11 +8,11 @@ $body-bg: #fff;
 $body-border-color: #ccc;
 
 $selection-txt: #ffd166;
-$selection-bg: #333;
+$selection-bg: #333; */
 
 
 /* SCSS HSL */
-$cultured: hsla(210, 17%, 98%, 1);
+/* $cultured: hsla(210, 17%, 98%, 1);
 $cultured-2: hsla(210, 16%, 93%, 1);
 $gainsboro: hsla(210, 14%, 89%, 1);
 $light-gray: hsla(210, 14%, 83%, 1);
@@ -20,17 +20,17 @@ $cadet-blue-crayola: hsla(210, 11%, 71%, 1);
 $slate-gray: hsla(208, 7%, 46%, 1);
 $davys-grey: hsla(210, 9%, 31%, 1);
 $gunmetal: hsla(210, 10%, 23%, 1);
-$charleston-green: hsla(210, 11%, 15%, 1);
+$charleston-green: hsla(210, 11%, 15%, 1); */
 
 
 :root {
-	--base-dark: #{$davys-grey};
-	--base-txt: #{$base-txt};
-	--light-txt: #{$light-txt};
-	--lighter-txt: #{$cadet-blue-crayola};
-	--base-bg: #{$base-bg};
-	--body-bg: #{$body-bg};
-	--body-border-color: #{$body-border-color};
-	--selection-bg: #{$selection-bg};
-	--selection-txt: #{$selection-txt};
+	--base-dark: hsla(210, 9%, 31%, 1);
+	--base-txt: #212529;
+	--light-txt: #343a40;
+	--lighter-txt: hsla(210, 11%, 71%, 1);
+	--base-bg: #eee;
+	--body-bg: #fff;
+	--body-border-color: #ccc;
+	--selection-bg: #333;
+	--selection-txt: #ffd166;
 }

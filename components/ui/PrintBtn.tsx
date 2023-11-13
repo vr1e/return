@@ -1,6 +1,6 @@
 interface Props {}
 
-export default function PrintBtn({}: Props): JSX.Element {
+export default function PrintBtn({}: Props) {
 	function print() {
 		window.print();
 	}

@@ -1,13 +1,13 @@
 import { IProjects } from '../../../../interfaces';
 import Title from '../../../ui/title/Title';
 import Project from './Project';
-import styles from './Projects.module.scss';
+import styles from './Projects.module.css';
 
 interface Props {
 	projects: IProjects;
 }
 
-export default function Projects({ projects }: Props): JSX.Element {
+export default function Projects({ projects }: Props) {
 	// console.log(projects);
 	const projectYears = projects.content.map(project => project.year);
 	const uniqueYears = Array.from(new Set(projectYears)).sort().reverse();

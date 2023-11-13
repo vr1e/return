@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function Nav(): JSX.Element {
+export default function Nav() {
 	return (
 		<nav className='nav'>
 			{/* <Link href='/json'>

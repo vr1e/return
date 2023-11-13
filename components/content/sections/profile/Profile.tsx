@@ -5,7 +5,7 @@ interface Props {
 	profile: IProfile;
 }
 
-export default function Profile({ profile }: Props): JSX.Element {
+export default function Profile({ profile }: Props) {
 	// console.log(profile);
 	return (
 		<>

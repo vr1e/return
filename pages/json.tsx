@@ -1,11 +1,11 @@
-import { getFireData } from '../utils/get-data';
+import { getFireData } from '../utils/getFireData';
 import { ICv } from '../interfaces';
 
 interface Props {
 	cv: any;
 }
 
-export default function json({ cv }: Props): JSX.Element {
+export default function json({ cv }: Props) {
 
 	return <div className='content json'>{cv}</div>;
 }

@@ -5,7 +5,7 @@ interface Props {
 	technologies: string[];
 }
 
-export default function Technologies({ technologies }: Props): JSX.Element {
+export default function Technologies({ technologies }: Props) {
 	// if (!technologies) return null;
 
 	return (

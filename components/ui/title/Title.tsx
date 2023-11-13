@@ -1,11 +1,11 @@
-import styles from './Title.module.scss';
+import styles from './Title.module.css';
 
 interface Props {
 	title: string;
 	type: string;
 }
 
-export default function Title({ title, type }: Props): JSX.Element {
+export default function Title({ title, type }: Props) {
 	return (
 		<div className={styles.title}>
 			<img

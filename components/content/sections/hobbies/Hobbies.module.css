@@ -6,8 +6,8 @@
 
 .content_list_item {
 	white-space: nowrap;
+}
 
-	&::after {
-		content: '|';
-	}
+.content_list_item::after {
+	content: "|";
 }

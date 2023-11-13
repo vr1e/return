@@ -2,7 +2,7 @@ interface Props {
 	
 }
 
-export default function json({}: Props): JSX.Element {
+export default function json({}: Props) {
 		return (
 			<div className="content">
 				

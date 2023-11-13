@@ -6,7 +6,7 @@ interface Props {
 	education: IEducation;
 }
 
-export default function Education({ education }: Props): JSX.Element {
+export default function Education({ education }: Props) {
 	return (
 		<section className={education.type}>
 			<Title title={education.title} type={education.type} />

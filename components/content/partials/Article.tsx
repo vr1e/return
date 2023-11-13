@@ -1,7 +1,6 @@
 import { IArticle } from '../../../interfaces';
 import Tooltip from '../../ui/Tooltip';
-// import Lists from '../../ui/Lists';
-import styles from './Article.module.scss';
+import styles from './Article.module.css';
 import Responsibilities from './Responsibilities';
 import Technologies from './Technologies';
 
@@ -9,7 +8,7 @@ interface Props {
 	content: IArticle;
 }
 
-export default function Article({ content }: Props): JSX.Element {
+export default function Article({ content }: Props) {
 	// console.log(content);
 
 	return (

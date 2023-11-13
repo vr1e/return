@@ -16,7 +16,7 @@ import {
 	IProjects,
 	IEducation,
 } from '../interfaces';
-import { getFireData } from '../utils/get-data';
+import { getFireData } from '../utils/getFireData';
 
 interface Props {
 	basicInfo: IBasicInfo;
@@ -29,7 +29,7 @@ interface Props {
 	education: IEducation;
 }
 
-export default function IndexPage(props: Props): JSX.Element {
+export default function IndexPage(props: Props) {
 	const {
 		basicInfo,
 		profile,

@@ -1,7 +1,11 @@
 import Head from 'next/head';
 import ActionBar from '../components/ui/action-bar/ActionBar';
 import Nav from '../components/ui/Nav';
-import '../styles/globals.scss';
+import "../styles/_colors.css";
+import '../styles/globals.css';
+import "../styles/media-tablet.css";
+import "../styles/media-desktop.css";
+import "../styles/media-print.css";
 
 export default function NvApp({ Component, pageProps }) {
 	return (

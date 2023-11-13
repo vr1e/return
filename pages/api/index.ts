@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getFireData } from '../../utils/get-data';
+import { getFireData } from '../../utils/getFireData';
 
 const handler = async (_req: NextApiRequest, res: NextApiResponse) => {
 	try {

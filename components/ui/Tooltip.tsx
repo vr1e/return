@@ -1,11 +1,11 @@
-import styles from './Tooltip.module.scss';
+import styles from './Tooltip.module.css';
 
 interface Props {
 	content: string;
 	children?: any
 }
 
-export default function Tooltip(props: Props): JSX.Element {
+export default function Tooltip(props: Props) {
 	if (!props.content) return <>{props.children}</>
 
 	return (

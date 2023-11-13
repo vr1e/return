@@ -3,7 +3,7 @@ interface Props {
 	separator?: string;
 }
 
-export default function Lists({ data, separator }: Props): JSX.Element {
+export default function Lists({ data, separator }: Props) {
 	// console.log(data);
 
 	if (!data) return null;

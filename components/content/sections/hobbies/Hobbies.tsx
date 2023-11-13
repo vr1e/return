@@ -1,13 +1,13 @@
 import { Fragment } from 'react';
 import { IHobbies } from '../../../../interfaces';
 import Title from '../../../ui/title/Title';
-import styles from './Hobbies.module.scss';
+import styles from './Hobbies.module.css';
 
 interface Props {
 	hobbies: IHobbies;
 }
 
-export default function Hobbies({ hobbies }: Props): JSX.Element {
+export default function Hobbies({ hobbies }: Props) {
 	return (
 		<>
 			<Title title={hobbies.title} type={hobbies.type} />
