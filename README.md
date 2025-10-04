@@ -4,15 +4,24 @@
 
 [![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
 
+A web application for Serbian text transliteration between Cyrillic and Latin scripts.
+
+## 🛠️ Tech Stack
+
+- React 18 + TypeScript
+- Vite 3
+- styled-components + SCSS
+- React Router DOM v6
+- tsparticles
+
 ## 🔲 App structure
 
 For the project to build, **these files must exist with exact filenames**:
 
-- `src/index.html` page template;
-- `src/index.js` JavaScript entry point.
+- `index.html` page template (at root);
+- `src/main.tsx` TypeScript entry point.
 
 ## 🚧 Install the dependencies
-
 
 ```
 $ cd project
@@ -23,10 +32,10 @@ $ npm install
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
-Launches the webpack-dev-server and starts the app in the development mode.<br>
-Open [http://localhost:9000](http://localhost:9000) to view it in the browser.
+Launches the Vite dev server and starts the app in development mode.<br>
+Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will also see any errors in the console.
@@ -36,10 +45,16 @@ You will also see any errors in the console.
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
+The build is minified and the filenames include the hashes.
+
+### `npm run preview`
+
+Locally preview the production build after running `npm run build`.
 
 ## Dev config
-There are prettier code formating rules set inside package.json file for use with [Prettier](https://prettier.io/) inside your code editor.
+
+There are Prettier code formatting rules set inside package.json file for use with [Prettier](https://prettier.io/) inside your code editor.
 
 ## License
+
 MIT
