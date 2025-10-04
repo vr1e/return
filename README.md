@@ -6,6 +6,15 @@
 
 A web application for Serbian text transliteration between Cyrillic and Latin scripts.
 
+🌐 **Live Demo**: [https://www.return.rs](https://www.return.rs)
+
+## ✨ Features
+
+- Real-time bidirectional transliteration between Serbian Cyrillic and Latin alphabets
+- Proper handling of Serbian-specific digraphs (dž, lj, nj)
+- Interactive particle background effects
+- Clean, responsive interface
+
 ## 🛠️ Tech Stack
 
 - React 18 + TypeScript
@@ -20,6 +29,10 @@ For the project to build, **these files must exist with exact filenames**:
 
 - `index.html` page template (at root);
 - `src/main.tsx` TypeScript entry point.
+
+## 📋 Prerequisites
+
+- Node.js 22
 
 ## 🚧 Install the dependencies
 
