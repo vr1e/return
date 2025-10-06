@@ -1,7 +1,13 @@
-import { createContext, useState, useEffect, ReactNode, ChangeEvent, RefObject } from 'react';
-import transliterateToCyrillic from '../../helpers/transliterateToCyrillic';
-import transliterateToLatin from '../../helpers/transliterateToLatin';
-import isUpperCase from '../../helpers/isUpperCase';
+import {
+	createContext,
+	useState,
+	useEffect,
+	ReactNode,
+	ChangeEvent,
+	RefObject
+} from 'react';
+import transliterate from '../../helpers/transliterate';
+import containsUpperCase from '../../helpers/containsUpperCase';
 
 interface ITransliterateContext {
 	cyrillic: string;
@@ -14,7 +20,9 @@ interface ITransliterateContext {
 	) => void;
 }
 
-export const TransliterateContext = createContext<ITransliterateContext | null>(null);
+export const TransliterateContext = createContext<ITransliterateContext | null>(
+	null
+);
 
 function TransliterateContextProvider({ children }: { children: ReactNode }) {
 	const [cyrillic, setCyrillic] = useState('');
@@ -38,7 +46,7 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 		if (element.current) {
 			const { value, selectionStart, selectionEnd, name } = element.current;
 			const selectedText = value.slice(selectionStart, selectionEnd);
-			const replacementText = isUpperCase(selectedText)
+			const replacementText = containsUpperCase(selectedText)
 				? letter.toUpperCase()
 				: letter;
 
@@ -54,9 +62,9 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 
 	useEffect(() => {
 		if (lastEdit === 'cyrillic') {
-			setLatin(transliterateToLatin(cyrillic));
+			setLatin(transliterate(cyrillic, 'toLatin'));
 		} else if (lastEdit === 'latin') {
-			setCyrillic(transliterateToCyrillic(latin));
+			setCyrillic(transliterate(latin, 'toCyrillic'));
 		} else {
 			return;
 		}
