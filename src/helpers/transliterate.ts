@@ -71,7 +71,7 @@ const latinToCyrillicMap: { [key: string]: string } = {
 	q: 'к'
 };
 
-var cyrillicToLatinMap: { [key: string]: string } = {
+const cyrillicToLatinMap: { [key: string]: string } = {
 	А: 'A',
 	Б: 'B',
 	В: 'V',
