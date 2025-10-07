@@ -6,7 +6,7 @@ import {
 	ChangeEvent,
 	RefObject
 } from 'react';
-import transliterate from '../../helpers/transliterate';
+import transliterate from 'serbian-transliterate';
 import containsUpperCase from '../../helpers/containsUpperCase';
 
 interface ITransliterateContext {
