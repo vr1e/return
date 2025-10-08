@@ -15,11 +15,11 @@ This is a React + TypeScript web application for Serbian text transliteration be
 
 ## Technology Stack
 
-- **Build tool**: Vite 3 (migrated from Webpack)
+- **Build tool**: Vite 7 (migrated from Webpack)
 - **Framework**: React 18 with TypeScript
-- **Routing**: React Router DOM v6
+- **Routing**: React Router DOM v7
 - **Styling**: CSS Modules + plain CSS with CSS custom properties
-- **Visual effects**: tsparticles for background particle effects
+- **Visual effects**: @tsparticles v3 for background particle effects (using @tsparticles/react, @tsparticles/engine, @tsparticles/slim)
 - **Code formatting**: Prettier (configured in package.json with tabs, single quotes)
 
 ## Architecture
@@ -33,7 +33,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
 
 **App.tsx** is the root component that:
 
-- Configures tsparticles background animation (using `particleConfig.ts`)
+- Configures tsparticles background animation (using `config/particles.ts`)
 - Sets up BrowserRouter with two routes:
   - `/` - Home page
   - `/cyrillicconvert` - Transliteration tool
