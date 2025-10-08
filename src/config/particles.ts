@@ -2,16 +2,6 @@ import type { ISourceOptions } from '@tsparticles/engine';
 
 const particleConfig: ISourceOptions = {
 	autoPlay: true,
-	background: {
-		color: {
-			value: '#232741'
-		},
-		image: '',
-		position: '',
-		repeat: '',
-		size: '',
-		opacity: 1
-	},
 	backgroundMask: {
 		composite: 'destination-out',
 		cover: {
