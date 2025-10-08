@@ -3,7 +3,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
 import { Engine, IOptions, RecursivePartial } from 'tsparticles-engine';
-import './index.scss';
+import './index.css';
 import particleConfig from './particleConfig';
 
 import Home from './components/Home';
