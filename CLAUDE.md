@@ -9,7 +9,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
 ## Development Commands
 
 - **Start dev server**: `npm run dev` (runs Vite dev server)
-- **Build for production**: `npm run build` (outputs to `out/` directory)
+- **Build for production**: `npm run build` (outputs to `dist/` directory - Vite default)
 - **Preview production build**: `npm run preview`
 - **Run tests**: `npm test` (runs Vitest test suite)
 
@@ -48,19 +48,18 @@ This is a React + TypeScript web application for Serbian text transliteration be
   - `Latin.tsx` - Latin text input panel
   - `TransliterateContext.tsx` - Shared state provider
 
-**Transliteration Logic** (`src/helpers/`):
+**Transliteration Logic**:
 
-- `transliterateToCyrillic.ts` - Latin → Cyrillic conversion with special handling for digraphs (dž → џ, lj → љ, nj → њ)
-- `transliterateToLatin.ts` - Cyrillic → Latin conversion
-- `isUpperCase.ts` - Utility for case checking
-- Both use character mapping matrices and handle Serbian-specific letter combinations
+- Uses `serbian-transliterate` npm package for bidirectional conversion
+- Handles Serbian-specific digraphs (dž → џ, lj → љ, nj → њ) automatically
+- Helper function `containsUpperCase.ts` for case checking during text replacement
+- Context manages state and applies transliteration via `transliterate(text, 'toLatin')` or `transliterate(text, 'toCyrillic')`
 
 ### Build Configuration
 
 **vite.config.ts**:
 
 - Uses `@vitejs/plugin-react`
-- Custom build output directory: `out/` (instead of default `dist/`)
 
 **tsconfig.json**:
 
@@ -90,4 +89,3 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - The README mentions `src/index.html` and `src/index.js` as required files, but the actual entry point is `index.html` at root and `src/main.tsx`
 - Tests are configured with Vitest (`npm test`)
 - Node version is specified in `.nvmrc` (v22)
-- Build output directory changed from `build/` to `out/` in vite.config.ts
