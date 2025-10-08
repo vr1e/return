@@ -9,15 +9,16 @@ This is a React + TypeScript web application for Serbian text transliteration be
 ## Development Commands
 
 - **Start dev server**: `npm run dev` (runs Vite dev server)
-- **Build for production**: `npm run build` (outputs to `build/` directory)
+- **Build for production**: `npm run build` (outputs to `out/` directory)
 - **Preview production build**: `npm run preview`
+- **Run tests**: `npm test` (runs Vitest test suite)
 
 ## Technology Stack
 
 - **Build tool**: Vite 3 (migrated from Webpack)
 - **Framework**: React 18 with TypeScript
 - **Routing**: React Router DOM v6
-- **Styling**: styled-components + SCSS
+- **Styling**: CSS Modules + plain CSS with CSS custom properties
 - **Visual effects**: tsparticles for background particle effects
 - **Code formatting**: Prettier (configured in package.json with tabs, single quotes)
 
@@ -59,7 +60,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
 **vite.config.ts**:
 
 - Uses `@vitejs/plugin-react`
-- Custom build output directory: `build/` (instead of default `dist/`)
+- Custom build output directory: `out/` (instead of default `dist/`)
 
 **tsconfig.json**:
 
@@ -70,11 +71,23 @@ This is a React + TypeScript web application for Serbian text transliteration be
 
 ### Styling Approach
 
-- Mix of styled-components (for component-specific styles) and global SCSS (`src/index.scss`)
+- **CSS Modules** for component-specific styles (e.g., `Transliterate.module.css`, `Convert.module.css`)
+- **Global CSS** with CSS custom properties in `src/index.css`
+- **CSS Variables** organized by category:
+  - Text colors (`--text-primary`, `--text-white`, `--shadow-color`)
+  - Background colors (`--background-main`, `--background-overlay`, `--input-background`)
+  - Border colors (`--input-border`, `--border-transparent`)
+  - Link colors (`--link-default`, `--link-hover`)
+  - Theme colors for Cyrillic/Latin panels (`--cyrillic-color`, `--latin-color`, etc.)
+  - Spacing scale (`--spacing-none` through `--spacing-2xl`, `--spacing-offset`)
+  - Border radius (`--radius-sm`, `--radius-md`)
+  - Border widths and dimensions
+- Vite supports CSS Modules out of the box (`.module.css` files)
 - Prettier enforces consistent formatting (tabs, single quotes, no trailing commas)
 
 ## Important Notes
 
 - The README mentions `src/index.html` and `src/index.js` as required files, but the actual entry point is `index.html` at root and `src/main.tsx`
-- There are no tests configured (`npm test` exits with error)
-- Node version is specified in `.nvmrc`
+- Tests are configured with Vitest (`npm test`)
+- Node version is specified in `.nvmrc` (v22)
+- Build output directory changed from `build/` to `out/` in vite.config.ts
