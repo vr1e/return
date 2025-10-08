@@ -2,8 +2,6 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/66bfde30-e830-4dd6-a39e-50998e0679d8/deploy-status)](https://app.netlify.com/sites/suspicious-roentgen-45df9b/deploys)
 
-[![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
-
 A web application for Serbian text transliteration between Cyrillic and Latin scripts.
 
 🌐 **Live Demo**: [https://www.return.rs](https://www.return.rs)
@@ -19,8 +17,8 @@ A web application for Serbian text transliteration between Cyrillic and Latin sc
 
 - React 18 + TypeScript
 - Vite 3
-- styled-components + SCSS
 - React Router DOM v6
+- CSS Modules + CSS Custom Properties
 - tsparticles
 
 ## 🔲 App structure
@@ -29,6 +27,51 @@ For the project to build, **these files must exist with exact filenames**:
 
 - `index.html` page template (at root);
 - `src/main.tsx` TypeScript entry point.
+
+### Project Tree
+
+```
+.
+├── index.html                      # Root HTML template
+├── package.json                    # Dependencies and scripts
+├── vite.config.ts                  # Vite configuration
+├── vitest.config.ts                # Vitest test configuration
+├── tsconfig.json                   # TypeScript configuration
+├── .nvmrc                          # Node version specification
+├── CLAUDE.md                       # AI assistant guidance
+├── README.md                       # Project documentation
+├── LICENSE                         # MIT license
+│
+└── src/
+    ├── main.tsx                    # Application entry point
+    ├── App.tsx                     # Root component with routing
+    ├── index.css                   # Global styles with CSS variables
+    ├── particleConfig.ts           # tsparticles configuration
+    ├── vite-env.d.ts              # Vite type definitions
+    │
+    ├── components/
+    │   ├── Home.tsx                # Home page component
+    │   ├── Transliterate.tsx       # Transliteration page container
+    │   ├── Transliterate.module.css
+    │   │
+    │   ├── contexts/
+    │   │   └── TransliterateContext.tsx  # Shared state provider
+    │   │
+    │   └── partials/
+    │       ├── Cyrillic.tsx        # Cyrillic input panel
+    │       ├── Latin.tsx           # Latin input panel
+    │       ├── Convert.tsx         # Convert button component
+    │       └── Convert.module.css  # Convert component styles
+    │
+    ├── helpers/
+    │   └── containsUpperCase.ts   # Text utility functions
+    │
+    └── assets/                     # Static assets (favicons, images, etc.)
+        ├── return.png              # Logo image
+        ├── favicon.ico
+        ├── manifest.json
+        └── ...                     # Other icons and metadata
+```
 
 ## 📋 Prerequisites
 
@@ -55,10 +98,14 @@ You will also see any errors in the console.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
+Builds the app for production to the `dist` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.
+
+### `npm test`
+
+Runs the test suite using Vitest.
 
 ### `npm run preview`
 

@@ -1,0 +1,7 @@
+.transliterateBox {
+	display: grid;
+	grid-template-columns: auto auto;
+	gap: var(--spacing-lg);
+	padding: var(--spacing-lg);
+	margin-top: var(--spacing-offset);
+}

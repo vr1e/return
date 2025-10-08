@@ -65,6 +65,8 @@ typings/
 
 # App build folder
 build/
+out/
+dist/
 
 # Nextjs branch files
 next-env.d.ts
