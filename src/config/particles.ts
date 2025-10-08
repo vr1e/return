@@ -4,7 +4,7 @@ const particleConfig: ISourceOptions = {
 	autoPlay: true,
 	background: {
 		color: {
-			value: '#1d3557'
+			value: '#232741'
 		},
 		image: '',
 		position: '',
@@ -36,8 +36,8 @@ const particleConfig: ISourceOptions = {
 		detectsOn: 'window',
 		events: {
 			onClick: {
-				enable: false,
-				mode: []
+				enable: true,
+				mode: 'repulse'
 			},
 			onDiv: {
 				selectors: [],
@@ -46,8 +46,8 @@ const particleConfig: ISourceOptions = {
 				type: 'circle'
 			},
 			onHover: {
-				enable: false,
-				mode: [],
+				enable: true,
+				mode: 'bubble',
 				parallax: {
 					enable: false,
 					force: 2,
@@ -77,9 +77,17 @@ const particleConfig: ISourceOptions = {
 				distance: 200
 			},
 			bubble: {
-				distance: 200,
-				duration: 0.4,
-				mix: false
+				distance: 250,
+				duration: 2,
+				mix: false,
+				opacity: 0,
+				size: 0,
+				divs: {
+					distance: 200,
+					duration: 0.4,
+					mix: false,
+					selectors: []
+				}
 			},
 			connect: {
 				distance: 80,
@@ -89,7 +97,7 @@ const particleConfig: ISourceOptions = {
 				radius: 60
 			},
 			grab: {
-				distance: 100,
+				distance: 400,
 				links: {
 					blink: false,
 					consent: false,
@@ -105,12 +113,21 @@ const particleConfig: ISourceOptions = {
 				quantity: 2
 			},
 			repulse: {
-				distance: 200,
+				distance: 400,
 				duration: 0.4,
 				factor: 100,
 				speed: 1,
 				maxSpeed: 50,
-				easing: 'ease-out-quad'
+				easing: 'ease-out-quad',
+				divs: {
+					distance: 200,
+					duration: 0.4,
+					factor: 100,
+					speed: 1,
+					maxSpeed: 50,
+					easing: 'ease-out-quad',
+					selectors: []
+				}
 			},
 			slow: {
 				factor: 3,
@@ -125,17 +142,17 @@ const particleConfig: ISourceOptions = {
 				area: {
 					gradient: {
 						start: {
-							value: '#ffffff'
+							value: '#fff'
 						},
 						stop: {
-							value: '#000000'
+							value: '#000'
 						}
 					},
 					radius: 1000
 				},
 				shadow: {
 					color: {
-						value: '#000000'
+						value: '#000'
 					},
 					length: 2000
 				}
@@ -173,7 +190,7 @@ const particleConfig: ISourceOptions = {
 			}
 		},
 		color: {
-			value: ['#5bc0eb', '#fde74c', '#9bc53d', '#e55934', '#fa7921'],
+			value: '#fff',
 			animation: {
 				h: {
 					count: 0,
@@ -232,7 +249,7 @@ const particleConfig: ISourceOptions = {
 			},
 			decay: 0,
 			distance: {},
-			direction: 'top',
+			direction: 'none',
 			drift: 0,
 			enable: true,
 			gravity: {
@@ -258,7 +275,10 @@ const particleConfig: ISourceOptions = {
 			},
 			random: false,
 			size: false,
-			speed: 0.1,
+			speed: {
+				min: 0.1,
+				max: 1
+			},
 			spin: {
 				acceleration: 0,
 				enable: false
@@ -274,7 +294,7 @@ const particleConfig: ISourceOptions = {
 		},
 		number: {
 			density: {
-				enable: false,
+				enable: true,
 				width: 1920,
 				height: 1080
 			},
@@ -282,17 +302,17 @@ const particleConfig: ISourceOptions = {
 				mode: 'delete',
 				value: 0
 			},
-			value: 30
+			value: 160
 		},
 		opacity: {
 			value: {
-				min: 0.4,
-				max: 0.8
+				min: 0.1,
+				max: 1
 			},
 			animation: {
 				count: 0,
-				enable: false,
-				speed: 2,
+				enable: true,
+				speed: 1,
 				decay: 0,
 				delay: 0,
 				sync: false,
@@ -321,13 +341,13 @@ const particleConfig: ISourceOptions = {
 		},
 		size: {
 			value: {
-				min: 300,
-				max: 400
+				min: 1,
+				max: 3
 			},
 			animation: {
 				count: 0,
-				enable: true,
-				speed: 100,
+				enable: false,
+				speed: 5,
 				decay: 0,
 				delay: 0,
 				sync: false,
@@ -485,8 +505,8 @@ const particleConfig: ISourceOptions = {
 	style: {},
 	themes: [],
 	zLayers: 100,
-	key: 'big',
-	name: 'Big Particles',
+	key: 'interactive',
+	name: 'Interactive Particles',
 	motion: {
 		disable: false,
 		reduce: {
