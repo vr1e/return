@@ -34,6 +34,7 @@
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.4.2",
 		"react-tsparticles": "^2.3.3",
+		"serbian-transliterate": "^0.1.0",
 		"tsparticles": "^2.3.4"
 	},
 	"devDependencies": {
