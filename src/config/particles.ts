@@ -258,7 +258,7 @@ const particleConfig: ISourceOptions = {
 			},
 			random: false,
 			size: false,
-			speed: 10,
+			speed: 0.1,
 			spin: {
 				acceleration: 0,
 				enable: false
