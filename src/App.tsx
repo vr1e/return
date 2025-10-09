@@ -1,30 +1,31 @@
-import { useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
-import { Engine, IOptions, RecursivePartial } from 'tsparticles-engine';
+import Particles, { initParticlesEngine } from '@tsparticles/react';
+import { loadSlim } from '@tsparticles/slim';
+import type { Engine } from '@tsparticles/engine';
 import './index.css';
-import particleConfig from './particleConfig';
+import particleConfig from './config/particles';
 
 import Home from './components/Home';
 import Transliterate from './components/Transliterate';
 
 function App() {
-	const particlesInit = useCallback(async (engine: Engine) => {
-		// console.log(engine);
-		// you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-		// this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-		// starting from v2 you can add only the features you need reducing the bundle size
-		await loadFull(engine);
+	const [init, setInit] = useState(false);
+
+	useEffect(() => {
+		initParticlesEngine(async (engine: Engine) => {
+			// you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+			// this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+			// starting from v2 you can add only the features you need reducing the bundle size
+			await loadSlim(engine);
+		}).then(() => {
+			setInit(true);
+		});
 	}, []);
 
 	return (
 		<BrowserRouter>
-			<Particles
-				id='tsparticles'
-				options={particleConfig as RecursivePartial<IOptions>}
-				init={particlesInit}
-			/>
+			{init && <Particles id='tsparticles' options={particleConfig} />}
 			<ul className='nav'>
 				<li className='nav-item'>
 					<Link to='/' className='nav-link'>

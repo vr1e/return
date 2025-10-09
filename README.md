@@ -16,10 +16,10 @@ A web application for Serbian text transliteration between Cyrillic and Latin sc
 ## 🛠️ Tech Stack
 
 - React 18 + TypeScript
-- Vite 3
-- React Router DOM v6
+- Vite 7
+- React Router DOM v7
 - CSS Modules + CSS Custom Properties
-- tsparticles
+- @tsparticles v3
 
 ## 🔲 App structure
 
@@ -46,8 +46,10 @@ For the project to build, **these files must exist with exact filenames**:
     ├── main.tsx                    # Application entry point
     ├── App.tsx                     # Root component with routing
     ├── index.css                   # Global styles with CSS variables
-    ├── particleConfig.ts           # tsparticles configuration
     ├── vite-env.d.ts              # Vite type definitions
+    │
+    ├── config/
+    │   └── particles.ts            # tsparticles configuration
     │
     ├── components/
     │   ├── Home.tsx                # Home page component
