@@ -25,7 +25,7 @@ describe('Cyrillic component', () => {
 			</TransliterateContextProvider>
 		);
 
-		expect(screen.getByText('Koпирaj')).toBeInTheDocument();
+		expect(screen.getByText('Копирај')).toBeInTheDocument();
 	});
 
 	it('renders special character buttons', () => {
