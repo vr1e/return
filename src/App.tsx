@@ -3,8 +3,10 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
 import type { Engine } from '@tsparticles/engine';
+import { trackPages } from 'insights-js';
 import './index.css';
 import particleConfig from './config/particles';
+import { initAnalytics } from './utils/analytics';
 
 import Home from './components/Home';
 import Transliterate from './components/Transliterate';
@@ -21,6 +23,17 @@ function App() {
 		}).then(() => {
 			setInit(true);
 		});
+	}, []);
+
+	useEffect(() => {
+		// Initialize analytics (disabled in development mode)
+		initAnalytics({
+			projectId: import.meta.env.VITE_INSIGHTS_PROJECT_ID,
+			disabled: import.meta.env.DEV
+		});
+
+		// Enable automatic page view tracking
+		trackPages();
 	}, []);
 
 	return (
