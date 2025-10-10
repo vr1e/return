@@ -42,6 +42,10 @@ For the project to build, **these files must exist with exact filenames**:
 ├── README.md                       # Project documentation
 ├── LICENSE                         # MIT license
 │
+├── __tests__/                      # Integration tests and test setup
+│   ├── setup.ts                    # Vitest setup file
+│   └── transliteration.test.ts     # Transliteration logic tests
+│
 └── src/
     ├── main.tsx                    # Application entry point
     ├── App.tsx                     # Root component with routing
@@ -57,16 +61,20 @@ For the project to build, **these files must exist with exact filenames**:
     │   ├── Transliterate.module.css
     │   │
     │   ├── contexts/
-    │   │   └── TransliterateContext.tsx  # Shared state provider
+    │   │   ├── TransliterateContext.tsx       # Shared state provider
+    │   │   └── TransliterateContext.test.tsx  # Context tests
     │   │
     │   └── partials/
     │       ├── Cyrillic.tsx        # Cyrillic input panel
+    │       ├── Cyrillic.test.tsx   # Cyrillic component tests
     │       ├── Latin.tsx           # Latin input panel
+    │       ├── Latin.test.tsx      # Latin component tests
     │       ├── Convert.tsx         # Convert button component
     │       └── Convert.module.css  # Convert component styles
     │
     ├── helpers/
-    │   └── containsUpperCase.ts   # Text utility functions
+    │   ├── containsUpperCase.ts        # Text utility functions
+    │   └── containsUpperCase.test.ts   # Helper function tests
     │
     └── assets/                     # Static assets (favicons, images, etc.)
         ├── return.png              # Logo image
@@ -107,7 +115,30 @@ The build is minified and the filenames include the hashes.
 
 ### `npm test`
 
-Runs the test suite using Vitest.
+Runs the test suite in watch mode using Vitest.
+
+### `npm run test:coverage`
+
+Runs the test suite with coverage reporting. Generates an HTML report in the `coverage/` directory.
+
+**Coverage Thresholds:**
+- Statements: 88%+
+- Branches: 91%+
+- Functions: 57%+
+- Lines: 88%+
+
+**What's Tested:**
+- Transliteration logic (Cyrillic ↔ Latin conversion, Serbian digraphs)
+- Helper functions (containsUpperCase)
+- React components (Cyrillic, Latin, TransliterateContext)
+- User interactions (text input, copy buttons)
+
+**Test Files:**
+- `__tests__/transliteration.test.ts` - Integration tests for transliteration logic
+- `src/helpers/containsUpperCase.test.ts` - Unit tests (co-located)
+- `src/components/contexts/TransliterateContext.test.tsx` - Component tests (co-located)
+- `src/components/partials/Cyrillic.test.tsx` - Component tests (co-located)
+- `src/components/partials/Latin.test.tsx` - Component tests (co-located)
 
 ### `npm run preview`
 
