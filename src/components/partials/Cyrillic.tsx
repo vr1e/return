@@ -21,7 +21,7 @@ function Cyrillic() {
 	return (
 		<div className='language-input'>
 			<label htmlFor='cyrillic'>
-				<span className='highlight primary'>Ћирилични тeкст:</span>
+				<span className='highlight primary'>Ћирилични текст:</span>
 			</label>
 			<textarea
 				id='cyrillic'
@@ -40,7 +40,7 @@ function Cyrillic() {
 			<button
 				className='primary'
 				onClick={() => navigator.clipboard.writeText(transliterate?.cyrillic || '')}>
-				Koпирaj
+				Копирај
 			</button>
 			<div className='button-list'>
 				{cyrReplacementLetters.split('').map((letter, idx) => (
