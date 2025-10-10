@@ -11,7 +11,8 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - **Start dev server**: `npm run dev` (runs Vite dev server)
 - **Build for production**: `npm run build` (outputs to `dist/` directory - Vite default)
 - **Preview production build**: `npm run preview`
-- **Run tests**: `npm test` (runs Vitest test suite)
+- **Run tests**: `npm test` (runs Vitest test suite in watch mode)
+- **Test with coverage**: `npm run test:coverage` (generates coverage report in `coverage/` directory)
 
 ## Technology Stack
 
@@ -20,6 +21,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - **Routing**: React Router DOM v7
 - **Styling**: CSS Modules + plain CSS with CSS custom properties
 - **Visual effects**: @tsparticles v3 for background particle effects (using @tsparticles/react, @tsparticles/engine, @tsparticles/slim)
+- **Testing**: Vitest with @testing-library/react, jsdom, and v8 coverage
 - **Code formatting**: Prettier (configured in package.json with tabs, single quotes)
 
 ## Architecture
@@ -84,8 +86,43 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - Vite supports CSS Modules out of the box (`.module.css` files)
 - Prettier enforces consistent formatting (tabs, single quotes, no trailing commas)
 
+## Testing
+
+**Test Configuration** (`vitest.config.ts`):
+- Environment: jsdom (for React component testing)
+- Setup file: `__tests__/setup.ts` (imports @testing-library/jest-dom)
+- Coverage: v8 provider with HTML and text reporters
+- Coverage excludes: test files, config files, entry points, assets, and non-core components
+
+**Test Structure** (following common convention):
+- **Integration tests** in `__tests__/` directory at root:
+  - `__tests__/transliteration.test.ts` - serbian-transliterate package integration
+- **Unit and component tests** co-located with source files:
+  - `src/helpers/containsUpperCase.test.ts` - Helper function tests
+  - `src/components/contexts/TransliterateContext.test.tsx` - Context state management
+  - `src/components/partials/Cyrillic.test.tsx` - Cyrillic input panel
+  - `src/components/partials/Latin.test.tsx` - Latin input panel
+
+**Coverage Metrics** (core functionality):
+- Statements: 88%+
+- Branches: 91%+
+- Lines: 88%+
+
+**What's Tested**:
+- Cyrillic ↔ Latin transliteration with Serbian digraphs (dž, lj, nj)
+- Case sensitivity handling
+- Helper functions (containsUpperCase)
+- React component rendering and interactions
+- Context state management and auto-transliteration
+- User interactions (text input)
+
+**Running Tests**:
+- `npm test` - Watch mode for development
+- `npm run test:coverage` - Full coverage report
+
 ## Important Notes
 
 - The README mentions `src/index.html` and `src/index.js` as required files, but the actual entry point is `index.html` at root and `src/main.tsx`
-- Tests are configured with Vitest (`npm test`)
 - Node version is specified in `.nvmrc` (v22)
+- Test files use `.test.ts` or `.test.tsx` extension
+- Test organization: integration tests in `__tests__/`, unit/component tests co-located with source files
