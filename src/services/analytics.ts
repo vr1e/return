@@ -1,5 +1,4 @@
 import { init, track, parameters, trackPages } from 'insights-js';
-import { INSIGHTS_PROJECT_ID } from '../config/env';
 
 // Type definitions
 export type TransliterationEventParams = {
@@ -41,7 +40,7 @@ class AnalyticsService {
 		}
 
 		try {
-			init(INSIGHTS_PROJECT_ID);
+			init(projectId);
 			this.state = 'active';
 		} catch (error) {
 			console.error('Failed to initialize analytics:', error);
@@ -119,7 +118,7 @@ class AnalyticsService {
 	 * This method is guarded to only run in a test environment.
 	 */
 	public reset(): void {
-		if (import.meta.env.TEST) {
+		if (import.meta.env.VITEST) {
 			this.state = 'uninitialized';
 		}
 	}
