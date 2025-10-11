@@ -25,6 +25,9 @@ function App() {
 
 	return (
 		<BrowserRouter>
+			<a href='#main-content' className='skip-link'>
+				Skip to main content
+			</a>
 			{init && <Particles id='tsparticles' options={particleConfig} />}
 			<ul className='nav'>
 				<li className='nav-item'>

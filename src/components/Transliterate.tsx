@@ -8,7 +8,9 @@ import TransliterateContextProvider from './contexts/TransliterateContext';
 
 function Transliterate() {
 	return (
-		<div className={`${styles.transliterateBox} transliterate-box`}>
+		<div
+			id='main-content'
+			className={`${styles.transliterateBox} transliterate-box`}>
 			<TransliterateContextProvider>
 				<Cyrillic />
 
