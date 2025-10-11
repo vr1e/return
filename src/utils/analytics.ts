@@ -3,30 +3,26 @@ import { init, track, parameters } from 'insights-js';
 /**
  * Custom event parameters for transliteration tracking
  */
-export interface TransliterationEventParams {
+export type TransliterationEventParams = {
 	direction: 'toLatin' | 'toCyrillic';
 	textLength?: number;
-	locale?: string;
-	screenType?: string;
-}
+};
 
 /**
  * Custom event parameters for navigation tracking
  */
-export interface NavigationEventParams {
+export type NavigationEventParams = {
 	from?: string;
 	to?: string;
-	locale?: string;
-	screenType?: string;
-}
+};
 
 /**
  * Analytics configuration
  */
-interface AnalyticsConfig {
+type AnalyticsConfig = {
 	projectId: string;
 	disabled?: boolean;
-}
+};
 
 type AnalyticsState = 'uninitialized' | 'disabled' | 'active';
 let analyticsState: AnalyticsState = 'uninitialized';
@@ -92,8 +88,8 @@ export const trackTransliteration = (
 			parameters: buildParameters({
 				direction: params.direction,
 				textLength: params.textLength,
-				locale: params.locale ?? parameters.locale(),
-				screenType: params.screenType ?? parameters.screenType()
+				locale: parameters.locale(),
+				screenSize: parameters.screenType()
 			})
 		});
 	} catch (error) {
@@ -114,8 +110,8 @@ export const trackNavigation = (params: NavigationEventParams): void => {
 			parameters: buildParameters({
 				from: params.from,
 				to: params.to,
-				locale: params.locale ?? parameters.locale(),
-				screenType: params.screenType ?? parameters.screenType()
+				locale: parameters.locale(),
+				screenType: parameters.screenType()
 			})
 		});
 	} catch (error) {
