@@ -68,7 +68,7 @@ class AnalyticsService {
 					direction: params.direction,
 					textLength: params.textLength,
 					locale: parameters.locale(),
-					screenSize: parameters.screenType()
+					screenType: parameters.screenType()
 				})
 			});
 		} catch (error) {
@@ -86,7 +86,7 @@ class AnalyticsService {
 					from: params.from,
 					to: params.to,
 					locale: parameters.locale(),
-					screenSize: parameters.screenType()
+					screenType: parameters.screenType()
 				})
 			});
 		} catch (error) {
