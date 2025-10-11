@@ -1,4 +1,4 @@
-import { init, track, trackPages, parameters } from 'insights-js';
+import { init, track, parameters } from 'insights-js';
 
 /**
  * Custom event parameters for transliteration tracking
@@ -34,13 +34,18 @@ let analyticsState: AnalyticsState = 'uninitialized';
 /**
  * Helper to build parameters object, filtering undefined/null and converting to strings
  */
-const buildParameters = (
-	params: Record<string, any>
-): Record<string, string> => {
+const buildParameters = (params: Record<string, any>) => {
 	return Object.fromEntries(
 		Object.entries(params)
 			.filter(([_, value]) => value !== undefined && value !== null)
-			.map(([key, value]) => [key, String(value)])
+			.map(([key, value]) => {
+				// Pass through ParameterValue objects from insights-js unchanged
+				if (typeof value === 'object' && value !== null && 'value' in value) {
+					return [key, value];
+				}
+				// Convert primitives to strings
+				return [key, String(value)];
+			})
 	);
 };
 
