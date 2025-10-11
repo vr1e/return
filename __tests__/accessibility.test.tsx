@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../src/App';
 import Cyrillic from '../src/components/partials/Cyrillic';
 import Latin from '../src/components/partials/Latin';
-import TransliterateContextProvider from '../src/components/contexts/TransliterateContext';
+import TransliterateContextProvider from '../src/contexts/TransliterateContext';
 
 describe('Accessibility Tests', () => {
 	describe('Skip to Content Link', () => {

@@ -8,8 +8,8 @@ import {
 	RefObject
 } from 'react';
 import transliterate from 'serbian-transliterate';
-import containsUpperCase from '../../helpers/containsUpperCase';
-import { trackTransliteration } from '../../utils/analytics';
+import containsUpperCase from '../helpers/containsUpperCase';
+import { analytics } from '../services/analytics';
 
 interface ITransliterateContext {
 	cyrillic: string;
@@ -67,24 +67,32 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 		}
 	};
 
+	// Effect for handling the core transliteration logic.
+	// This synchronizes the cyrillic and latin text states based on the last input.
 	useEffect(() => {
 		if (lastEdit === 'cyrillic') {
 			setLatin(transliterate(cyrillic, 'toLatin'));
 		} else if (lastEdit === 'latin') {
 			setCyrillic(transliterate(latin, 'toCyrillic'));
 		}
+	}, [cyrillic, latin, lastEdit]);
 
-		// Only set up tracking if there's a valid lastEdit
+	// Effect for handling analytics tracking.
+	// This is separate from the core logic to keep concerns separated.
+	// It tracks transliteration usage with a 2-second debounce.
+	useEffect(() => {
+		// Debounce tracking to avoid firing on every keystroke
+		if (trackingTimeoutRef.current !== null) {
+			clearTimeout(trackingTimeoutRef.current);
+		}
+
+		// Only track if there was an edit and there is text
 		if (lastEdit === 'cyrillic' || lastEdit === 'latin') {
-			// Track transliteration usage with debouncing (only track after 2 seconds of inactivity)
-			if (trackingTimeoutRef.current !== null) {
-				clearTimeout(trackingTimeoutRef.current);
-			}
-
 			const text = lastEdit === 'cyrillic' ? cyrillic : latin;
+
 			if (text.length > 0) {
 				trackingTimeoutRef.current = window.setTimeout(() => {
-					trackTransliteration({
+					analytics.trackTransliteration({
 						direction: lastEdit === 'cyrillic' ? 'toLatin' : 'toCyrillic',
 						textLength: text.length
 					});
@@ -92,7 +100,6 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 			}
 		}
 
-		// Always return cleanup function
 		return () => {
 			if (trackingTimeoutRef.current !== null) {
 				clearTimeout(trackingTimeoutRef.current);

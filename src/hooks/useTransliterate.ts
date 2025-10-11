@@ -1,6 +1,6 @@
 // filepath: /Users/nikola/Dev/return/return/src/hooks/useTransliterate.ts
 import { useContext } from 'react';
-import { TransliterateContext } from '../components/contexts/TransliterateContext';
+import { TransliterateContext } from '../contexts/TransliterateContext';
 
 export const useTransliterate = () => {
 	const context = useContext(TransliterateContext);
