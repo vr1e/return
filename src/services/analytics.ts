@@ -73,7 +73,7 @@ class AnalyticsService {
 					direction: params.direction,
 					textLength: params.textLength,
 					locale: parameters.locale(),
-					screenType: parameters.screenType() // Corrected from screenSize
+					screenType: parameters.screenType()
 				})
 			});
 		} catch (error) {
