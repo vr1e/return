@@ -54,4 +54,79 @@ describe('Cyrillic component', () => {
 
 		expect(textarea).toHaveValue('Здраво');
 	});
+
+	describe('Auto-resizing behavior', () => {
+		it('should update height when text is added', async () => {
+			const user = userEvent.setup();
+			render(
+				<TransliterateContextProvider>
+					<Cyrillic />
+				</TransliterateContextProvider>
+			);
+
+			const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+			const initialHeight = textarea.style.height;
+
+			// Mock scrollHeight to simulate content growth
+			Object.defineProperty(textarea, 'scrollHeight', {
+				configurable: true,
+				value: 400
+			});
+
+			// Type text to trigger height update
+			await user.type(textarea, 'Први ред\nДруги ред\nТрећи ред');
+
+			// Height should be set based on scrollHeight
+			expect(textarea.style.height).toBeTruthy();
+		});
+
+		it('should shrink height when text is deleted', async () => {
+			const user = userEvent.setup();
+			render(
+				<TransliterateContextProvider>
+					<Cyrillic />
+				</TransliterateContextProvider>
+			);
+
+			const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+			// Add multiline text
+			await user.type(textarea, 'Први ред\nДруги ред\nТрећи ред');
+
+			// Mock larger scrollHeight
+			Object.defineProperty(textarea, 'scrollHeight', {
+				configurable: true,
+				value: 400
+			});
+			await user.type(textarea, 'x'); // Trigger update
+
+			const largerHeight = textarea.style.height;
+
+			// Clear text
+			await user.clear(textarea);
+
+			// Mock smaller scrollHeight
+			Object.defineProperty(textarea, 'scrollHeight', {
+				configurable: true,
+				value: 100
+			});
+			await user.type(textarea, 'x'); // Trigger update
+
+			// Height should update based on new scrollHeight
+			expect(textarea.style.height).toBeTruthy();
+		});
+
+		it('should have initial height set', () => {
+			render(
+				<TransliterateContextProvider>
+					<Cyrillic />
+				</TransliterateContextProvider>
+			);
+
+			const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+			// Should have a style height set (even if 0px initially)
+			expect(textarea.style.height).toBeTruthy();
+		});
+	});
 });

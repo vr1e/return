@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect, useContext } from 'react';
-import { TransliterateContext } from '../contexts/TransliterateContext';
+import { useState, useRef, useEffect } from 'react';
+import { useTransliterate } from '../../hooks/useTransliterate';
 
 export default function Latin() {
-	const transliterate = useContext(TransliterateContext);
+	const transliterate = useTransliterate();
 	const [active, setActive] = useState(false);
 	const [height, setHeight] = useState(200);
 	const [copySuccess, setCopySuccess] = useState(false);
@@ -10,14 +10,13 @@ export default function Latin() {
 
 	useEffect(() => {
 		if (refLatin?.current) {
-			if (refLatin.current.scrollHeight > height)
-				setHeight(refLatin.current.scrollHeight + 5);
+			setHeight(refLatin.current.scrollHeight);
 		}
-	}, [transliterate?.latin]);
+	}, [transliterate.latin]);
 
 	const handleCopy = async () => {
 		try {
-			await navigator.clipboard.writeText(transliterate?.latin || '');
+			await navigator.clipboard.writeText(transliterate.latin || '');
 			setCopySuccess(true);
 			setTimeout(() => setCopySuccess(false), 1500);
 		} catch (err) {
@@ -48,8 +47,8 @@ export default function Latin() {
 				style={{ height: `${height}px` }}
 				placeholder=''
 				ref={refLatin}
-				value={transliterate?.latin}
-				onChange={transliterate?.handleLatin}
+				value={transliterate.latin}
+				onChange={transliterate.handleLatin}
 				onKeyDown={handleKeyDown}
 				onFocus={() => {
 					setActive(true);

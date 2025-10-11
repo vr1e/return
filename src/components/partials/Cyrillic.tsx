@@ -1,12 +1,10 @@
-import { useState, useEffect, useContext, useRef } from 'react';
-import { TransliterateContext } from '../contexts/TransliterateContext';
+import { useState, useEffect, useRef } from 'react';
+import { useTransliterate } from '../../hooks/useTransliterate';
 
 const cyrReplacementLetters = 'ђжћчш';
 
 function Cyrillic() {
-	const transliterate = useContext(
-		TransliterateContext
-	);
+	const transliterate = useTransliterate();
 	const [active, setActive] = useState(false);
 	const [height, setHeight] = useState(200);
 	const [copySuccess, setCopySuccess] = useState(false);
@@ -14,14 +12,13 @@ function Cyrillic() {
 
 	useEffect(() => {
 		if (refCyrillic?.current) {
-			if (refCyrillic.current.scrollHeight > height)
-				setHeight(refCyrillic.current.scrollHeight + 5);
+			setHeight(refCyrillic.current.scrollHeight);
 		}
-	}, [transliterate?.cyrillic]);
+	}, [transliterate.cyrillic]);
 
 	const handleCopy = async () => {
 		try {
-			await navigator.clipboard.writeText(transliterate?.cyrillic || '');
+			await navigator.clipboard.writeText(transliterate.cyrillic || '');
 			setCopySuccess(true);
 			setTimeout(() => setCopySuccess(false), 1500);
 		} catch (err) {
@@ -40,8 +37,8 @@ function Cyrillic() {
 	return (
 		<div className='language-input'>
 			<div id='cyrillic-instructions' className='sr-only'>
-				Press Ctrl+C or Cmd+C to copy text to clipboard. Use the letter insertion
-				buttons below to insert special Cyrillic characters.
+				Press Ctrl+C or Cmd+C to copy text to clipboard. Use the letter
+				insertion buttons below to insert special Cyrillic characters.
 			</div>
 			<label htmlFor='cyrillic'>
 				<span className='highlight primary'>Ћирилични текст:</span>
@@ -54,7 +51,7 @@ function Cyrillic() {
 				placeholder=''
 				ref={refCyrillic}
 				value={transliterate?.cyrillic}
-				onChange={transliterate?.handleCyrillic}
+				onChange={transliterate.handleCyrillic}
 				onKeyDown={handleKeyDown}
 				onFocus={() => {
 					setActive(true);
@@ -69,13 +66,20 @@ function Cyrillic() {
 				aria-label='Copy Cyrillic text to clipboard'>
 				Копирај{copySuccess ? ' ✓' : ''}
 			</button>
-			<div className='button-list' role='group' aria-label='Insert special Cyrillic letters'>
+			<div
+				className='button-list'
+				role='group'
+				aria-label='Insert special Cyrillic letters'>
 				{cyrReplacementLetters.split('').map((letter, idx) => (
 					<button
 						key={idx}
 						type='button'
 						className='primary'
-						onClick={() => transliterate?.replaceText(refCyrillic, letter)}
+						onClick={() => {
+							transliterate?.replaceText(refCyrillic, letter);
+							// Restore focus to textarea for better accessibility
+							refCyrillic.current?.focus();
+						}}
 						aria-label={`Insert Cyrillic letter ${letter}`}>
 						{letter}
 					</button>
