@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import { useTransliterate } from './useTransliterate';
-import TransliterateContextProvider from '../components/contexts/TransliterateContext';
+import TransliterateContextProvider from '../contexts/TransliterateContext';
 import { ReactNode } from 'react';
 
 describe('useTransliterate', () => {

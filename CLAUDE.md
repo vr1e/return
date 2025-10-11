@@ -49,7 +49,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - Core components:
   - `Cyrillic.tsx` - Cyrillic text input panel
   - `Latin.tsx` - Latin text input panel
-  - `TransliterateContext.tsx` - Shared state provider
+  - `src/contexts/TransliterateContext.tsx` - Shared state provider
 
 **Transliteration Logic**:
 
@@ -67,14 +67,18 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - Get project ID from https://getinsights.io
 - Analytics is automatically disabled in development mode (`import.meta.env.DEV`)
 
-**Analytics Utility** (`src/utils/analytics.ts`):
+**Analytics Service** (`src/services/analytics.ts`):
 
-- `initAnalytics()` - Initializes Insights with project ID and config
-- `enablePageTracking()` - Enables automatic page view tracking
-- `trackTransliteration()` - Tracks transliteration usage with parameters (direction, text length)
-- `trackNavigation()` - Tracks navigation between pages
-- `trackEvent()` - Generic custom event tracking
-- `isAnalyticsEnabled()` - Check if analytics is active
+- A singleton `AnalyticsService` class that wraps the `insights-js` library.
+- The service is exported as a single instance: `analytics`.
+- Public methods include:
+  - `init()`: Initializes Insights with project ID and config.
+  - `trackPages()`: Enables automatic page view tracking.
+  - `trackTransliteration()`: Tracks transliteration usage.
+  - `trackNavigation()`: Tracks navigation between pages.
+  - `trackEvent()`: Tracks a generic custom event.
+  - `isEnabled()`: Checks if analytics is active.
+  - `reset()`: Resets the service's state (for testing).
 
 **Implementation**:
 
@@ -128,7 +132,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
   - `__tests__/transliteration.test.ts` - serbian-transliterate package integration
 - **Unit and component tests** co-located with source files:
   - `src/helpers/containsUpperCase.test.ts` - Helper function tests
-  - `src/components/contexts/TransliterateContext.test.tsx` - Context state management
+  - `src/contexts/TransliterateContext.test.tsx` - Context state management
   - `src/components/partials/Cyrillic.test.tsx` - Cyrillic input panel
   - `src/components/partials/Latin.test.tsx` - Latin input panel
 

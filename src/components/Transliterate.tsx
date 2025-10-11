@@ -4,7 +4,7 @@ import Convert from './partials/Convert';
 
 import Cyrillic from './partials/Cyrillic';
 import Latin from './partials/Latin';
-import TransliterateContextProvider from './contexts/TransliterateContext';
+import TransliterateContextProvider from '../contexts/TransliterateContext';
 
 function Transliterate() {
 	return (

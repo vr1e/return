@@ -32,6 +32,8 @@ For the project to build, **these files must exist with exact filenames**:
 
 ```
 .
+├── public/
+│   └── _redirects                  # Netlify redirect rules for SPA routing
 ├── index.html                      # Root HTML template
 ├── package.json                    # Dependencies and scripts
 ├── vite.config.ts                  # Vite configuration
@@ -55,14 +57,17 @@ For the project to build, **these files must exist with exact filenames**:
     ├── config/
     │   └── particles.ts            # tsparticles configuration
     │
+    ├── contexts/
+    │   ├── TransliterateContext.tsx      # Shared state provider
+    │   └── TransliterateContext.test.tsx # Context tests
+    │
+    ├── services/
+    │   └── analytics.ts            # Analytics service singleton
+    │
     ├── components/
     │   ├── Home.tsx                # Home page component
     │   ├── Transliterate.tsx       # Transliteration page container
     │   ├── Transliterate.module.css
-    │   │
-    │   ├── contexts/
-    │   │   ├── TransliterateContext.tsx       # Shared state provider
-    │   │   └── TransliterateContext.test.tsx  # Context tests
     │   │
     │   └── partials/
     │       ├── Cyrillic.tsx        # Cyrillic input panel
@@ -122,21 +127,24 @@ Runs the test suite in watch mode using Vitest.
 Runs the test suite with coverage reporting. Generates an HTML report in the `coverage/` directory.
 
 **Coverage Thresholds:**
+
 - Statements: 88%+
 - Branches: 91%+
 - Functions: 57%+
 - Lines: 88%+
 
 **What's Tested:**
+
 - Transliteration logic (Cyrillic ↔ Latin conversion, Serbian digraphs)
 - Helper functions (containsUpperCase)
 - React components (Cyrillic, Latin, TransliterateContext)
 - User interactions (text input, copy buttons)
 
 **Test Files:**
+
 - `__tests__/transliteration.test.ts` - Integration tests for transliteration logic
 - `src/helpers/containsUpperCase.test.ts` - Unit tests (co-located)
-- `src/components/contexts/TransliterateContext.test.tsx` - Component tests (co-located)
+- `src/contexts/TransliterateContext.test.tsx` - Context tests
 - `src/components/partials/Cyrillic.test.tsx` - Component tests (co-located)
 - `src/components/partials/Latin.test.tsx` - Component tests (co-located)
 
