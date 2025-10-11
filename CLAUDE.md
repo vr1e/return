@@ -21,6 +21,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - **Routing**: React Router DOM v7
 - **Styling**: CSS Modules + plain CSS with CSS custom properties
 - **Visual effects**: @tsparticles v3 for background particle effects (using @tsparticles/react, @tsparticles/engine, @tsparticles/slim)
+- **Analytics**: insights-js for privacy-focused web analytics
 - **Testing**: Vitest with @testing-library/react, jsdom, and v8 coverage
 - **Code formatting**: Prettier (configured in package.json with tabs, single quotes)
 
@@ -57,6 +58,32 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - Helper function `containsUpperCase.ts` for case checking during text replacement
 - Context manages state and applies transliteration via `transliterate(text, 'toLatin')` or `transliterate(text, 'toCyrillic')`
 
+### Analytics Integration
+
+**Configuration** (Environment Variables):
+
+- Analytics uses Insights.io for privacy-focused tracking
+- Project ID is stored in `.env.local` as `VITE_INSIGHTS_PROJECT_ID`
+- Get project ID from https://getinsights.io
+- Analytics is automatically disabled in development mode (`import.meta.env.DEV`)
+
+**Analytics Utility** (`src/utils/analytics.ts`):
+
+- `initAnalytics()` - Initializes Insights with project ID and config
+- `enablePageTracking()` - Enables automatic page view tracking
+- `trackTransliteration()` - Tracks transliteration usage with parameters (direction, text length)
+- `trackNavigation()` - Tracks navigation between pages
+- `trackEvent()` - Generic custom event tracking
+- `isAnalyticsEnabled()` - Check if analytics is active
+
+**Implementation**:
+
+- Initialized in `App.tsx` on mount via `useEffect`
+- Automatic page view tracking enabled for React Router navigation
+- Transliteration events tracked in `TransliterateContext.tsx` with 2-second debouncing
+- Events include parameters: direction (toLatin/toCyrillic), text length, locale, screen type
+- All tracking silently fails if analytics is disabled or project ID not configured
+
 ### Build Configuration
 
 **vite.config.ts**:
@@ -89,12 +116,14 @@ This is a React + TypeScript web application for Serbian text transliteration be
 ## Testing
 
 **Test Configuration** (`vitest.config.ts`):
+
 - Environment: jsdom (for React component testing)
 - Setup file: `__tests__/setup.ts` (imports @testing-library/jest-dom)
 - Coverage: v8 provider with HTML and text reporters
 - Coverage excludes: test files, config files, entry points, assets, and non-core components
 
 **Test Structure** (following common convention):
+
 - **Integration tests** in `__tests__/` directory at root:
   - `__tests__/transliteration.test.ts` - serbian-transliterate package integration
 - **Unit and component tests** co-located with source files:
@@ -104,11 +133,13 @@ This is a React + TypeScript web application for Serbian text transliteration be
   - `src/components/partials/Latin.test.tsx` - Latin input panel
 
 **Coverage Metrics** (core functionality):
+
 - Statements: 88%+
 - Branches: 91%+
 - Lines: 88%+
 
 **What's Tested**:
+
 - Cyrillic ↔ Latin transliteration with Serbian digraphs (dž, lj, nj)
 - Case sensitivity handling
 - Helper functions (containsUpperCase)
@@ -117,6 +148,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - User interactions (text input)
 
 **Running Tests**:
+
 - `npm test` - Watch mode for development
 - `npm run test:coverage` - Full coverage report
 

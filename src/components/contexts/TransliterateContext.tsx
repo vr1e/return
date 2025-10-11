@@ -2,12 +2,14 @@ import {
 	createContext,
 	useState,
 	useEffect,
+	useRef,
 	ReactNode,
 	ChangeEvent,
 	RefObject
 } from 'react';
 import transliterate from 'serbian-transliterate';
 import containsUpperCase from '../../helpers/containsUpperCase';
+import { trackTransliteration } from '../../utils/analytics';
 
 interface ITransliterateContext {
 	cyrillic: string;
@@ -28,6 +30,7 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 	const [cyrillic, setCyrillic] = useState('');
 	const [latin, setLatin] = useState('');
 	const [lastEdit, setLastEdit] = useState<string | null>(null);
+	const trackingTimeoutRef = useRef<number | null>(null);
 
 	const handleCyrillic = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setLastEdit(event.target.name);
@@ -74,10 +77,33 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 			setLatin(transliterate(cyrillic, 'toLatin'));
 		} else if (lastEdit === 'latin') {
 			setCyrillic(transliterate(latin, 'toCyrillic'));
-		} else {
-			return;
 		}
-	}, [cyrillic, latin]);
+
+		// Only set up tracking if there's a valid lastEdit
+		if (lastEdit === 'cyrillic' || lastEdit === 'latin') {
+			// Track transliteration usage with debouncing (only track after 2 seconds of inactivity)
+			if (trackingTimeoutRef.current !== null) {
+				clearTimeout(trackingTimeoutRef.current);
+			}
+
+			const text = lastEdit === 'cyrillic' ? cyrillic : latin;
+			if (text.length > 0) {
+				trackingTimeoutRef.current = window.setTimeout(() => {
+					trackTransliteration({
+						direction: lastEdit === 'cyrillic' ? 'toLatin' : 'toCyrillic',
+						textLength: text.length
+					});
+				}, 2000);
+			}
+		}
+
+		// Always return cleanup function
+		return () => {
+			if (trackingTimeoutRef.current !== null) {
+				clearTimeout(trackingTimeoutRef.current);
+			}
+		};
+	}, [cyrillic, latin, lastEdit]);
 
 	return (
 		<TransliterateContext.Provider
