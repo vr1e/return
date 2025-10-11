@@ -68,25 +68,27 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 			setLatin(transliterate(cyrillic, 'toLatin'));
 		} else if (lastEdit === 'latin') {
 			setCyrillic(transliterate(latin, 'toCyrillic'));
-		} else {
-			return;
 		}
 
-		// Track transliteration usage with debouncing (only track after 2 seconds of inactivity)
-		if (trackingTimeoutRef.current !== null) {
-			clearTimeout(trackingTimeoutRef.current);
+		// Only set up tracking if there's a valid lastEdit
+		if (lastEdit === 'cyrillic' || lastEdit === 'latin') {
+			// Track transliteration usage with debouncing (only track after 2 seconds of inactivity)
+			if (trackingTimeoutRef.current !== null) {
+				clearTimeout(trackingTimeoutRef.current);
+			}
+
+			const text = lastEdit === 'cyrillic' ? cyrillic : latin;
+			if (text.length > 0) {
+				trackingTimeoutRef.current = window.setTimeout(() => {
+					trackTransliteration({
+						direction: lastEdit === 'cyrillic' ? 'toLatin' : 'toCyrillic',
+						textLength: text.length
+					});
+				}, 2000);
+			}
 		}
 
-		const text = lastEdit === 'cyrillic' ? cyrillic : latin;
-		if (text.length > 0) {
-			trackingTimeoutRef.current = window.setTimeout(() => {
-				trackTransliteration({
-					direction: lastEdit === 'cyrillic' ? 'toLatin' : 'toCyrillic',
-					textLength: text.length
-				});
-			}, 2000);
-		}
-
+		// Always return cleanup function
 		return () => {
 			if (trackingTimeoutRef.current !== null) {
 				clearTimeout(trackingTimeoutRef.current);
