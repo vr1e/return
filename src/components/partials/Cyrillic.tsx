@@ -76,7 +76,7 @@ function Cyrillic() {
 						type='button'
 						className='primary'
 						onClick={() => {
-							transliterate?.replaceText(refCyrillic, letter);
+							transliterate.replaceText(refCyrillic, letter);
 							// Restore focus to textarea for better accessibility
 							refCyrillic.current?.focus();
 						}}
