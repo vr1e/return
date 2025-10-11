@@ -59,16 +59,11 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 				value.slice(element.current.selectionEnd);
 
 			setLastEdit(name);
-			setCyrillic(newContent);
-
-			// Restore focus and position cursor after inserted letter
-			setTimeout(() => {
-				if (element.current) {
-					element.current.focus();
-					const newCursorPos = selectionStart + replacementText.length;
-					element.current.setSelectionRange(newCursorPos, newCursorPos);
-				}
-			}, 0);
+			if (name === 'cyrillic') {
+				setCyrillic(newContent);
+			} else if (name === 'latin') {
+				setLatin(newContent);
+			}
 		}
 	};
 
