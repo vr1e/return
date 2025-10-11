@@ -1,4 +1,5 @@
 import { init, track, parameters, trackPages } from 'insights-js';
+import { INSIGHTS_PROJECT_ID } from '../config/env';
 
 // Type definitions
 export type TransliterationEventParams = {
@@ -14,39 +15,33 @@ export type NavigationEventParams = {
 // Infer the ParameterValue type from the library's own functions for type safety.
 type ParameterValue = ReturnType<typeof parameters.screenType>;
 
-type AnalyticsConfig = {
-	projectId: string;
-	disabled?: boolean;
-};
-
 type AnalyticsState = 'uninitialized' | 'disabled' | 'active';
 
 // The return type for insights-js parameters can be complex.
 // It accepts ParameterValue objects or strings.
 type InsightsParams = Record<string, string | ParameterValue>;
 
-type InputParams = Record<string, string | number | boolean | undefined | ParameterValue>;
+type InputParams = Record<
+	string,
+	string | number | boolean | undefined | ParameterValue
+>;
 
 class AnalyticsService {
 	private state: AnalyticsState = 'uninitialized';
 
-	public init(config: AnalyticsConfig): void {
+	public init(projectId: string, disabled: boolean = false): void {
 		if (this.state !== 'uninitialized') {
 			console.warn('Analytics already initialized');
 			return;
 		}
 
-		if (
-			config.disabled ||
-			!config.projectId?.trim() ||
-			config.projectId === 'your-project-id-here'
-		) {
+		if (disabled || !projectId) {
 			this.state = 'disabled';
 			return;
 		}
 
 		try {
-			init(config.projectId);
+			init(INSIGHTS_PROJECT_ID);
 			this.state = 'active';
 		} catch (error) {
 			console.error('Failed to initialize analytics:', error);
@@ -73,7 +68,7 @@ class AnalyticsService {
 					direction: params.direction,
 					textLength: params.textLength,
 					locale: parameters.locale(),
-					screenType: parameters.screenType()
+					screenSize: parameters.screenType()
 				})
 			});
 		} catch (error) {
@@ -91,7 +86,7 @@ class AnalyticsService {
 					from: params.from,
 					to: params.to,
 					locale: parameters.locale(),
-					screenType: parameters.screenType()
+					screenSize: parameters.screenType()
 				})
 			});
 		} catch (error) {

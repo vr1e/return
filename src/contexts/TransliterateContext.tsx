@@ -67,6 +67,8 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 		}
 	};
 
+	// Effect for handling the core transliteration logic.
+	// This synchronizes the cyrillic and latin text states based on the last input.
 	useEffect(() => {
 		if (lastEdit === 'cyrillic') {
 			setLatin(transliterate(cyrillic, 'toLatin'));
@@ -75,6 +77,9 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 		}
 	}, [cyrillic, latin, lastEdit]);
 
+	// Effect for handling analytics tracking.
+	// This is separate from the core logic to keep concerns separated.
+	// It tracks transliteration usage with a 2-second debounce.
 	useEffect(() => {
 		// Debounce tracking to avoid firing on every keystroke
 		if (trackingTimeoutRef.current !== null) {

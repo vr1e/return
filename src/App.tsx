@@ -3,12 +3,13 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
 import type { Engine } from '@tsparticles/engine';
-import './index.css';
 import particleConfig from './config/particles';
 import { analytics } from './services/analytics';
-
+import { INSIGHTS_PROJECT_ID } from './config/env';
 import Home from './components/Home';
 import Transliterate from './components/Transliterate';
+
+import './index.css';
 
 function App() {
 	const [init, setInit] = useState(false);
@@ -26,10 +27,7 @@ function App() {
 
 	useEffect(() => {
 		// Initialize analytics (disabled in development mode)
-		analytics.init({
-			projectId: import.meta.env.VITE_INSIGHTS_PROJECT_ID,
-			disabled: import.meta.env.DEV
-		});
+		analytics.init(INSIGHTS_PROJECT_ID, import.meta.env.DEV);
 
 		// Enable automatic page view tracking
 		analytics.trackPages();
