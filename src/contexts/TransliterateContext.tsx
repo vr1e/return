@@ -82,7 +82,7 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 		}
 
 		// Only track if there was an edit and there is text
-		if ((lastEdit === 'cyrillic' || lastEdit === 'latin')) {
+		if (lastEdit === 'cyrillic' || lastEdit === 'latin') {
 			const text = lastEdit === 'cyrillic' ? cyrillic : latin;
 
 			if (text.length > 0) {
