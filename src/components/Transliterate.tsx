@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './Transliterate.module.css';
+import ErrorBoundary from './ErrorBoundary';
+import { analytics } from '../services/analytics';
 
 import Cyrillic from './partials/Cyrillic';
 import Latin from './partials/Latin';
@@ -10,13 +12,23 @@ function Transliterate() {
 		<div
 			id='main-content'
 			className={`${styles.transliterateBox} transliterate-box`}>
-			<TransliterateContextProvider>
-				<Cyrillic />
+			<ErrorBoundary
+				onError={(error, errorInfo) => {
+					analytics.trackError({
+						errorName: error.name,
+						errorMessage: error.message,
+						componentStack: errorInfo.componentStack,
+						userAction: 'transliterate-page'
+					});
+				}}>
+				<TransliterateContextProvider>
+					<Cyrillic />
 
-				{/* <Convert /> */}
+					{/* <Convert /> */}
 
-				<Latin />
-			</TransliterateContextProvider>
+					<Latin />
+				</TransliterateContextProvider>
+			</ErrorBoundary>
 		</div>
 	);
 }

@@ -22,6 +22,7 @@ const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
 	({ id, label, value, onChange, theme, copyButtonText, children }, ref) => {
 		const [active, setActive] = useState(false);
 		const [copySuccess, setCopySuccess] = useState(false);
+		const [copyError, setCopyError] = useState(false);
 
 		// Use forwarded ref if provided, otherwise create a local ref for the hook
 		const localRef = useRef<HTMLTextAreaElement>(null);
@@ -31,11 +32,20 @@ const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
 
 		const handleCopy = async () => {
 			try {
+				// Check if clipboard API is available
+				if (!navigator.clipboard) {
+					throw new Error('Clipboard API not available');
+				}
+
 				await navigator.clipboard.writeText(value || '');
 				setCopySuccess(true);
+				setCopyError(false);
 				setTimeout(() => setCopySuccess(false), 1500);
 			} catch (err) {
 				console.error('Failed to copy text:', err);
+				setCopyError(true);
+				setCopySuccess(false);
+				setTimeout(() => setCopyError(false), 3000);
 			}
 		};
 
@@ -65,15 +75,24 @@ const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
 					aria-label={`${id} text input`}
 				/>
 				<button
-					className={`${theme} ${copySuccess ? 'copy-success' : ''}`}
+					className={`${theme} ${copySuccess ? 'copy-success' : ''} ${
+						copyError ? 'copy-error' : ''
+					}`}
 					onClick={handleCopy}
 					aria-label={`Copy ${id} text to clipboard`}>
 					{copyButtonText}
 					{copySuccess ? ' ✓' : ''}
+					{copyError ? ' ✗' : ''}
 				</button>
+				{copyError && (
+					<div className='error-message' role='alert'>
+						Failed to copy. Please try again.
+					</div>
+				)}
 				{children}
 				<div aria-live='polite' aria-atomic='true' className='sr-only'>
 					{copySuccess && 'Text copied to clipboard successfully'}
+					{copyError && 'Failed to copy text to clipboard'}
 				</div>
 			</div>
 		);

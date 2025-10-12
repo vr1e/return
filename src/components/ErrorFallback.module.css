@@ -1,0 +1,84 @@
+.errorContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 400px;
+	padding: var(--spacing-xl);
+	text-align: center;
+	background: var(--background-overlay);
+	border-radius: var(--radius-md);
+	border: var(--border-width) solid var(--input-border);
+	margin: var(--spacing-xl);
+}
+
+.errorIcon {
+	font-size: 4rem;
+	color: var(--error-color);
+	margin-bottom: var(--spacing-lg);
+}
+
+.errorTitle {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: var(--text-primary);
+	margin-bottom: var(--spacing-md);
+}
+
+.errorMessage {
+	font-size: 1rem;
+	color: var(--text-primary);
+	margin-bottom: var(--spacing-xl);
+	max-width: 600px;
+	line-height: 1.6;
+}
+
+.errorDetails {
+	font-size: 0.875rem;
+	color: var(--text-primary);
+	opacity: 0.7;
+	margin-bottom: var(--spacing-xl);
+	font-family: monospace;
+	max-width: 800px;
+	word-break: break-word;
+}
+
+.buttonGroup {
+	display: flex;
+	gap: var(--spacing-md);
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.button {
+	padding: var(--spacing-sm) var(--spacing-lg);
+	font-size: 1rem;
+	border: none;
+	border-radius: var(--radius-sm);
+	cursor: pointer;
+	transition: all 0.2s ease;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.primaryButton {
+	background-color: var(--cyrillic-color);
+	color: var(--text-white);
+}
+
+.primaryButton:hover {
+	background-color: var(--cyrillic-hover);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.secondaryButton {
+	background-color: var(--latin-color);
+	color: var(--text-white);
+}
+
+.secondaryButton:hover {
+	background-color: var(--latin-hover);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

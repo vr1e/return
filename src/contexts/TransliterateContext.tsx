@@ -50,44 +50,98 @@ const transliterateReducer = (
 ): ITransliterateState => {
 	switch (action.type) {
 		case 'SET_CYRILLIC':
-			return {
-				cyrillic: action.payload,
-				latin: transliterate(action.payload, 'toLatin'),
-				lastEdit: 'cyrillic'
-			};
+			try {
+				const transliteratedLatin = transliterate(action.payload, 'toLatin');
+				return {
+					cyrillic: action.payload,
+					latin: transliteratedLatin,
+					lastEdit: 'cyrillic'
+				};
+			} catch (error) {
+				console.error('Transliteration error (toLatin):', error);
+				analytics.trackError({
+					errorName: 'TransliterationError',
+					errorMessage:
+						error instanceof Error ? error.message : 'Unknown error',
+					userAction: 'setCyrillic'
+				});
+				// Return state with original cyrillic but keep existing latin
+				return {
+					...state,
+					cyrillic: action.payload,
+					lastEdit: 'cyrillic'
+				};
+			}
 		case 'SET_LATIN':
-			return {
-				latin: action.payload,
-				cyrillic: transliterate(action.payload, 'toCyrillic'),
-				lastEdit: 'latin'
-			};
+			try {
+				const transliteratedCyrillic = transliterate(
+					action.payload,
+					'toCyrillic'
+				);
+				return {
+					latin: action.payload,
+					cyrillic: transliteratedCyrillic,
+					lastEdit: 'latin'
+				};
+			} catch (error) {
+				console.error('Transliteration error (toCyrillic):', error);
+				analytics.trackError({
+					errorName: 'TransliterationError',
+					errorMessage:
+						error instanceof Error ? error.message : 'Unknown error',
+					userAction: 'setLatin'
+				});
+				// Return state with original latin but keep existing cyrillic
+				return {
+					...state,
+					latin: action.payload,
+					lastEdit: 'latin'
+				};
+			}
 		case 'REPLACE_TEXT': {
 			const { element, letter, name } = action.payload;
 			if (!element.current) return state;
 
-			const { value, selectionStart, selectionEnd } = element.current;
-			const selectedText = value.slice(selectionStart, selectionEnd);
-			const replacementText = containsUpperCase(selectedText)
-				? letter.toUpperCase()
-				: letter;
+			try {
+				const { value, selectionStart, selectionEnd } = element.current;
+				const selectedText = value.slice(selectionStart, selectionEnd);
+				const replacementText = containsUpperCase(selectedText)
+					? letter.toUpperCase()
+					: letter;
 
-			const newContent =
-				value.slice(0, selectionStart) +
-				replacementText +
-				value.slice(selectionEnd);
+				const newContent =
+					value.slice(0, selectionStart) +
+					replacementText +
+					value.slice(selectionEnd);
 
-			if (name === 'cyrillic') {
-				return {
-					cyrillic: newContent,
-					latin: transliterate(newContent, 'toLatin'),
-					lastEdit: 'cyrillic'
-				};
-			} else {
-				return {
-					latin: newContent,
-					cyrillic: transliterate(newContent, 'toCyrillic'),
-					lastEdit: 'latin'
-				};
+				if (name === 'cyrillic') {
+					const transliteratedLatin = transliterate(newContent, 'toLatin');
+					return {
+						cyrillic: newContent,
+						latin: transliteratedLatin,
+						lastEdit: 'cyrillic'
+					};
+				} else {
+					const transliteratedCyrillic = transliterate(
+						newContent,
+						'toCyrillic'
+					);
+					return {
+						latin: newContent,
+						cyrillic: transliteratedCyrillic,
+						lastEdit: 'latin'
+					};
+				}
+			} catch (error) {
+				console.error('Transliteration error (replaceText):', error);
+				analytics.trackError({
+					errorName: 'TransliterationError',
+					errorMessage:
+						error instanceof Error ? error.message : 'Unknown error',
+					userAction: 'replaceText'
+				});
+				// Return state unchanged if error occurs
+				return state;
 			}
 		}
 		default:
