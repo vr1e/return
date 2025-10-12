@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Transliterate.module.css';
-import ErrorBoundary from './ErrorBoundary';
+import ErrorBoundary from './error/ErrorBoundary';
 import { analytics } from '../services/analytics';
 
 import Cyrillic from './partials/Cyrillic';

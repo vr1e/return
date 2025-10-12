@@ -4,7 +4,7 @@ import type {
 	ErrorBoundaryState,
 	ErrorInfo,
 	ErrorBoundaryOnError
-} from '../types/errors';
+} from '../../types/errors';
 
 interface ErrorBoundaryProps {
 	children: ReactNode;

@@ -6,7 +6,7 @@ import type { Engine } from '@tsparticles/engine';
 import particleConfig from './config/particles';
 import { analytics } from './services/analytics';
 import { INSIGHTS_PROJECT_ID } from './config/env';
-import ErrorBoundary from './components/ErrorBoundary';
+import ErrorBoundary from './components/error/ErrorBoundary';
 import Home from './components/Home';
 import Transliterate from './components/Transliterate';
 
