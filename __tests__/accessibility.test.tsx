@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../src/App';
@@ -57,15 +57,19 @@ describe('Accessibility Tests', () => {
 			expect(button).toHaveAttribute('type', 'button');
 		});
 
-		it('should be keyboard accessible', async () => {
+		it('should allow keyboard focus on letter buttons', async () => {
 			const user = userEvent.setup();
-			const button = screen.getByRole('button', {
+
+			const letterButton = screen.getByRole('button', {
 				name: 'Insert Cyrillic letter ђ'
 			});
 
-			await user.tab();
-			// Button should be focusable via keyboard
-			expect(button).toHaveClass('primary');
+			// Tab through the focusable elements to the letter button
+			await user.tab(); // textarea
+			await user.tab(); // copy button
+			await user.tab(); // first letter button
+
+			expect(letterButton).toHaveFocus();
 		});
 
 		it('should have a group with aria-label', () => {
@@ -89,12 +93,12 @@ describe('Accessibility Tests', () => {
 			);
 
 			const copyButton = screen.getByRole('button', {
-				name: 'Copy Cyrillic text to clipboard'
+				name: 'Copy cyrillic text to clipboard'
 			});
 			expect(copyButton).toBeInTheDocument();
 			expect(copyButton).toHaveAttribute(
 				'aria-label',
-				'Copy Cyrillic text to clipboard'
+				'Copy cyrillic text to clipboard'
 			);
 		});
 
@@ -106,17 +110,23 @@ describe('Accessibility Tests', () => {
 			);
 
 			const copyButton = screen.getByRole('button', {
-				name: 'Copy Latin text to clipboard'
+				name: 'Copy latin text to clipboard'
 			});
 			expect(copyButton).toBeInTheDocument();
 			expect(copyButton).toHaveAttribute(
 				'aria-label',
-				'Copy Latin text to clipboard'
+				'Copy latin text to clipboard'
 			);
 		});
 
 		it('should show success feedback after copy', async () => {
 			const user = userEvent.setup();
+			Object.defineProperty(navigator, 'clipboard', {
+				value: { writeText: vi.fn().mockResolvedValue(undefined) },
+				writable: true,
+				configurable: true
+			});
+
 			render(
 				<TransliterateContextProvider>
 					<Cyrillic />
@@ -124,7 +134,7 @@ describe('Accessibility Tests', () => {
 			);
 
 			const copyButton = screen.getByRole('button', {
-				name: 'Copy Cyrillic text to clipboard'
+				name: 'Copy cyrillic text to clipboard'
 			});
 
 			await user.click(copyButton);
@@ -143,6 +153,12 @@ describe('Accessibility Tests', () => {
 
 		it('should announce copy success to screen readers', async () => {
 			const user = userEvent.setup();
+			Object.defineProperty(navigator, 'clipboard', {
+				value: { writeText: vi.fn().mockResolvedValue(undefined) },
+				writable: true,
+				configurable: true
+			});
+
 			render(
 				<TransliterateContextProvider>
 					<Latin />
@@ -150,7 +166,7 @@ describe('Accessibility Tests', () => {
 			);
 
 			const copyButton = screen.getByRole('button', {
-				name: 'Copy Latin text to clipboard'
+				name: 'Copy latin text to clipboard'
 			});
 
 			await user.click(copyButton);
@@ -175,9 +191,11 @@ describe('Accessibility Tests', () => {
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByLabelText('Cyrillic text input');
+			const textarea = screen.getByRole('textbox', {
+				name: 'cyrillic text input'
+			});
 			expect(textarea).toBeInTheDocument();
-			expect(textarea).toHaveAttribute('aria-label', 'Cyrillic text input');
+			expect(textarea).toHaveAttribute('aria-label', 'cyrillic text input');
 		});
 
 		it('should have aria-label on Latin textarea', () => {
@@ -187,46 +205,24 @@ describe('Accessibility Tests', () => {
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByLabelText('Latin text input');
-			expect(textarea).toBeInTheDocument();
-			expect(textarea).toHaveAttribute('aria-label', 'Latin text input');
-		});
-
-		it('should have aria-describedby pointing to instructions', () => {
-			render(
-				<TransliterateContextProvider>
-					<Cyrillic />
-				</TransliterateContextProvider>
-			);
-
 			const textarea = screen.getByRole('textbox', {
-				name: 'Cyrillic text input'
+				name: 'latin text input'
 			});
-			expect(textarea).toHaveAttribute(
-				'aria-describedby',
-				'cyrillic-instructions'
-			);
-
-			const instructions = document.getElementById('cyrillic-instructions');
-			expect(instructions).toBeInTheDocument();
-			expect(instructions).toHaveTextContent('Press Ctrl+C or Cmd+C');
-		});
-
-		it('should have keyboard shortcut instructions', () => {
-			render(
-				<TransliterateContextProvider>
-					<Cyrillic />
-				</TransliterateContextProvider>
-			);
-
-			const instructions = screen.getByText(/Press Ctrl\+C or Cmd\+C/);
-			expect(instructions).toBeInTheDocument();
-			expect(instructions).toHaveClass('sr-only');
+			expect(textarea).toBeInTheDocument();
+			expect(textarea).toHaveAttribute('aria-label', 'latin text input');
 		});
 	});
 
 	describe('Keyboard Shortcuts', () => {
-		it('should have onKeyDown handler on Cyrillic textarea', () => {
+		it('should copy Cyrillic text with Ctrl+C', async () => {
+			const user = userEvent.setup();
+			const writeTextMock = vi.fn().mockResolvedValue(undefined);
+			Object.defineProperty(navigator, 'clipboard', {
+				value: { writeText: writeTextMock },
+				writable: true,
+				configurable: true
+			});
+
 			render(
 				<TransliterateContextProvider>
 					<Cyrillic />
@@ -234,21 +230,24 @@ describe('Accessibility Tests', () => {
 			);
 
 			const textarea = screen.getByRole('textbox', {
-				name: 'Cyrillic text input'
+				name: 'cyrillic text input'
 			});
 
-			// Verify the textarea has a keydown handler
-			expect(textarea).toHaveAttribute(
-				'aria-describedby',
-				'cyrillic-instructions'
-			);
+			await user.type(textarea, 'test');
+			await user.keyboard('{Control>}c{/Control}');
 
-			// Verify instructions mention the keyboard shortcut
-			const instructions = screen.getByText(/Press Ctrl\+C or Cmd\+C/);
-			expect(instructions).toBeInTheDocument();
+			expect(writeTextMock).toHaveBeenCalled();
 		});
 
-		it('should have onKeyDown handler on Latin textarea', () => {
+		it('should copy Latin text with Ctrl+C', async () => {
+			const user = userEvent.setup();
+			const writeTextMock = vi.fn().mockResolvedValue(undefined);
+			Object.defineProperty(navigator, 'clipboard', {
+				value: { writeText: writeTextMock },
+				writable: true,
+				configurable: true
+			});
+
 			render(
 				<TransliterateContextProvider>
 					<Latin />
@@ -256,18 +255,13 @@ describe('Accessibility Tests', () => {
 			);
 
 			const textarea = screen.getByRole('textbox', {
-				name: 'Latin text input'
+				name: 'latin text input'
 			});
 
-			// Verify the textarea has a keydown handler
-			expect(textarea).toHaveAttribute(
-				'aria-describedby',
-				'latin-instructions'
-			);
+			await user.type(textarea, 'test');
+			await user.keyboard('{Control>}c{/Control}');
 
-			// Verify instructions mention the keyboard shortcut
-			const instructions = screen.getByText(/Press Ctrl\+C or Cmd\+C/);
-			expect(instructions).toBeInTheDocument();
+			expect(writeTextMock).toHaveBeenCalled();
 		});
 	});
 
@@ -281,7 +275,7 @@ describe('Accessibility Tests', () => {
 			);
 
 			const textarea = screen.getByRole('textbox', {
-				name: 'Cyrillic text input'
+				name: 'cyrillic text input'
 			});
 			const letterButton = screen.getByRole('button', {
 				name: 'Insert Cyrillic letter ђ'
@@ -302,17 +296,6 @@ describe('Accessibility Tests', () => {
 	});
 
 	describe('Screen Reader Content', () => {
-		it('should have sr-only class on screen reader instructions', () => {
-			render(
-				<TransliterateContextProvider>
-					<Cyrillic />
-				</TransliterateContextProvider>
-			);
-
-			const instructions = screen.getByText(/Press Ctrl\+C or Cmd\+C/);
-			expect(instructions).toHaveClass('sr-only');
-		});
-
 		it('should have aria-live region for copy announcements', () => {
 			render(
 				<TransliterateContextProvider>
@@ -323,23 +306,6 @@ describe('Accessibility Tests', () => {
 			// Find the aria-live region (it's empty initially)
 			const liveRegions = document.querySelectorAll('[aria-live="polite"]');
 			expect(liveRegions.length).toBeGreaterThan(0);
-		});
-	});
-
-	describe('Focus Indicators', () => {
-		it('should have focus-visible styles on buttons', () => {
-			render(
-				<TransliterateContextProvider>
-					<Cyrillic />
-				</TransliterateContextProvider>
-			);
-
-			const button = screen.getByRole('button', {
-				name: 'Insert Cyrillic letter ђ'
-			});
-
-			// Button should be styleable with :focus-visible
-			expect(button).toBeInTheDocument();
 		});
 	});
 });

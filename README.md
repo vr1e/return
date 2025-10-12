@@ -19,7 +19,9 @@ A web application for Serbian text transliteration between Cyrillic and Latin sc
 - Vite 7
 - React Router DOM v7
 - CSS Modules + CSS Custom Properties
+- FontAwesome v7
 - @tsparticles v3
+- ESLint 9 (TypeScript ESLint strict, React plugins)
 
 ## 🔲 App structure
 
@@ -39,6 +41,7 @@ For the project to build, **these files must exist with exact filenames**:
 ├── vite.config.ts                  # Vite configuration
 ├── vitest.config.ts                # Vitest test configuration
 ├── tsconfig.json                   # TypeScript configuration
+├── eslint.config.js                # ESLint 9 flat config
 ├── .nvmrc                          # Node version specification
 ├── CLAUDE.md                       # AI assistant guidance
 ├── README.md                       # Project documentation
@@ -46,7 +49,8 @@ For the project to build, **these files must exist with exact filenames**:
 │
 ├── __tests__/                      # Integration tests and test setup
 │   ├── setup.ts                    # Vitest setup file
-│   └── transliteration.test.ts     # Transliteration logic tests
+│   ├── transliteration.test.ts     # Transliteration logic tests
+│   └── accessibility.test.tsx      # Accessibility compliance tests
 │
 └── src/
     ├── main.tsx                    # Application entry point
@@ -55,17 +59,24 @@ For the project to build, **these files must exist with exact filenames**:
     ├── vite-env.d.ts              # Vite type definitions
     │
     ├── config/
+    │   ├── env.ts                  # Environment variable utilities
     │   └── particles.ts            # tsparticles configuration
     │
     ├── contexts/
-    │   ├── TransliterateContext.tsx      # Shared state provider
-    │   └── TransliterateContext.test.tsx # Context tests
+    │   └── TransliterateContext.tsx # Shared state provider (useReducer)
+    │
+    ├── hooks/
+    │   ├── useAutoResize.ts        # Textarea auto-resize hook
+    │   └── useTransliterate.ts     # Context access hook
+    │       └── useTransliterate.test.tsx
     │
     ├── services/
     │   └── analytics.ts            # Analytics service singleton
     │
     ├── components/
     │   ├── Home.tsx                # Home page component
+    │   ├── LanguageTextarea.tsx    # Reusable textarea component
+    │   ├── LanguageTextarea.test.tsx
     │   ├── Transliterate.tsx       # Transliteration page container
     │   ├── Transliterate.module.css
     │   │
@@ -137,24 +148,39 @@ Runs the test suite with coverage reporting. Generates an HTML report in the `co
 
 - Transliteration logic (Cyrillic ↔ Latin conversion, Serbian digraphs)
 - Helper functions (containsUpperCase)
-- React components (Cyrillic, Latin, TransliterateContext)
-- User interactions (text input, copy buttons)
+- React components (LanguageTextarea, Cyrillic, Latin)
+- Custom hooks (useTransliterate)
+- Reducer-based state management
+- User interactions (text input, copy buttons, keyboard shortcuts)
+- Accessibility compliance (ARIA labels, live regions, keyboard navigation)
 
 **Test Files:**
 
 - `__tests__/transliteration.test.ts` - Integration tests for transliteration logic
+- `__tests__/accessibility.test.tsx` - Accessibility compliance tests
 - `src/helpers/containsUpperCase.test.ts` - Unit tests (co-located)
-- `src/contexts/TransliterateContext.test.tsx` - Context tests
+- `src/components/LanguageTextarea.test.tsx` - LanguageTextarea component tests
 - `src/components/partials/Cyrillic.test.tsx` - Component tests (co-located)
 - `src/components/partials/Latin.test.tsx` - Component tests (co-located)
+- `src/hooks/useTransliterate.test.tsx` - Hook tests (co-located)
 
 ### `npm run preview`
 
 Locally preview the production build after running `npm run build`.
 
+### `npm run lint`
+
+Runs ESLint on all source files to check for code quality issues and potential errors.
+
+### `npm run lint:fix`
+
+Runs ESLint with automatic fixes enabled. This will automatically fix many common code quality issues.
+
 ## Dev config
 
-There are Prettier code formatting rules set inside package.json file for use with [Prettier](https://prettier.io/) inside your code editor.
+**Prettier** code formatting rules are configured in package.json for use with [Prettier](https://prettier.io/) in your code editor.
+
+**ESLint** is configured with TypeScript ESLint strict rules, React and React Hooks plugins. Configuration is in `eslint.config.js` (ESLint 9 flat config format).
 
 ## License
 

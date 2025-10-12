@@ -1,5 +1,5 @@
 function getEnvVariable(name: string): string {
-	const value = import.meta.env[name];
+	const value: unknown = import.meta.env[name];
 	if (typeof value !== 'string' || !value) {
 		throw new Error(
 			`Environment variable ${name} must be defined and a non-empty string!`
