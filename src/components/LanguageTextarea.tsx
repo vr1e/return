@@ -1,11 +1,9 @@
 import {
 	useState,
-	ReactNode,
 	forwardRef,
 	useRef,
-	useImperativeHandle,
+	type ReactNode,
 	type ChangeEvent,
-	type RefObject,
 	type KeyboardEvent
 } from 'react';
 import { useAutoResize } from '../hooks/useAutoResize';
@@ -15,28 +13,21 @@ interface LanguageTextareaProps {
 	label: string;
 	value: string;
 	onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-	replaceText?: (
-		element: RefObject<HTMLTextAreaElement>,
-		letter: string
-	) => void;
 	theme: 'primary' | 'secondary';
 	copyButtonText: string;
 	children?: ReactNode;
 }
 
-// eslint-disable-next-line react/display-name
 const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
-	(
-		{ id, label, value, onChange, theme, copyButtonText, children },
-		forwardedRef
-	) => {
+	({ id, label, value, onChange, theme, copyButtonText, children }, ref) => {
 		const [active, setActive] = useState(false);
 		const [copySuccess, setCopySuccess] = useState(false);
 
-		const internalRef = useRef<HTMLTextAreaElement>(null);
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		useImperativeHandle(forwardedRef, () => internalRef.current!, []);
-		useAutoResize(internalRef, value);
+		// Use forwarded ref if provided, otherwise create a local ref for the hook
+		const localRef = useRef<HTMLTextAreaElement>(null);
+		const targetRef = (ref || localRef) as React.RefObject<HTMLTextAreaElement>;
+
+		useAutoResize(targetRef, value);
 
 		const handleCopy = async () => {
 			try {
@@ -48,10 +39,11 @@ const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
 			}
 		};
 
+		// Intercept Ctrl+C/Cmd+C to use custom copy functionality
 		const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
 			if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
 				event.preventDefault();
-				void handleCopy();
+				handleCopy();
 			}
 		};
 
@@ -64,7 +56,7 @@ const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
 					id={id}
 					name={id}
 					className={active ? 'active' : ''}
-					ref={internalRef}
+					ref={targetRef}
 					value={value}
 					onChange={onChange}
 					onKeyDown={handleKeyDown}
@@ -74,7 +66,7 @@ const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
 				/>
 				<button
 					className={`${theme} ${copySuccess ? 'copy-success' : ''}`}
-					onClick={() => void handleCopy()}
+					onClick={handleCopy}
 					aria-label={`Copy ${id} text to clipboard`}>
 					{copyButtonText}
 					{copySuccess ? ' ✓' : ''}
@@ -87,5 +79,7 @@ const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
 		);
 	}
 );
+
+LanguageTextarea.displayName = 'LanguageTextarea';
 
 export default LanguageTextarea;

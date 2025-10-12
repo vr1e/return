@@ -1,10 +1,9 @@
-import { useRef } from 'react';
 import { useTransliterate } from '../../hooks/useTransliterate';
 import LanguageTextarea from '../LanguageTextarea';
 
+// Latin text input panel - displays text and auto-converts to Cyrillic
 export default function Latin() {
 	const { latin, handleLatin } = useTransliterate();
-	const refLatin = useRef<HTMLTextAreaElement>(null);
 
 	return (
 		<LanguageTextarea
@@ -14,7 +13,6 @@ export default function Latin() {
 			onChange={handleLatin}
 			theme='secondary'
 			copyButtonText='Copy'
-			ref={refLatin}
 		/>
 	);
 }

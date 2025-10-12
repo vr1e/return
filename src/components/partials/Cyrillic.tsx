@@ -1,15 +1,41 @@
-import { useRef } from 'react';
+import { useRef, type ChangeEvent } from 'react';
 import { useTransliterate } from '../../hooks/useTransliterate';
 import LanguageTextarea from '../LanguageTextarea';
 
 const cyrReplacementLetters = 'ђжћчш';
 
+// Cyrillic text input panel with special letter insertion buttons
 function Cyrillic() {
-	const { cyrillic, handleCyrillic, replaceText } = useTransliterate();
+	const { cyrillic, handleCyrillic } = useTransliterate();
 	const refCyrillic = useRef<HTMLTextAreaElement>(null);
+
+	const handleInsertLetter = (letter: string) => {
+		const textarea = refCyrillic.current;
+		if (!textarea) return;
+
+		const start = textarea.selectionStart;
+		const end = textarea.selectionEnd;
+
+		const newValue =
+			cyrillic.substring(0, start) + letter + cyrillic.substring(end);
+
+		// Create synthetic event to trigger state update via existing handler
+		const syntheticEvent = {
+			target: { value: newValue }
+		} as ChangeEvent<HTMLTextAreaElement>;
+
+		handleCyrillic(syntheticEvent);
+
+		// Wait for React re-render before setting cursor position after inserted letter
+		textarea.focus();
+		requestAnimationFrame(() => {
+			textarea.selectionStart = textarea.selectionEnd = start + 1;
+		});
+	};
 
 	return (
 		<LanguageTextarea
+			ref={refCyrillic} // Ref needed for letter insertion and cursor control
 			id='cyrillic'
 			label='Ћирилични текст:'
 			value={cyrillic}
@@ -25,10 +51,7 @@ function Cyrillic() {
 						key={idx}
 						type='button'
 						className='primary'
-						onClick={() => {
-							replaceText(refCyrillic, letter);
-							refCyrillic.current?.focus();
-						}}
+						onClick={() => handleInsertLetter(letter)}
 						aria-label={`Insert Cyrillic letter ${letter}`}>
 						{letter}
 					</button>

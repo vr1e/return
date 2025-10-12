@@ -1,116 +1,95 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Latin from './Latin';
 import TransliterateContextProvider from '../../contexts/TransliterateContext';
+import Cyrillic from './Cyrillic';
+import Latin from './Latin';
 
-describe('Latin component', () => {
-	it('renders textarea with correct attributes', () => {
-		render(
+// Mock the useAutoResize hook as it's not relevant to this component's logic
+vi.mock('../../hooks/useAutoResize', () => ({
+	useAutoResize: vi.fn()
+}));
+
+describe('Latin', () => {
+	const renderLatin = () => {
+		return render(
 			<TransliterateContextProvider>
 				<Latin />
 			</TransliterateContextProvider>
 		);
+	};
 
-		const textarea = screen.getByRole('textbox');
-		expect(textarea).toBeInTheDocument();
-		expect(textarea).toHaveAttribute('id', 'latin');
-		expect(textarea).toHaveAttribute('name', 'latin');
+	describe('Rendering', () => {
+		it('should render the textarea with the correct label and copy button text', () => {
+			renderLatin();
+
+			expect(
+				screen.getByRole('textbox', { name: 'latin text input' })
+			).toBeInTheDocument();
+
+			expect(screen.getByText('Latin text:')).toBeInTheDocument();
+
+			expect(
+				screen.getByRole('button', { name: 'Copy latin text to clipboard' })
+			).toHaveTextContent('Copy');
+		});
+
+		it('should not render any special letter insertion buttons', () => {
+			renderLatin();
+
+			const letterButtons = screen.queryAllByRole('button', {
+				name: /Insert .* letter/
+			});
+
+			expect(letterButtons).toHaveLength(0);
+		});
 	});
 
-	it('renders copy button', () => {
-		render(
-			<TransliterateContextProvider>
-				<Latin />
-			</TransliterateContextProvider>
-		);
-
-		expect(screen.getByText('Copy')).toBeInTheDocument();
-	});
-
-	it('updates textarea value on input', async () => {
-		const user = userEvent.setup();
-		render(
-			<TransliterateContextProvider>
-				<Latin />
-			</TransliterateContextProvider>
-		);
-
-		const textarea = screen.getByRole('textbox');
-		await user.type(textarea, 'Zdravo');
-
-		expect(textarea).toHaveValue('Zdravo');
-	});
-
-	describe('Auto-resizing behavior', () => {
-		it('should update height when text is added', async () => {
+	describe('Integration with Transliterate Context', () => {
+		it('should update Cyrillic text when Latin text is entered', async () => {
 			const user = userEvent.setup();
 			render(
 				<TransliterateContextProvider>
+					<Cyrillic />
 					<Latin />
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByRole('textbox');
-
-			// Mock scrollHeight to simulate content growth
-			Object.defineProperty(textarea, 'scrollHeight', {
-				configurable: true,
-				value: 400
+			const cyrillicTextarea = screen.getByRole('textbox', {
+				name: 'cyrillic text input'
+			});
+			const latinTextarea = screen.getByRole('textbox', {
+				name: 'latin text input'
 			});
 
-			// Type text to trigger height update
-			await user.type(textarea, 'First line\nSecond line\nThird line');
+			await user.type(latinTextarea, 'test');
 
-			// Height should be set based on scrollHeight
-			expect(textarea.style.height).toBeTruthy();
+			await waitFor(() => {
+				expect(cyrillicTextarea).toHaveValue('тест');
+			});
 		});
 
-		it('should shrink height when text is deleted', async () => {
+		it('should update Cyrillic text for letters with diacritics', async () => {
 			const user = userEvent.setup();
 			render(
 				<TransliterateContextProvider>
+					<Cyrillic />
 					<Latin />
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByRole('textbox');
-
-			// Add multiline text
-			await user.type(textarea, 'First line\nSecond line\nThird line');
-
-			// Mock larger scrollHeight
-			Object.defineProperty(textarea, 'scrollHeight', {
-				configurable: true,
-				value: 400
+			const cyrillicTextarea = screen.getByRole('textbox', {
+				name: 'cyrillic text input'
 			});
-			await user.type(textarea, 'x'); // Trigger update
-
-			// Clear text
-			await user.clear(textarea);
-
-			// Mock smaller scrollHeight
-			Object.defineProperty(textarea, 'scrollHeight', {
-				configurable: true,
-				value: 100
+			const latinTextarea = screen.getByRole('textbox', {
+				name: 'latin text input'
 			});
-			await user.type(textarea, 'x'); // Trigger update
 
-			// Height should update based on new scrollHeight
-			expect(textarea.style.height).toBeTruthy();
-		});
+			await user.type(latinTextarea, 'đšćčž');
 
-		it('should have initial height set', () => {
-			render(
-				<TransliterateContextProvider>
-					<Latin />
-				</TransliterateContextProvider>
-			);
-
-			const textarea = screen.getByRole('textbox');
-
-			// Should have a style height set (even if 0px initially)
-			expect(textarea.style.height).toBeTruthy();
+			await waitFor(() => {
+				expect(cyrillicTextarea).toHaveValue('ђшћчж');
+			});
 		});
 	});
 });
