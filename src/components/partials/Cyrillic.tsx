@@ -30,7 +30,7 @@ function Cyrillic() {
 		// Handle Ctrl+C (Windows/Linux) or Cmd+C (Mac)
 		if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
 			event.preventDefault();
-			handleCopy();
+			void handleCopy();
 		}
 	};
 
@@ -62,7 +62,7 @@ function Cyrillic() {
 			/>
 			<button
 				className={`primary ${copySuccess ? 'copy-success' : ''}`}
-				onClick={handleCopy}
+				onClick={() => void handleCopy()}
 				aria-label='Copy Cyrillic text to clipboard'>
 				Копирај{copySuccess ? ' ✓' : ''}
 			</button>

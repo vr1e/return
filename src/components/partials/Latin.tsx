@@ -28,7 +28,7 @@ export default function Latin() {
 		// Handle Ctrl+C (Windows/Linux) or Cmd+C (Mac)
 		if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
 			event.preventDefault();
-			handleCopy();
+			void handleCopy();
 		}
 	};
 
@@ -59,7 +59,7 @@ export default function Latin() {
 			/>
 			<button
 				className={`secondary ${copySuccess ? 'copy-success' : ''}`}
-				onClick={handleCopy}
+				onClick={() => void handleCopy()}
 				aria-label='Copy Latin text to clipboard'>
 				Copy{copySuccess ? ' ✓' : ''}
 			</button>

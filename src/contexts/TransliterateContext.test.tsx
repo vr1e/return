@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
-import React, { useContext, ChangeEvent } from 'react';
+import { useRef, useContext } from 'react';
 import userEvent from '@testing-library/user-event';
 import TransliterateContextProvider, {
 	TransliterateContext
@@ -180,7 +180,7 @@ describe('TransliterateContext', () => {
 				);
 			};
 
-			const user = userEvent.setup();
+			const user = userEvent.setup({ delay: 1 });
 			render(
 				<TransliterateContextProvider>
 					<TestComponent />
@@ -189,7 +189,7 @@ describe('TransliterateContext', () => {
 
 			const cyrillicInput = screen.getByTestId('cyrillic-input');
 			// Type quickly without delay
-			await user.type(cyrillicInput, 'Брзо куцање', { delay: 1 });
+			await user.type(cyrillicInput, 'Брзо куцање');
 
 			await waitFor(() => {
 				expect(screen.getByTestId('latin-output')).toHaveTextContent(
@@ -203,7 +203,7 @@ describe('TransliterateContext', () => {
 		it('should replace text in cyrillic textarea', async () => {
 			const TestComponent = () => {
 				const context = useContext(TransliterateContext);
-				const cyrillicRef = React.useRef<HTMLTextAreaElement>(null);
+				const cyrillicRef = useRef<HTMLTextAreaElement>(null);
 
 				return (
 					<div>
@@ -231,7 +231,8 @@ describe('TransliterateContext', () => {
 				</TransliterateContextProvider>
 			);
 
-			const cyrillicInput = screen.getByTestId('cyrillic-input');
+			const cyrillicInput =
+				screen.getByTestId<HTMLTextAreaElement>('cyrillic-input');
 			const replaceBtn = screen.getByTestId('replace-btn');
 
 			// Type some text
@@ -256,7 +257,7 @@ describe('TransliterateContext', () => {
 		it('should replace text in latin textarea', async () => {
 			const TestComponent = () => {
 				const context = useContext(TransliterateContext);
-				const latinRef = React.useRef<HTMLTextAreaElement>(null);
+				const latinRef = useRef<HTMLTextAreaElement>(null);
 
 				return (
 					<div>
@@ -284,7 +285,7 @@ describe('TransliterateContext', () => {
 				</TransliterateContextProvider>
 			);
 
-			const latinInput = screen.getByTestId('latin-input');
+			const latinInput = screen.getByTestId<HTMLTextAreaElement>('latin-input');
 			const replaceBtn = screen.getByTestId('replace-btn');
 
 			// Type some text
@@ -309,7 +310,7 @@ describe('TransliterateContext', () => {
 		it('should handle uppercase replacement in cyrillic', async () => {
 			const TestComponent = () => {
 				const context = useContext(TransliterateContext);
-				const cyrillicRef = React.useRef<HTMLTextAreaElement>(null);
+				const cyrillicRef = useRef<HTMLTextAreaElement>(null);
 
 				return (
 					<div>
@@ -336,7 +337,8 @@ describe('TransliterateContext', () => {
 				</TransliterateContextProvider>
 			);
 
-			const cyrillicInput = screen.getByTestId('cyrillic-input');
+			const cyrillicInput =
+				screen.getByTestId<HTMLTextAreaElement>('cyrillic-input');
 			const replaceBtn = screen.getByTestId('replace-btn');
 
 			// Type uppercase text
@@ -356,7 +358,7 @@ describe('TransliterateContext', () => {
 		it('should handle lowercase replacement in cyrillic', async () => {
 			const TestComponent = () => {
 				const context = useContext(TransliterateContext);
-				const cyrillicRef = React.useRef<HTMLTextAreaElement>(null);
+				const cyrillicRef = useRef<HTMLTextAreaElement>(null);
 
 				return (
 					<div>
@@ -383,7 +385,8 @@ describe('TransliterateContext', () => {
 				</TransliterateContextProvider>
 			);
 
-			const cyrillicInput = screen.getByTestId('cyrillic-input');
+			const cyrillicInput =
+				screen.getByTestId<HTMLTextAreaElement>('cyrillic-input');
 			const replaceBtn = screen.getByTestId('replace-btn');
 
 			// Type lowercase text
@@ -403,7 +406,7 @@ describe('TransliterateContext', () => {
 		it('should replace selected text range', async () => {
 			const TestComponent = () => {
 				const context = useContext(TransliterateContext);
-				const cyrillicRef = React.useRef<HTMLTextAreaElement>(null);
+				const cyrillicRef = useRef<HTMLTextAreaElement>(null);
 
 				return (
 					<div>
@@ -430,7 +433,8 @@ describe('TransliterateContext', () => {
 				</TransliterateContextProvider>
 			);
 
-			const cyrillicInput = screen.getByTestId('cyrillic-input');
+			const cyrillicInput =
+				screen.getByTestId<HTMLTextAreaElement>('cyrillic-input');
 			const replaceBtn = screen.getByTestId('replace-btn');
 
 			// Type some text

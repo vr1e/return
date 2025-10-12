@@ -71,6 +71,7 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 	// This synchronizes the cyrillic and latin text states based on the last input.
 	useEffect(() => {
 		if (lastEdit === 'cyrillic') {
+			// eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional: bidirectional sync between fields
 			setLatin(transliterate(cyrillic, 'toLatin'));
 		} else if (lastEdit === 'latin') {
 			setCyrillic(transliterate(latin, 'toCyrillic'));

@@ -135,7 +135,7 @@ class AnalyticsService {
 					// Convert primitives to strings
 					return [key, String(value)];
 				})
-		);
+		) as InsightsParams;
 	}
 }
 

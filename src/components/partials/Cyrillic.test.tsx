@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Cyrillic from './Cyrillic';
@@ -64,8 +64,7 @@ describe('Cyrillic component', () => {
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
-			const initialHeight = textarea.style.height;
+			const textarea = screen.getByRole('textbox');
 
 			// Mock scrollHeight to simulate content growth
 			Object.defineProperty(textarea, 'scrollHeight', {
@@ -88,7 +87,7 @@ describe('Cyrillic component', () => {
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+			const textarea = screen.getByRole('textbox');
 
 			// Add multiline text
 			await user.type(textarea, 'Први ред\nДруги ред\nТрећи ред');
@@ -99,8 +98,6 @@ describe('Cyrillic component', () => {
 				value: 400
 			});
 			await user.type(textarea, 'x'); // Trigger update
-
-			const largerHeight = textarea.style.height;
 
 			// Clear text
 			await user.clear(textarea);
@@ -123,7 +120,7 @@ describe('Cyrillic component', () => {
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+			const textarea = screen.getByRole('textbox');
 
 			// Should have a style height set (even if 0px initially)
 			expect(textarea.style.height).toBeTruthy();

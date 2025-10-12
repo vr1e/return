@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Latin from './Latin';
@@ -51,8 +51,7 @@ describe('Latin component', () => {
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
-			const initialHeight = textarea.style.height;
+			const textarea = screen.getByRole('textbox');
 
 			// Mock scrollHeight to simulate content growth
 			Object.defineProperty(textarea, 'scrollHeight', {
@@ -75,7 +74,7 @@ describe('Latin component', () => {
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+			const textarea = screen.getByRole('textbox');
 
 			// Add multiline text
 			await user.type(textarea, 'First line\nSecond line\nThird line');
@@ -86,8 +85,6 @@ describe('Latin component', () => {
 				value: 400
 			});
 			await user.type(textarea, 'x'); // Trigger update
-
-			const largerHeight = textarea.style.height;
 
 			// Clear text
 			await user.clear(textarea);
@@ -110,7 +107,7 @@ describe('Latin component', () => {
 				</TransliterateContextProvider>
 			);
 
-			const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+			const textarea = screen.getByRole('textbox');
 
 			// Should have a style height set (even if 0px initially)
 			expect(textarea.style.height).toBeTruthy();
