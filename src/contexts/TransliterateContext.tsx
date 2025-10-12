@@ -32,6 +32,8 @@ type Action =
 interface ITransliterateContext extends Omit<ITransliterateState, 'lastEdit'> {
 	handleCyrillic: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 	handleLatin: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+	setCyrillic: (text: string) => void;
+	setLatin: (text: string) => void;
 	replaceText: (
 		element: RefObject<HTMLTextAreaElement>,
 		letter: string
@@ -139,6 +141,14 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 		dispatch({ type: 'SET_LATIN', payload: event.target.value });
 	};
 
+	const setCyrillic = (text: string) => {
+		dispatch({ type: 'SET_CYRILLIC', payload: text });
+	};
+
+	const setLatin = (text: string) => {
+		dispatch({ type: 'SET_LATIN', payload: text });
+	};
+
 	const replaceText = (
 		element: RefObject<HTMLTextAreaElement>,
 		letter: string
@@ -159,7 +169,14 @@ function TransliterateContextProvider({ children }: { children: ReactNode }) {
 
 	return (
 		<TransliterateContext.Provider
-			value={{ ...restState, handleCyrillic, handleLatin, replaceText }}>
+			value={{
+				...restState,
+				handleCyrillic,
+				handleLatin,
+				setCyrillic,
+				setLatin,
+				replaceText
+			}}>
 			{children}
 		</TransliterateContext.Provider>
 	);

@@ -1,4 +1,4 @@
-import { useRef, type ChangeEvent } from 'react';
+import { useRef } from 'react';
 import { useTransliterate } from '../../hooks/useTransliterate';
 import LanguageTextarea from '../LanguageTextarea';
 
@@ -6,7 +6,7 @@ const cyrReplacementLetters = 'ђжћчш';
 
 // Cyrillic text input panel with special letter insertion buttons
 function Cyrillic() {
-	const { cyrillic, handleCyrillic } = useTransliterate();
+	const { cyrillic, handleCyrillic, setCyrillic } = useTransliterate();
 	const refCyrillic = useRef<HTMLTextAreaElement>(null);
 
 	const handleInsertLetter = (letter: string) => {
@@ -19,17 +19,16 @@ function Cyrillic() {
 		const newValue =
 			cyrillic.substring(0, start) + letter + cyrillic.substring(end);
 
-		// Create synthetic event to trigger state update via existing handler
-		const syntheticEvent = {
-			target: { value: newValue }
-		} as ChangeEvent<HTMLTextAreaElement>;
-
-		handleCyrillic(syntheticEvent);
+		// Use type-safe setter for programmatic updates
+		setCyrillic(newValue);
 
 		// Wait for React re-render before setting cursor position after inserted letter
 		textarea.focus();
 		requestAnimationFrame(() => {
-			textarea.selectionStart = textarea.selectionEnd = start + 1;
+			if (refCyrillic.current) {
+				refCyrillic.current.selectionStart = refCyrillic.current.selectionEnd =
+					start + 1;
+			}
 		});
 	};
 
