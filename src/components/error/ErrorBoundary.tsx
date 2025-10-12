@@ -1,5 +1,6 @@
 import { Component, ReactNode } from 'react';
 import ErrorFallback from './ErrorFallback';
+import { logger } from '../../utils/logger';
 import type {
 	ErrorBoundaryState,
 	ErrorInfo,
@@ -41,8 +42,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 	}
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-		// Log error to console for debugging
-		console.error('ErrorBoundary caught an error:', error, errorInfo);
+		// Log error using centralized logger
+		logger.logError('ErrorBoundary caught an error', error, {
+			componentStack: errorInfo.componentStack
+		});
 
 		// Update state with error info
 		this.setState({

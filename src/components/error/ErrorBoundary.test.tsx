@@ -3,6 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
+import { logger } from '../../utils/logger';
 
 // Component that throws an error when shouldThrow is true
 function ThrowError({ shouldThrow }: { shouldThrow: boolean }) {
@@ -17,10 +18,19 @@ const RouterWrapper = ({ children }: { children: React.ReactNode }) => (
 	<BrowserRouter>{children}</BrowserRouter>
 );
 
+// Mock the logger
+vi.mock('../../utils/logger', () => ({
+	logger: {
+		logError: vi.fn()
+	}
+}));
+
 describe('ErrorBoundary', () => {
 	beforeEach(() => {
 		// Suppress console.error for cleaner test output
 		vi.spyOn(console, 'error').mockImplementation(() => {});
+		// Clear mock calls
+		vi.clearAllMocks();
 	});
 
 	describe('Normal Operation', () => {
@@ -94,9 +104,7 @@ describe('ErrorBoundary', () => {
 			);
 		});
 
-		it('should log error to console', () => {
-			const consoleErrorSpy = vi.spyOn(console, 'error');
-
+		it('should log error using logger', () => {
 			render(
 				<RouterWrapper>
 					<ErrorBoundary>
@@ -105,8 +113,8 @@ describe('ErrorBoundary', () => {
 				</RouterWrapper>
 			);
 
-			expect(consoleErrorSpy).toHaveBeenCalledWith(
-				'ErrorBoundary caught an error:',
+			expect(logger.logError).toHaveBeenCalledWith(
+				'ErrorBoundary caught an error',
 				expect.objectContaining({ message: 'Test error' }),
 				expect.objectContaining({ componentStack: expect.any(String) })
 			);

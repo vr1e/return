@@ -7,6 +7,7 @@ import {
 	type KeyboardEvent
 } from 'react';
 import { useAutoResize } from '../hooks/useAutoResize';
+import { logger } from '../utils/logger';
 
 interface LanguageTextareaProps {
 	id: 'cyrillic' | 'latin';
@@ -42,7 +43,7 @@ const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
 				setCopyError(false);
 				setTimeout(() => setCopySuccess(false), 1500);
 			} catch (err) {
-				console.error('Failed to copy text:', err);
+				logger.logError('Failed to copy text', err, { textareaId: id });
 				setCopyError(true);
 				setCopySuccess(false);
 				setTimeout(() => setCopyError(false), 3000);

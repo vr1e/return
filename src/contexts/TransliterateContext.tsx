@@ -9,6 +9,7 @@ import {
 } from 'react';
 import transliterate from 'serbian-transliterate';
 import { analytics } from '../services/analytics';
+import { logger } from '../utils/logger';
 import containsUpperCase from '../helpers/containsUpperCase';
 
 interface ITransliterateState {
@@ -58,7 +59,9 @@ const transliterateReducer = (
 					lastEdit: 'cyrillic'
 				};
 			} catch (error) {
-				console.error('Transliteration error (toLatin):', error);
+				logger.logError('Transliteration error (toLatin)', error, {
+					userAction: 'setCyrillic'
+				});
 				analytics.trackError({
 					errorName: 'TransliterationError',
 					errorMessage:
@@ -84,7 +87,9 @@ const transliterateReducer = (
 					lastEdit: 'latin'
 				};
 			} catch (error) {
-				console.error('Transliteration error (toCyrillic):', error);
+				logger.logError('Transliteration error (toCyrillic)', error, {
+					userAction: 'setLatin'
+				});
 				analytics.trackError({
 					errorName: 'TransliterationError',
 					errorMessage:
@@ -133,7 +138,9 @@ const transliterateReducer = (
 					};
 				}
 			} catch (error) {
-				console.error('Transliteration error (replaceText):', error);
+				logger.logError('Transliteration error (replaceText)', error, {
+					userAction: 'replaceText'
+				});
 				analytics.trackError({
 					errorName: 'TransliterationError',
 					errorMessage:
