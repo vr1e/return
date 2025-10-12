@@ -13,6 +13,8 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - **Preview production build**: `npm run preview`
 - **Run tests**: `npm test` (runs Vitest test suite in watch mode)
 - **Test with coverage**: `npm run test:coverage` (generates coverage report in `coverage/` directory)
+- **Lint code**: `npm run lint` (runs ESLint on all source files)
+- **Lint and auto-fix**: `npm run lint:fix` (runs ESLint with automatic fixes)
 
 ## Technology Stack
 
@@ -20,9 +22,11 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - **Framework**: React 18 with TypeScript
 - **Routing**: React Router DOM v7
 - **Styling**: CSS Modules + plain CSS with CSS custom properties
+- **Icons**: FontAwesome v7 (using @fortawesome/react-fontawesome, @fortawesome/fontawesome-svg-core, @fortawesome/free-solid-svg-icons)
 - **Visual effects**: @tsparticles v3 for background particle effects (using @tsparticles/react, @tsparticles/engine, @tsparticles/slim)
 - **Analytics**: insights-js for privacy-focused web analytics
 - **Testing**: Vitest with @testing-library/react, jsdom, and v8 coverage
+- **Code quality**: ESLint 9 with TypeScript ESLint strict rules, React and React Hooks plugins
 - **Code formatting**: Prettier (configured in package.json with tabs, single quotes)
 
 ## Architecture
@@ -44,19 +48,43 @@ This is a React + TypeScript web application for Serbian text transliteration be
 **Transliteration System** (`/cyrillicconvert` route):
 
 - Main component: `src/components/Transliterate.tsx`
-- Uses `TransliterateContext` for state management between input/output components
+- Uses `TransliterateContext` (with `useReducer`) for state management
 - Grid layout with two columns: Cyrillic and Latin input/output panels
 - Core components:
-  - `Cyrillic.tsx` - Cyrillic text input panel
-  - `Latin.tsx` - Latin text input panel
-  - `src/contexts/TransliterateContext.tsx` - Shared state provider
+  - `LanguageTextarea.tsx` - Reusable textarea component with copy functionality and auto-resize
+  - `Cyrillic.tsx` - Cyrillic text input panel (uses LanguageTextarea)
+  - `Latin.tsx` - Latin text input panel (uses LanguageTextarea)
+  - `src/contexts/TransliterateContext.tsx` - Shared state provider using reducer pattern
+
+**State Management Architecture**:
+
+- Uses `useReducer` hook for predictable state updates
+- State shape: `{ cyrillic: string, latin: string, lastEdit: 'cyrillic' | 'latin' | null }`
+- Reducer actions:
+  - `SET_CYRILLIC` - Updates Cyrillic text and auto-transliterates to Latin
+  - `SET_LATIN` - Updates Latin text and auto-transliterates to Cyrillic
+  - `REPLACE_TEXT` - Replaces selected text (for special character buttons)
+- `lastEdit` field tracks which textarea was edited last (crucial for analytics)
 
 **Transliteration Logic**:
 
 - Uses `serbian-transliterate` npm package for bidirectional conversion
 - Handles Serbian-specific digraphs (dž → џ, lj → љ, nj → њ) automatically
 - Helper function `containsUpperCase.ts` for case checking during text replacement
-- Context manages state and applies transliteration via `transliterate(text, 'toLatin')` or `transliterate(text, 'toCyrillic')`
+- Reducer applies transliteration via `transliterate(text, 'toLatin')` or `transliterate(text, 'toCyrillic')`
+
+**Custom Hooks**:
+
+- `useTransliterate` - Hook for accessing TransliterateContext with error checking
+- `useAutoResize` - Hook for automatically resizing textareas based on content (uses `useLayoutEffect`)
+
+**Reusable Components**:
+
+- **LanguageTextarea** (`src/components/LanguageTextarea.tsx`):
+  - Handles both Cyrillic and Latin inputs
+  - Features: copy to clipboard, keyboard shortcuts (Ctrl/Cmd+C), auto-resize, focus states
+  - Accessibility: ARIA labels, live regions for copy feedback, screen reader announcements
+  - Props: id, label, value, onChange, theme ('primary' | 'secondary'), copyButtonText, children
 
 ### Analytics Integration
 
@@ -66,6 +94,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - Project ID is stored in `.env.local` as `VITE_INSIGHTS_PROJECT_ID`
 - Get project ID from https://getinsights.io
 - Analytics is automatically disabled in development mode (`import.meta.env.DEV`)
+- Environment variable utility (`src/config/env.ts`) provides runtime validation and type-safe access to env vars
 
 **Analytics Service** (`src/services/analytics.ts`):
 
@@ -101,6 +130,17 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - React JSX transform (`"jsx": "react-jsx"`)
 - Only includes `./src/` directory
 
+**eslint.config.js** (ESLint 9 flat config):
+
+- Extends ESLint recommended, TypeScript ESLint strict, and React recommended configs
+- Plugins: `eslint-plugin-react`, `eslint-plugin-react-hooks`
+- Custom rules:
+  - Disables `react/react-in-jsx-scope` (not needed with new JSX transform)
+  - Allows unused vars/args with `_` prefix (e.g., `const { lastEdit: _, ...rest } = state`)
+  - Disables `@typescript-eslint/no-unused-expressions` in test files (for assertions like `.toBeNull()`)
+- Ignores: `dist/`, `coverage/`, `src/assets/`
+- React version detection enabled
+
 ### Styling Approach
 
 - **CSS Modules** for component-specific styles (e.g., `Transliterate.module.css`, `Convert.module.css`)
@@ -130,11 +170,13 @@ This is a React + TypeScript web application for Serbian text transliteration be
 
 - **Integration tests** in `__tests__/` directory at root:
   - `__tests__/transliteration.test.ts` - serbian-transliterate package integration
+  - `__tests__/accessibility.test.tsx` - Accessibility compliance tests
 - **Unit and component tests** co-located with source files:
   - `src/helpers/containsUpperCase.test.ts` - Helper function tests
-  - `src/contexts/TransliterateContext.test.tsx` - Context state management
+  - `src/components/LanguageTextarea.test.tsx` - LanguageTextarea component tests
   - `src/components/partials/Cyrillic.test.tsx` - Cyrillic input panel
   - `src/components/partials/Latin.test.tsx` - Latin input panel
+  - `src/hooks/useTransliterate.test.tsx` - useTransliterate hook tests
 
 **Coverage Metrics** (core functionality):
 
@@ -147,9 +189,11 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - Cyrillic ↔ Latin transliteration with Serbian digraphs (dž, lj, nj)
 - Case sensitivity handling
 - Helper functions (containsUpperCase)
-- React component rendering and interactions
-- Context state management and auto-transliteration
-- User interactions (text input)
+- React component rendering and interactions (LanguageTextarea, Cyrillic, Latin)
+- Context access hooks (useTransliterate)
+- Reducer-based state management and auto-transliteration
+- User interactions (text input, copy functionality, keyboard shortcuts)
+- Accessibility compliance (ARIA labels, live regions, keyboard navigation)
 
 **Running Tests**:
 
