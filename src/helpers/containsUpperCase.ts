@@ -1,1 +1,6 @@
-export default (str: string) => str.split('').some(letter => letter == letter.toUpperCase() && letter != letter.toLowerCase());
+export default (str: string) =>
+	str
+		.split('')
+		.some(
+			letter => letter == letter.toUpperCase() && letter != letter.toLowerCase()
+		);
