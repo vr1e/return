@@ -153,9 +153,9 @@ This is a React + TypeScript web application for Serbian text transliteration be
 
 - Encapsulates common setup steps to reduce duplication
 - Steps included:
-  - Checkout code with `actions/checkout@v4`
   - Setup Node.js with `actions/setup-node@v4` (version from package.json, npm cache enabled)
   - Install dependencies with `npm ci`
+- Each job must checkout code first with `actions/checkout@v4` before using this action
 - Referenced in all workflow jobs via `uses: ./.github/actions/setup-node`
 
 **CI Jobs**:
