@@ -9,6 +9,7 @@ import {
 } from 'react';
 import transliterate from 'serbian-transliterate';
 import { analytics } from '../services/analytics';
+import { logger } from '../utils/logger';
 import containsUpperCase from '../helpers/containsUpperCase';
 
 interface ITransliterateState {
@@ -50,44 +51,110 @@ const transliterateReducer = (
 ): ITransliterateState => {
 	switch (action.type) {
 		case 'SET_CYRILLIC':
-			return {
-				cyrillic: action.payload,
-				latin: transliterate(action.payload, 'toLatin'),
-				lastEdit: 'cyrillic'
-			};
+			try {
+				const transliteratedLatin = transliterate(action.payload, 'toLatin');
+				return {
+					cyrillic: action.payload,
+					latin: transliteratedLatin,
+					lastEdit: 'cyrillic'
+				};
+			} catch (error) {
+				logger.logError('Transliteration error (toLatin)', error, {
+					userAction: 'setCyrillic',
+					inputLength: action.payload.length
+				});
+				analytics.trackError({
+					errorName: 'TransliterationError',
+					errorMessage:
+						error instanceof Error ? error.message : 'Unknown error',
+					userAction: 'setCyrillic'
+				});
+				// Update input but clear output to indicate transliteration failure
+				// Don't update lastEdit to avoid tracking failed transliteration
+				return {
+					...state,
+					cyrillic: action.payload,
+					latin: ''
+				};
+			}
 		case 'SET_LATIN':
-			return {
-				latin: action.payload,
-				cyrillic: transliterate(action.payload, 'toCyrillic'),
-				lastEdit: 'latin'
-			};
+			try {
+				const transliteratedCyrillic = transliterate(
+					action.payload,
+					'toCyrillic'
+				);
+				return {
+					latin: action.payload,
+					cyrillic: transliteratedCyrillic,
+					lastEdit: 'latin'
+				};
+			} catch (error) {
+				logger.logError('Transliteration error (toCyrillic)', error, {
+					userAction: 'setLatin',
+					inputLength: action.payload.length
+				});
+				analytics.trackError({
+					errorName: 'TransliterationError',
+					errorMessage:
+						error instanceof Error ? error.message : 'Unknown error',
+					userAction: 'setLatin'
+				});
+				// Update input but clear output to indicate transliteration failure
+				// Don't update lastEdit to avoid tracking failed transliteration
+				return {
+					...state,
+					latin: action.payload,
+					cyrillic: ''
+				};
+			}
 		case 'REPLACE_TEXT': {
 			const { element, letter, name } = action.payload;
 			if (!element.current) return state;
 
-			const { value, selectionStart, selectionEnd } = element.current;
-			const selectedText = value.slice(selectionStart, selectionEnd);
-			const replacementText = containsUpperCase(selectedText)
-				? letter.toUpperCase()
-				: letter;
+			try {
+				const { value, selectionStart, selectionEnd } = element.current;
+				const selectedText = value.slice(selectionStart, selectionEnd);
+				const replacementText = containsUpperCase(selectedText)
+					? letter.toUpperCase()
+					: letter;
 
-			const newContent =
-				value.slice(0, selectionStart) +
-				replacementText +
-				value.slice(selectionEnd);
+				const newContent =
+					value.slice(0, selectionStart) +
+					replacementText +
+					value.slice(selectionEnd);
 
-			if (name === 'cyrillic') {
-				return {
-					cyrillic: newContent,
-					latin: transliterate(newContent, 'toLatin'),
-					lastEdit: 'cyrillic'
-				};
-			} else {
-				return {
-					latin: newContent,
-					cyrillic: transliterate(newContent, 'toCyrillic'),
-					lastEdit: 'latin'
-				};
+				if (name === 'cyrillic') {
+					const transliteratedLatin = transliterate(newContent, 'toLatin');
+					return {
+						cyrillic: newContent,
+						latin: transliteratedLatin,
+						lastEdit: 'cyrillic'
+					};
+				} else {
+					const transliteratedCyrillic = transliterate(
+						newContent,
+						'toCyrillic'
+					);
+					return {
+						latin: newContent,
+						cyrillic: transliteratedCyrillic,
+						lastEdit: 'latin'
+					};
+				}
+			} catch (error) {
+				logger.logError('Transliteration error (replaceText)', error, {
+					userAction: 'replaceText',
+					targetField: name
+				});
+				analytics.trackError({
+					errorName: 'TransliterationError',
+					errorMessage:
+						error instanceof Error ? error.message : 'Unknown error',
+					userAction: 'replaceText'
+				});
+				// Return unchanged state to preserve current text when replacement fails
+				// This prevents corrupting user's text with partial replacements
+				return state;
 			}
 		}
 		default:

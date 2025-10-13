@@ -3,10 +3,18 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createRef } from 'react';
 import LanguageTextarea from './LanguageTextarea';
+import { logger } from '../utils/logger';
 
 // Mock the useAutoResize hook
 vi.mock('../hooks/useAutoResize', () => ({
 	useAutoResize: vi.fn()
+}));
+
+// Mock the logger
+vi.mock('../utils/logger', () => ({
+	logger: {
+		logError: vi.fn()
+	}
 }));
 
 describe('LanguageTextarea', () => {
@@ -190,9 +198,7 @@ describe('LanguageTextarea', () => {
 
 		it('should handle clipboard API errors gracefully', async () => {
 			const user = userEvent.setup();
-			const consoleErrorSpy = vi
-				.spyOn(console, 'error')
-				.mockImplementation(() => {});
+			vi.spyOn(console, 'error').mockImplementation(() => {});
 			Object.defineProperty(navigator, 'clipboard', {
 				value: {
 					writeText: vi.fn().mockRejectedValue(new Error('Clipboard error'))
@@ -210,13 +216,127 @@ describe('LanguageTextarea', () => {
 			await user.click(copyButton);
 
 			await waitFor(() => {
-				expect(consoleErrorSpy).toHaveBeenCalledWith(
-					'Failed to copy text:',
-					expect.any(Error)
+				expect(logger.logError).toHaveBeenCalledWith(
+					'Failed to copy text',
+					expect.any(Error),
+					{ textareaId: 'cyrillic' }
 				);
 			});
+		});
 
-			consoleErrorSpy.mockRestore();
+		it('should show error message when clipboard API fails', async () => {
+			const user = userEvent.setup();
+			vi.spyOn(console, 'error').mockImplementation(() => {});
+			Object.defineProperty(navigator, 'clipboard', {
+				value: {
+					writeText: vi.fn().mockRejectedValue(new Error('Clipboard error'))
+				},
+				writable: true,
+				configurable: true
+			});
+
+			render(<LanguageTextarea {...defaultProps} />);
+
+			const copyButton = screen.getByRole('button', {
+				name: 'Copy cyrillic text to clipboard'
+			});
+
+			await user.click(copyButton);
+
+			await waitFor(() => {
+				expect(
+					screen.getByText('Failed to copy. Please try again.')
+				).toBeInTheDocument();
+				expect(copyButton).toHaveTextContent('✗');
+			});
+		});
+
+		it('should announce error to screen readers', async () => {
+			const user = userEvent.setup();
+			vi.spyOn(console, 'error').mockImplementation(() => {});
+			Object.defineProperty(navigator, 'clipboard', {
+				value: {
+					writeText: vi.fn().mockRejectedValue(new Error('Clipboard error'))
+				},
+				writable: true,
+				configurable: true
+			});
+
+			render(<LanguageTextarea {...defaultProps} />);
+
+			const copyButton = screen.getByRole('button', {
+				name: 'Copy cyrillic text to clipboard'
+			});
+
+			await user.click(copyButton);
+
+			await waitFor(() => {
+				const announcement = screen.getByText(
+					'Failed to copy text to clipboard'
+				);
+				expect(announcement).toBeInTheDocument();
+			});
+		});
+
+		it('should hide error message after timeout', async () => {
+			const user = userEvent.setup();
+			vi.spyOn(console, 'error').mockImplementation(() => {});
+			Object.defineProperty(navigator, 'clipboard', {
+				value: {
+					writeText: vi.fn().mockRejectedValue(new Error('Clipboard error'))
+				},
+				writable: true,
+				configurable: true
+			});
+
+			render(<LanguageTextarea {...defaultProps} />);
+
+			const copyButton = screen.getByRole('button', {
+				name: 'Copy cyrillic text to clipboard'
+			});
+
+			await user.click(copyButton);
+
+			// Error should show
+			await waitFor(() => {
+				expect(
+					screen.getByText('Failed to copy. Please try again.')
+				).toBeInTheDocument();
+			});
+
+			// Error should hide after 3000ms
+			await waitFor(
+				() => {
+					expect(
+						screen.queryByText('Failed to copy. Please try again.')
+					).not.toBeInTheDocument();
+				},
+				{ timeout: 3500 }
+			);
+		});
+
+		it('should handle missing clipboard API', async () => {
+			const user = userEvent.setup();
+			vi.spyOn(console, 'error').mockImplementation(() => {});
+			Object.defineProperty(navigator, 'clipboard', {
+				value: undefined,
+				writable: true,
+				configurable: true
+			});
+
+			render(<LanguageTextarea {...defaultProps} />);
+
+			const copyButton = screen.getByRole('button', {
+				name: 'Copy cyrillic text to clipboard'
+			});
+
+			await user.click(copyButton);
+
+			await waitFor(() => {
+				expect(
+					screen.getByText('Failed to copy. Please try again.')
+				).toBeInTheDocument();
+			});
 		});
 	});
 

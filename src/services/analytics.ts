@@ -1,4 +1,5 @@
 import { init, track, parameters, trackPages } from 'insights-js';
+import type { ErrorTrackingParams } from '../types/errors';
 
 // Type definitions
 export type TransliterationEventParams = {
@@ -106,6 +107,26 @@ class AnalyticsService {
 			});
 		} catch (error) {
 			console.error(`Failed to track event "${id}":`, error);
+		}
+	}
+
+	public trackError(params: ErrorTrackingParams): void {
+		if (this.state !== 'active') return;
+
+		try {
+			track({
+				id: 'error-occurred',
+				parameters: this.buildParameters({
+					errorName: params.errorName,
+					errorMessage: params.errorMessage,
+					componentStack: params.componentStack,
+					userAction: params.userAction,
+					locale: parameters.locale(),
+					screenType: parameters.screenType()
+				})
+			});
+		} catch (error) {
+			console.error('Failed to track error:', error);
 		}
 	}
 

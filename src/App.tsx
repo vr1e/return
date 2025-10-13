@@ -6,6 +6,7 @@ import type { Engine } from '@tsparticles/engine';
 import particleConfig from './config/particles';
 import { analytics } from './services/analytics';
 import { INSIGHTS_PROJECT_ID } from './config/env';
+import ErrorBoundary from './components/error/ErrorBoundary';
 import Home from './components/Home';
 import Transliterate from './components/Transliterate';
 
@@ -34,28 +35,48 @@ function App() {
 	}, []);
 
 	return (
-		<BrowserRouter>
-			<a href='#main-content' className='skip-link'>
-				Skip to main content
-			</a>
-			{init && <Particles id='tsparticles' options={particleConfig} />}
-			<ul className='nav'>
-				<li className='nav-item'>
-					<Link to='/' className='nav-link'>
-						Home
-					</Link>
-				</li>
-				<li className='nav-item'>
-					<Link to='/cyrillicconvert' className='nav-link'>
-						Cyr&lt;&gt;Latin
-					</Link>
-				</li>
-			</ul>
-			<Routes>
-				<Route path='/cyrillicconvert' element={<Transliterate />} />
-				<Route path='/' element={<Home />} />
-			</Routes>
-		</BrowserRouter>
+		<ErrorBoundary
+			onError={(error, errorInfo) => {
+				analytics.trackError({
+					errorName: error.name,
+					errorMessage: error.message,
+					componentStack: errorInfo.componentStack,
+					userAction: 'app-level-error'
+				});
+			}}>
+			<BrowserRouter>
+				<a href='#main-content' className='skip-link'>
+					Skip to main content
+				</a>
+				{init && <Particles id='tsparticles' options={particleConfig} />}
+				<ul className='nav'>
+					<li className='nav-item'>
+						<Link to='/' className='nav-link'>
+							Home
+						</Link>
+					</li>
+					<li className='nav-item'>
+						<Link to='/cyrillicconvert' className='nav-link'>
+							Cyr&lt;&gt;Latin
+						</Link>
+					</li>
+				</ul>
+				<ErrorBoundary
+					onError={(error, errorInfo) => {
+						analytics.trackError({
+							errorName: error.name,
+							errorMessage: error.message,
+							componentStack: errorInfo.componentStack,
+							userAction: 'route-level-error'
+						});
+					}}>
+					<Routes>
+						<Route path='/cyrillicconvert' element={<Transliterate />} />
+						<Route path='/' element={<Home />} />
+					</Routes>
+				</ErrorBoundary>
+			</BrowserRouter>
+		</ErrorBoundary>
 	);
 }
 
