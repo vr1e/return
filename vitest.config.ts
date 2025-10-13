@@ -7,6 +7,9 @@ export default defineConfig({
 		globals: true,
 		environment: 'jsdom',
 		setupFiles: './__tests__/setup.ts',
+		env: {
+			VITE_INSIGHTS_PROJECT_ID: 'test-insights-project-id'
+		},
 		coverage: {
 			provider: 'v8',
 			reporter: ['text', 'html'],

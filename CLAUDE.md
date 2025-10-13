@@ -140,6 +140,33 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - Ignores: `dist/`, `coverage/`, `src/assets/`
 - React version detection enabled
 
+### CI/CD Pipeline
+
+**GitHub Actions Workflow** (`.github/workflows/ci.yml`):
+
+- Triggers on pull requests to `master` branch
+- Runs 4 parallel jobs: test, build, typecheck, and lint
+- All jobs run on `ubuntu-latest`
+- Uses a reusable composite action for common setup steps
+
+**Composite Action** (`.github/actions/setup-node/action.yml`):
+
+- Encapsulates common setup steps to reduce duplication
+- Steps included:
+  - Setup Node.js with `actions/setup-node@v4` (version from package.json, npm cache enabled)
+  - Install dependencies with `npm ci`
+- Each job must checkout code first with `actions/checkout@v4` before using this action
+- Referenced in all workflow jobs via `uses: ./.github/actions/setup-node`
+
+**CI Jobs**:
+
+1. **test** - Runs Vitest test suite with `npm test -- --run`
+2. **build** - Validates production build with `npm run build`
+3. **typecheck** - Runs TypeScript type checking with `npx tsc --noEmit`
+4. **lint** - Runs ESLint with `npm run lint`
+
+All jobs must pass for a PR to be mergeable.
+
 ### Styling Approach
 
 - **CSS Modules** for component-specific styles (e.g., `Transliterate.module.css`, `ErrorFallback.module.css`)
