@@ -22,7 +22,6 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - **Framework**: React 18 with TypeScript
 - **Routing**: React Router DOM v7
 - **Styling**: CSS Modules + plain CSS with CSS custom properties
-- **Icons**: FontAwesome v7 (using @fortawesome/react-fontawesome, @fortawesome/fontawesome-svg-core, @fortawesome/free-solid-svg-icons)
 - **Visual effects**: @tsparticles v3 for background particle effects (using @tsparticles/react, @tsparticles/engine, @tsparticles/slim)
 - **Analytics**: insights-js for privacy-focused web analytics
 - **Testing**: Vitest with @testing-library/react, jsdom, and v8 coverage
@@ -143,7 +142,7 @@ This is a React + TypeScript web application for Serbian text transliteration be
 
 ### Styling Approach
 
-- **CSS Modules** for component-specific styles (e.g., `Transliterate.module.css`, `Convert.module.css`)
+- **CSS Modules** for component-specific styles (e.g., `Transliterate.module.css`, `ErrorFallback.module.css`)
 - **Global CSS** with CSS custom properties in `src/index.css`
 - **CSS Variables** organized by category:
   - Text colors (`--text-primary`, `--text-white`, `--shadow-color`)
