@@ -51,12 +51,12 @@ function App() {
 				{init && <Particles id='tsparticles' options={particleConfig} />}
 				<ul className='nav'>
 					<li className='nav-item'>
-						<Link to='/' className='nav-link'>
+						<Link to='/' className='nav-link' viewTransition>
 							Home
 						</Link>
 					</li>
 					<li className='nav-item'>
-						<Link to='/cyrillicconvert' className='nav-link'>
+						<Link to='/cyrillicconvert' className='nav-link' viewTransition>
 							Cyr&lt;&gt;Latin
 						</Link>
 					</li>

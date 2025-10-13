@@ -1,4 +1,4 @@
-import returnLogo from '../assets/return.png';
+import returnLogo from '../assets/return.webp';
 
 export default function Home() {
 	return (
