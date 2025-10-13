@@ -35,7 +35,9 @@ const LanguageTextarea = forwardRef<HTMLTextAreaElement, LanguageTextareaProps>(
 			try {
 				// Check if clipboard API is available
 				if (!navigator.clipboard) {
-					throw new Error('Clipboard API not available');
+					throw new Error(
+						'Clipboard API is not supported in this browser or context (requires HTTPS)'
+					);
 				}
 
 				await navigator.clipboard.writeText(value || '');
