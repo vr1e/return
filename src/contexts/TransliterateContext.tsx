@@ -60,7 +60,8 @@ const transliterateReducer = (
 				};
 			} catch (error) {
 				logger.logError('Transliteration error (toLatin)', error, {
-					userAction: 'setCyrillic'
+					userAction: 'setCyrillic',
+					inputLength: action.payload.length
 				});
 				analytics.trackError({
 					errorName: 'TransliterationError',
@@ -68,11 +69,12 @@ const transliterateReducer = (
 						error instanceof Error ? error.message : 'Unknown error',
 					userAction: 'setCyrillic'
 				});
-				// Return state with original cyrillic but keep existing latin
+				// Update input but clear output to indicate transliteration failure
+				// Don't update lastEdit to avoid tracking failed transliteration
 				return {
 					...state,
 					cyrillic: action.payload,
-					lastEdit: 'cyrillic'
+					latin: ''
 				};
 			}
 		case 'SET_LATIN':
@@ -88,7 +90,8 @@ const transliterateReducer = (
 				};
 			} catch (error) {
 				logger.logError('Transliteration error (toCyrillic)', error, {
-					userAction: 'setLatin'
+					userAction: 'setLatin',
+					inputLength: action.payload.length
 				});
 				analytics.trackError({
 					errorName: 'TransliterationError',
@@ -96,11 +99,12 @@ const transliterateReducer = (
 						error instanceof Error ? error.message : 'Unknown error',
 					userAction: 'setLatin'
 				});
-				// Return state with original latin but keep existing cyrillic
+				// Update input but clear output to indicate transliteration failure
+				// Don't update lastEdit to avoid tracking failed transliteration
 				return {
 					...state,
 					latin: action.payload,
-					lastEdit: 'latin'
+					cyrillic: ''
 				};
 			}
 		case 'REPLACE_TEXT': {
@@ -139,7 +143,8 @@ const transliterateReducer = (
 				}
 			} catch (error) {
 				logger.logError('Transliteration error (replaceText)', error, {
-					userAction: 'replaceText'
+					userAction: 'replaceText',
+					targetField: name
 				});
 				analytics.trackError({
 					errorName: 'TransliterationError',
@@ -147,7 +152,8 @@ const transliterateReducer = (
 						error instanceof Error ? error.message : 'Unknown error',
 					userAction: 'replaceText'
 				});
-				// Return state unchanged if error occurs
+				// Return unchanged state to preserve current text when replacement fails
+				// This prevents corrupting user's text with partial replacements
 				return state;
 			}
 		}
