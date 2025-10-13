@@ -35,6 +35,13 @@ For the project to build, **these files must exist with exact filenames**:
 
 ```
 .
+├── .github/                        # GitHub configuration
+│   ├── workflows/
+│   │   └── ci.yml                  # CI/CD workflow (test, build, typecheck, lint)
+│   └── actions/
+│       └── setup-node/
+│           └── action.yml          # Reusable composite action for Node.js setup
+│
 ├── public/
 │   └── _redirects                  # Netlify redirect rules for SPA routing
 ├── index.html                      # Root HTML template
@@ -182,6 +189,25 @@ Runs ESLint with automatic fixes enabled. This will automatically fix many commo
 **Prettier** code formatting rules are configured in package.json for use with [Prettier](https://prettier.io/) in your code editor.
 
 **ESLint** is configured with TypeScript ESLint strict rules, React and React Hooks plugins. Configuration is in `eslint.config.js` (ESLint 9 flat config format).
+
+## CI/CD Pipeline
+
+The project uses GitHub Actions for continuous integration on all pull requests to the `master` branch.
+
+### Workflow Jobs
+
+The CI workflow (`.github/workflows/ci.yml`) runs 4 parallel jobs:
+
+1. **Test** - Runs the complete Vitest test suite
+2. **Build** - Validates that the production build succeeds
+3. **Type Check** - Runs TypeScript compiler to check for type errors
+4. **Lint** - Runs ESLint to check code quality
+
+All jobs must pass before a pull request can be merged.
+
+### Composite Action
+
+To reduce duplication, common setup steps (checkout, Node.js setup, dependency installation) are extracted into a reusable composite action at `.github/actions/setup-node/action.yml`. This makes the workflow easier to maintain and ensures consistency across all jobs.
 
 ## License
 
