@@ -1,6 +1,7 @@
 # Return
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/66bfde30-e830-4dd6-a39e-50998e0679d8/deploy-status)](https://app.netlify.com/sites/suspicious-roentgen-45df9b/deploys)
+[![CI](https://github.com/vr1e/return/workflows/CI/badge.svg)](https://github.com/vr1e/return/actions)
 
 A web application for Serbian text transliteration between Cyrillic and Latin scripts.
 
