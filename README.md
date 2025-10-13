@@ -16,13 +16,14 @@ A web application for Serbian text transliteration between Cyrillic and Latin sc
 
 ## 🛠️ Tech Stack
 
-- React 18 + TypeScript
+- React 19 + TypeScript
 - Vite 7
 - React Router DOM v7
 - CSS Modules + CSS Custom Properties
 - FontAwesome v7
 - @tsparticles v3
 - ESLint 9 (TypeScript ESLint strict, React plugins)
+- Prettier 3 (code formatting)
 
 ## 🔲 App structure
 
@@ -37,7 +38,7 @@ For the project to build, **these files must exist with exact filenames**:
 .
 ├── .github/                        # GitHub configuration
 │   ├── workflows/
-│   │   └── ci.yml                  # CI/CD workflow (test, build, typecheck, lint)
+│   │   └── ci.yml                  # CI/CD workflow (test, build, typecheck, lint, format)
 │   └── actions/
 │       └── setup-node/
 │           └── action.yml          # Reusable composite action for Node.js setup
@@ -50,6 +51,8 @@ For the project to build, **these files must exist with exact filenames**:
 ├── vitest.config.ts                # Vitest test configuration
 ├── tsconfig.json                   # TypeScript configuration
 ├── eslint.config.js                # ESLint 9 flat config
+├── .prettierrc                     # Prettier configuration
+├── .prettierignore                 # Prettier ignore rules
 ├── .nvmrc                          # Node version specification
 ├── CLAUDE.md                       # AI assistant guidance
 ├── README.md                       # Project documentation
@@ -139,7 +142,7 @@ The build is minified and the filenames include the hashes.
 
 ### `npm test`
 
-Runs the test suite in watch mode using Vitest.
+Runs the test suite once using Vitest.
 
 ### `npm run test:coverage`
 
@@ -184,9 +187,21 @@ Runs ESLint on all source files to check for code quality issues and potential e
 
 Runs ESLint with automatic fixes enabled. This will automatically fix many common code quality issues.
 
+### `npm run format`
+
+Formats all files in the project using Prettier. This will automatically fix code style issues like indentation, quotes, and spacing.
+
+### `npm run format:check`
+
+Checks if all files are properly formatted according to Prettier rules without modifying them. Useful for CI/CD pipelines.
+
+### `npm run typecheck`
+
+Runs TypeScript compiler to check for type errors without emitting any files. Useful for catching type issues before building.
+
 ## Dev config
 
-**Prettier** code formatting rules are configured in package.json for use with [Prettier](https://prettier.io/) in your code editor.
+**Prettier** code formatting rules are configured in `.prettierrc` for use with [Prettier](https://prettier.io/) in your code editor. Files to ignore are specified in `.prettierignore`.
 
 **ESLint** is configured with TypeScript ESLint strict rules, React and React Hooks plugins. Configuration is in `eslint.config.js` (ESLint 9 flat config format).
 
@@ -196,14 +211,15 @@ The project uses GitHub Actions for continuous integration on all pull requests 
 
 ### Workflow Jobs
 
-The CI workflow (`.github/workflows/ci.yml`) runs 4 parallel jobs:
+The CI workflow (`.github/workflows/ci.yml`) runs 5 parallel jobs:
 
-1. **Test** - Runs the complete Vitest test suite
-2. **Build** - Validates that the production build succeeds
-3. **Type Check** - Runs TypeScript compiler to check for type errors
-4. **Lint** - Runs ESLint to check code quality
+1. **Test** - Runs the complete Vitest test suite (`npm test`)
+2. **Build** - Validates that the production build succeeds (`npm run build`)
+3. **Type Check** - Runs TypeScript compiler to check for type errors (`npm run typecheck`)
+4. **Lint** - Runs ESLint to check code quality (`npm run lint`)
+5. **Format** - Checks code formatting with Prettier (`npm run format:check`) - warning only, doesn't block PR
 
-All jobs must pass before a pull request can be merged.
+The first 4 jobs must pass before a pull request can be merged. The format check is advisory and won't block merging.
 
 ### Composite Action
 

@@ -17,7 +17,4 @@ export interface ErrorTrackingParams {
 	userAction?: string;
 }
 
-export type ErrorBoundaryOnError = (
-	error: Error,
-	errorInfo: ErrorInfo
-) => void;
+export type ErrorBoundaryOnError = (error: Error, errorInfo: ErrorInfo) => void;

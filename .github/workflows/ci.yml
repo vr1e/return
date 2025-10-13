@@ -17,7 +17,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Run tests
-        run: npm test -- --run
+        run: npm test
 
   build:
     name: Build Validation
@@ -43,7 +43,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Run TypeScript type checking
-        run: npx tsc --noEmit
+        run: npm run typecheck
 
   lint:
     name: Lint Check
@@ -57,3 +57,17 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
+
+  format:
+    name: Format Check
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: ./.github/actions/setup-node
+
+      - name: Check code formatting
+        run: npm run format:check

@@ -11,22 +11,25 @@ This is a React + TypeScript web application for Serbian text transliteration be
 - **Start dev server**: `npm run dev` (runs Vite dev server)
 - **Build for production**: `npm run build` (outputs to `dist/` directory - Vite default)
 - **Preview production build**: `npm run preview`
-- **Run tests**: `npm test` (runs Vitest test suite in watch mode)
+- **Run tests**: `npm test` (runs Vitest test suite once)
 - **Test with coverage**: `npm run test:coverage` (generates coverage report in `coverage/` directory)
 - **Lint code**: `npm run lint` (runs ESLint on all source files)
 - **Lint and auto-fix**: `npm run lint:fix` (runs ESLint with automatic fixes)
+- **Format code**: `npm run format` (formats all files with Prettier)
+- **Check formatting**: `npm run format:check` (checks if files are formatted without modifying)
+- **Type check**: `npm run typecheck` (runs TypeScript compiler without emitting files)
 
 ## Technology Stack
 
 - **Build tool**: Vite 7 (migrated from Webpack)
-- **Framework**: React 18 with TypeScript
+- **Framework**: React 19 with TypeScript
 - **Routing**: React Router DOM v7
 - **Styling**: CSS Modules + plain CSS with CSS custom properties
 - **Visual effects**: @tsparticles v3 for background particle effects (using @tsparticles/react, @tsparticles/engine, @tsparticles/slim)
 - **Analytics**: insights-js for privacy-focused web analytics
 - **Testing**: Vitest with @testing-library/react, jsdom, and v8 coverage
 - **Code quality**: ESLint 9 with TypeScript ESLint strict rules, React and React Hooks plugins
-- **Code formatting**: Prettier (configured in package.json with tabs, single quotes)
+- **Code formatting**: Prettier 3 (configured in .prettierrc with tabs, single quotes, .prettierignore for exclusions)
 
 ## Architecture
 
@@ -145,9 +148,10 @@ This is a React + TypeScript web application for Serbian text transliteration be
 **GitHub Actions Workflow** (`.github/workflows/ci.yml`):
 
 - Triggers on pull requests to `master` branch
-- Runs 4 parallel jobs: test, build, typecheck, and lint
+- Runs 5 parallel jobs: test, build, typecheck, lint, and format
 - All jobs run on `ubuntu-latest`
 - Uses a reusable composite action for common setup steps
+- Format job uses `continue-on-error: true` for advisory warnings
 
 **Composite Action** (`.github/actions/setup-node/action.yml`):
 
@@ -160,12 +164,13 @@ This is a React + TypeScript web application for Serbian text transliteration be
 
 **CI Jobs**:
 
-1. **test** - Runs Vitest test suite with `npm test -- --run`
+1. **test** - Runs Vitest test suite with `npm test`
 2. **build** - Validates production build with `npm run build`
-3. **typecheck** - Runs TypeScript type checking with `npx tsc --noEmit`
+3. **typecheck** - Runs TypeScript type checking with `npm run typecheck`
 4. **lint** - Runs ESLint with `npm run lint`
+5. **format** - Checks code formatting with `npm run format:check` (advisory only, uses `continue-on-error: true`)
 
-All jobs must pass for a PR to be mergeable.
+The first 4 jobs must pass for a PR to be mergeable. The format check provides warnings but won't block PR merging.
 
 ### Styling Approach
 
@@ -223,7 +228,7 @@ All jobs must pass for a PR to be mergeable.
 
 **Running Tests**:
 
-- `npm test` - Watch mode for development
+- `npm test` - Run tests once
 - `npm run test:coverage` - Full coverage report
 
 ## Important Notes

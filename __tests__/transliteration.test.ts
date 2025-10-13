@@ -44,7 +44,9 @@ describe('serbian-transliterate integration', () => {
 		});
 
 		it('handles mixed text with numbers and symbols', () => {
-			expect(transliterate('Beograd 2024!', 'toCyrillic')).toBe('Београд 2024!');
+			expect(transliterate('Beograd 2024!', 'toCyrillic')).toBe(
+				'Београд 2024!'
+			);
 		});
 	});
 
