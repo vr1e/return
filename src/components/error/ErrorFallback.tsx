@@ -40,7 +40,8 @@ function ErrorFallback({
 				<Link
 					to='/'
 					className={`${styles.button} ${styles.secondaryButton}`}
-					onClick={resetError}>
+					onClick={resetError}
+					viewTransition>
 					Go to Home
 				</Link>
 			</div>

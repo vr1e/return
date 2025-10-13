@@ -1,22 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-		<link rel="apple-touch-icon" sizes="32x32" type="image/png" href="./src/assets/apple-touch-icon.png">
-		<link rel="icon" sizes="32x32" type="image/png" href="./src/assets/favicon-32x32.png">
-		<link rel="icon" sizes="16x16" type="image/png" href="./src/assets/favicon-16x16.png">
-		<link rel="mask-icon" color="#e63946" href="./src/assets/safari-pinned-tab.svg">
-		<link rel="manifest" href="./src/assets/manifest.json">
+<html lang="sr">
+	<head>
+		<meta charset="UTF-8" />
+		<link
+			rel="apple-touch-icon"
+			sizes="32x32"
+			type="image/png"
+			href="./src/assets/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			sizes="32x32"
+			type="image/png"
+			href="./src/assets/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			sizes="16x16"
+			type="image/png"
+			href="./src/assets/favicon-16x16.png"
+		/>
+		<link
+			rel="mask-icon"
+			color="#e63946"
+			href="./src/assets/safari-pinned-tab.svg"
+		/>
+		<link rel="manifest" href="./src/assets/manifest.json" />
 		<link
 			href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
 			rel="stylesheet"
 		/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="Return" content="Return" />
-    <title>return.rs</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Besplatni online alat za konverziju srpskog teksta između ćirilice i latinice. Brzo i jednostavno pretvarajte tekst sa podrškom za sve digraphe."
+		/>
+		<meta
+			name="keywords"
+			content="srpski, ćirilica, latinica, transliteracija, konvertor, konverzija teksta, serbian, cyrillic, latin"
+		/>
+		<meta name="author" content="return.rs" />
+		<meta name="theme-color" content="#e63946" />
+		<link rel="canonical" href="https://return.rs" />
+
+		<!-- Open Graph / Facebook / Pinterest -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://return.rs" />
+		<meta property="og:site_name" content="return.rs" />
+		<meta
+			property="og:title"
+			content="return.rs - Srpski konvertor ćirilica ↔ latinica"
+		/>
+		<meta
+			property="og:description"
+			content="Besplatni online alat za konverziju srpskog teksta između ćirilice i latinice. Brzo i jednostavno pretvarajte tekst sa podrškom za sve digraphe."
+		/>
+		<meta property="og:image" content="/og-image.webp" />
+		<meta property="og:image:width" content="312" />
+		<meta property="og:image:height" content="73" />
+		<meta
+			property="og:image:alt"
+			content="return.rs - Serbian Cyrillic to Latin converter"
+		/>
+		<meta property="og:locale" content="sr_RS" />
+		<meta property="og:locale:alternate" content="en_US" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content="https://return.rs" />
+		<meta
+			name="twitter:title"
+			content="return.rs - Srpski konvertor ćirilica ↔ latinica"
+		/>
+		<meta
+			name="twitter:description"
+			content="Besplatni online alat za konverziju srpskog teksta između ćirilice i latinice. Brzo i jednostavno pretvarajte tekst sa podrškom za sve digraphe."
+		/>
+		<meta name="twitter:image" content="/og-image.webp" />
+
+		<!-- Pinterest -->
+		<meta name="pinterest-rich-pin" content="true" />
+		<meta
+			name="pinterest:description"
+			content="Besplatni online alat za konverziju srpskog teksta između ćirilice i latinice. Brzo i jednostavno pretvarajte tekst sa podrškom za sve digraphe."
+		/>
+
+		<title>
+			return.rs - Srpski konvertor ćirilica ↔ latinica | Serbian Cyrillic ↔
+			Latin Converter
+		</title>
+
+		<!-- Structured Data -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebApplication",
+				"name": "return.rs",
+				"description": "Besplatni online alat za konverziju srpskog teksta između ćirilice i latinice",
+				"url": "https://return.rs",
+				"applicationCategory": "UtilityApplication",
+				"operatingSystem": "Any",
+				"offers": {
+					"@type": "Offer",
+					"price": "0",
+					"priceCurrency": "USD"
+				},
+				"inLanguage": ["sr", "en"]
+			}
+		</script>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.tsx"></script>
+	</body>
 </html>
