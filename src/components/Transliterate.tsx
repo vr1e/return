@@ -23,9 +23,6 @@ function Transliterate() {
 				}}>
 				<TransliterateContextProvider>
 					<Cyrillic />
-
-					{/* <Convert /> */}
-
 					<Latin />
 				</TransliterateContextProvider>
 			</ErrorBoundary>

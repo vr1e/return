@@ -31,9 +31,6 @@
 		"lint:fix": "eslint . --fix"
 	},
 	"dependencies": {
-		"@fortawesome/fontawesome-svg-core": "^7.1.0",
-		"@fortawesome/free-solid-svg-icons": "^7.1.0",
-		"@fortawesome/react-fontawesome": "^3.1.0",
 		"@tsparticles/engine": "^3.9.1",
 		"@tsparticles/react": "^3.0.0",
 		"@tsparticles/slim": "^3.9.1",
