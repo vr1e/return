@@ -38,7 +38,7 @@ For the project to build, **these files must exist with exact filenames**:
 .
 ├── .github/                        # GitHub configuration
 │   ├── workflows/
-│   │   └── ci.yml                  # CI/CD workflow (test, build, typecheck, lint)
+│   │   └── ci.yml                  # CI/CD workflow (test, build, typecheck, lint, format)
 │   └── actions/
 │       └── setup-node/
 │           └── action.yml          # Reusable composite action for Node.js setup
